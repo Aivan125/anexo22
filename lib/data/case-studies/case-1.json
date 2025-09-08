@@ -1,0 +1,122 @@
+{
+  "id": "case-1",
+  "title": "EXPORTACIÓN DEFINITIVA DE EQUIPO AUDIOVISUAL A COLOMBIA",
+  "description": "Caso práctico de exportación definitiva: una empresa mexicana envía equipo audiovisual profesional a un cliente en Colombia por vía aérea. El caso aborda, de forma integral, clasificación arancelaria, preparación del pedimento, Incoterm, logística y documentación aduanera, así como la coordinación con transportista y agencia aduanal.",
+  "narrative": "**Contexto narrativo:**\nLa empresa mexicana **MediaLive Producciones S.A. de C.V.**, RFC `MLP010101GDL`, CURP `MLPG010101HGDLNK01` con domicilio fiscal en `Av. Vallarta 3250, Guadalajara, Jalisco`, ha cerrado una venta internacional con el canal colombiano **TeleBogotá S.A.S.**, especializado en transmisiones deportivas y entretenimiento en vivo.\n\nComo parte del acuerdo comercial, MediaLive exportará de manera definitiva un paquete completo de equipo audiovisual profesional que incluye:\n- 18 cámaras 4K de transmisión en tiempo real.\n\nLa exportación será **vía aérea** con origen en el **Aeropuerto Internacional de la Ciudad de México (AICM)**, con destino final al Aeropuerto El Dorado de Bogotá, Colombia. La mercancía será transportada por **LATAM Cargo**, en un contenedor tipo 3LD, con candado fiscal `MEX-CARGO-7823` y número de guía aérea `LATMCARGO782`.\n\nEl embarque consta de **18 piezas**, con un peso bruto de **550 kg**, empacadas en 18 cajas. La fracción arancelaria aplicable es `8525.89.99`. La unidad de medida (UMC y UMT) es pieza (PZA).\n\nLa venta se formalizó mediante la **factura comercial número MLP-4591**, emitida el **5 de octubre de 2025**, con un valor total de **USD $60,000.00**. El tipo de cambio DOF aplicable es de **18.60 pesos por dólar**, resultando en un valor en moneda nacional de **$1,116,000.00 MXN**. El Incoterm pactado es **EXW**.\n\nLa operación es la **número 456** y se realiza bajo el régimen de **exportación definitiva**. No se generan contribuciones. La operación se efectuó el **7 de octubre de 2025**, quedando el pedimento pagado.\n\nEl despacho es realizado por la agencia aduanal **Procesos Aduanales Unidos S.C.**, patente `7890`, RFC `PAU030303HDF`, representada por la mandataria **Laura Méndez**, RFC `LME8801019F3`.",
+  "answerKey": {
+    "numPedimento": "25 47 7890 5 000456",
+    "tipoOperacion": "EXP",
+    "clavePedimento": "A1",
+    "regimen": "EXD",
+    "destino": "9",
+    "tipoCambio": 18.6,
+    "pesoBruto": 550,
+    "aduana": "47-0",
+    "transporteEntradaSalida": "4",
+    "transporteArribo": "7",
+    "transporteSalida": "4",
+    "valorDolares": 60000,
+    "valorAduana": 0,
+    "valorComercial": 1116000.0,
+    "datosImportadorExportador": {
+      "rfc": "MLP010101GDL",
+      "curp": "MLPG010101HGDLNR01",
+      "nombre": "MediaLive Producciones S.A. de C.V.",
+      "domicilio": "Av. Vallarta 3250, Guadalajara, Jalisco"
+    },
+    "incrementables": {
+      "valSeguros": 750.0,
+      "seguros": null,
+      "fletes": 2500,
+      "embalajes": 0.0,
+      "otros": 0.0
+    },
+    "acuseValidacion": {
+      "electronico": "VAL2025EXP76543"
+    },
+    "seccionAduanera": {
+      "clave": "470",
+      "despacho": ""
+    },
+    "marcasBultos": "18",
+    "fechas": [
+      {
+        "tipo": "1",
+        "fecha": "2025-10-07"
+      },
+      {
+        "tipo": "2",
+        "fecha": "2025-10-07"
+      }
+    ],
+    "tasasNivelPedimento": [
+      {
+        "contrib": "DTA",
+        "cveTTasa": "1",
+        "tasa": 445
+      },
+      {
+        "contrib": "PRV",
+        "cveTTasa": "15",
+        "tasa": 310
+      }
+    ],
+    "cuadroLiquidacion": [
+      {
+        "concepto": "DTA",
+        "fp": "0",
+        "importe": 445.0
+      },
+      {
+        "concepto": "PRV",
+        "fp": "0",
+        "importe": 310.0
+      }
+    ],
+    "totales": {
+      "efectivo": 775.0,
+      "otros": 0.0,
+      "total": 775.0
+    },
+    "proveedorComprador": {
+      "idFiscal": "CO-9988776655",
+      "nombre": "TeleBogotá S.A.S.",
+      "domicilio": "Carrera 15 #120-50, Bogotá, Colombia",
+      "vinculacion": "NO"
+    },
+    "facturas": {
+      "numero": "MLP-4591",
+      "fecha": "2025-10-05",
+      "incoterm": "DAP",
+      "moneda": "USD",
+      "valMonFact": 60000,
+      "factorMonFact": 1.0,
+      "valDolares": 60000
+    },
+    "transporte": {
+      "identificacion": "LATMCARGO782",
+      "pais": "MEX",
+      "transportistaNombre": "LATAM Cargo",
+      "rfc": "LAC891101TAM",
+      "curp": "",
+      "domicilio": "Av. Aeropuerto S/N, CDMX"
+    },
+    "candadosContenedores": {
+      "noCandado": "MEX-CARGO-7823",
+      "numeroContenedor": "3LD",
+      "tipoContenedor": "60"
+    },
+    "partidas": [],
+    "agenteAduanal": {
+      "nombreRazonSocial": "Procesos Aduanales Unidos S.C.",
+      "rfc": "PAU030303HDF",
+      "curp": ""
+    },
+    "mandatario": {
+      "nombre": "Laura Méndez",
+      "rfc": "LME8801019F3",
+      "curp": "LMEL880101MDFNRR01"
+    },
+    "patente": "7890"
+  }
+}

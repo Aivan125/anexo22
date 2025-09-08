@@ -1,0 +1,26 @@
+Notas
+
+Cada vez que modifico un camopo de Aduana se re-renderiza el componente EncabezadoPedimento.
+
+Al invocar watch dentro del pedimento wrapper se está escuchando el cambio de todos los campos del formulario y por ende se está re-renderizando el componente EncabezadoPedimento.
+
+Problema: virtualización en los campos de cve. pedimento y aduana tienen muchos elementos que renderizar
+
+El warning [Violation] 'pointerdown' handler took X ms ocurre porque el navegador está tardando demasiado en calcular y renderizar el DOM para la lista desplegable que se abre cuando haces clic. No es el array de JavaScript lo que es lento, es el proceso de convertir ese array en docenas o cientos de nodos del DOM (<div>, <p>, etc.) y mostrarlos en pantalla.
+
+// Pendientes
+
+1. Al renderizar el campo CVE. PEDIMENTO con una lista larga de opciones se vuelve lento y chrome marca un error de violación. La solución de SelectViewport de radix NO funcionó.
+2. Mismo caso anterior pero con el campo de aduana, pero este tiene un problema de estado actual que re-renderiza el componente EncabezadoPedimento.
+
+
+// todo:
+Implementar correctamente el boton de evaluar pedimento para que guarda en una base de datos los intentos de los usuarios y los resultados de la evaluación.
+// quizá para renderizar estáticamente el componente podemos poner en los params el id del usuario para no tener que llamar a la api para obtener los datos del usuario y no se renderize el componente de forma dinámica.
+
+// faltantes en las respuestas:
+Tipo de contenedor: no está especificado
+Cve.Tasa en tasa a nivel pedimento no se encuentra en la lista del apéndice 18
+Valor de Incoterm no se encuentra en el apéndice 14
+
+
