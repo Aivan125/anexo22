@@ -398,7 +398,10 @@ export default function AnexoLandingPage() {
                 ¡Asegura tu lugar!
               </p>
               <div className="text-center space-y-4 w-full ">
-                <CallToAction showIcon={false} className="w-1/2 mx-auto p-6" />
+                <CallToAction
+                  showIcon={false}
+                  className=" w-full lg:w-1/2 mx-auto p-6"
+                />
               </div>
             </CardContent>
           </Card>
@@ -436,7 +439,7 @@ export default function AnexoLandingPage() {
           <div className="text-center space-y-4 w-full">
             <CallToAction
               showIcon={false}
-              className="w-1/2 mx-auto p-6"
+              className="w-full md:w-1/2 mx-auto p-6"
               text="Sí, Quiero Inscribirme Ahora"
             />
           </div>
