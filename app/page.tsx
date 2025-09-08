@@ -19,6 +19,7 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
+import heroImage from "@/public/photo1.jpg";
 
 export default function AnexoLandingPage() {
   return (
@@ -53,13 +54,14 @@ export default function AnexoLandingPage() {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-card rounded-2xl shadow-2xl max-w-2xl mx-auto max-h-[500px] overflow-hidden">
+              <div className="relative bg-card rounded-2xl shadow-2xl max-w-2xl mx-auto aspect-video overflow-hidden">
                 <Image
-                  src="/photo1.jpg"
+                  src={heroImage}
                   alt="Curso de Llenado de Pedimento en México"
-                  width={1600}
-                  height={900}
-                  className="w-full h-full rounded-lg object-cover"
+                  fill
+                  className="rounded-lg object-cover"
+                  placeholder="blur"
+                  priority
                 />
               </div>
             </div>
