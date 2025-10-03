@@ -323,19 +323,40 @@ export const APENDIX_13 = [
 ];
 
 export const APENDIX_14 = [
-  { value: "CFR", label: "CFR - COSTE Y FLETE" },
-  { value: "CIF", label: "CIF - COSTE, SEGURO Y FLETE" },
-  { value: "CPT", label: "CPT - TRANSPORTE PAGADO HASTA" },
-  { value: "CIP", label: "CIP - TRANSPORTE Y SEGURO PAGADOS HASTA" },
-  { value: "DAF", label: "DAF - ENTREGADA EN FRONTERA" },
-  { value: "DES", label: "DES - ENTREGADA SOBRE BUQUE" },
-  { value: "DEQ", label: "DEQ - ENTREGADA EN MUELLE" },
-  { value: "DDU", label: "DDU - ENTREGADA DERECHOS NO PAGADOS" },
-  { value: "DDP", label: "DDP - ENTREGADA DERECHOS PAGADOS" },
-  { value: "EXW", label: "EXW - EN FABRICA" },
-  { value: "FCA", label: "FCA - FRANCO TRANSPORTISTA" },
-  { value: "FAS", label: "FAS - FRANCO AL COSTADO DEL BUQUE" },
-  { value: "FOB", label: "FOB - FRANCO A BORDO" },
+  // Grupo C: Transporte principal pagado
+  { value: "CFR", label: "CFR - Coste y flete (puerto de destino convenido)" },
+  {
+    value: "CIF",
+    label: "CIF - Coste, seguro y flete (puerto de destino convenido)",
+  },
+  {
+    value: "CPT",
+    label: "CPT - Transporte pagado hasta (el lugar de destino convenido)",
+  },
+  {
+    value: "CIP",
+    label:
+      "CIP - Transporte y seguro pagados hasta (lugar de destino convenido)",
+  },
+
+  // Grupo D: Llegada
+  { value: "DAP", label: "DAP - Entregada en lugar" },
+  {
+    value: "DDP",
+    label: "DDP - Entregada derechos pagados (lugar de destino convenido)",
+  },
+  { value: "DPU", label: "DPU - Entregada y descargada en el lugar acordado" },
+
+  // Grupo E: Salida
+  { value: "EXW", label: "EXW - En fabrica (lugar convenido)" },
+
+  // Grupo F: Transporte principal no pagado
+  { value: "FCA", label: "FCA - Franco transportista (lugar designado)" },
+  {
+    value: "FAS",
+    label: "FAS - Franco al costado del buque (puerto de carga convenido)",
+  },
+  { value: "FOB", label: "FOB - Franco a bordo (puerto de carga convenido)" },
 ];
 
 export const APENDIX_5 = [
