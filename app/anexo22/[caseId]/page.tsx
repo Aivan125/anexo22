@@ -68,14 +68,20 @@ export default async function Page({ params }: PageProps) {
   const isEvaluated = !!attempt.evaluatedAt;
 
   return (
-    <PedimentoWrapper
-      initialMode={isEvaluated ? "reviewing" : "editing"}
-      attemptId={attempt.id}
-      caseId={caseId}
-      initialData={
-        attempt?.userAnswers as unknown as PedimentoFormValues | undefined
-      }
-      caseStudy={caseStudy}
-    />
+    <div className="pt-24 max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl pb-8 font-semibold text-right ">
+        Bienvenido,{" "}
+        <span className="font-bold text-blue-700">{user.email}</span>
+      </h2>
+      <PedimentoWrapper
+        initialMode={isEvaluated ? "reviewing" : "editing"}
+        attemptId={attempt.id}
+        caseId={caseId}
+        initialData={
+          attempt?.userAnswers as unknown as PedimentoFormValues | undefined
+        }
+        caseStudy={caseStudy}
+      />
+    </div>
   );
 }

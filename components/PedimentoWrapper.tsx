@@ -147,7 +147,7 @@ export default function PedimentoWrapper({
   };
 
   return (
-    <div className="pt-24 max-w-screen-2xl mx-auto">
+    <div className="">
       <FormModeProvider
         mode={mode}
         evaluationResult={evaluationResult}
