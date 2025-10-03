@@ -1,0 +1,164 @@
+{
+  "id": "case-3",
+  "title": "IMPORTACIÓN DEFINITIVA – SERVIDORES PARA CENTRO DE DATOS",
+  "description": "Simulación de una importación definitiva de servidores de alto rendimiento desde Estados Unidos, aplicando preferencias arancelarias del T-MEC.",
+  "narrative": "### Caso Práctico: Importación Definitiva – Servidores para Centro de Datos\n\n**Contexto narrativo:**\nLa empresa mexicana **DataHub México S.A. de C.V.** (RFC: `DHM040404MX1`), con domicilio en `Blvd. Tecnológico 1500, Naucalpan, Edo. Méx., C.P. 53100`, importará un lote de servidores de la firma estadounidense **TechCore Inc.**, de Dallas, Texas.\n\nSe compran **10 unidades** del servidor modelo **SR2U642564NV**, a un precio unitario de **USD $5,000.00**, para un total de **USD $50,000.00**. El Incoterm pactado es **FOB Dallas**. El pago se realizó el **10 de octubre de 2025**, con un tipo de cambio de **$18.70 MXN por dólar**.\n\nAdicionalmente, se pagaron **USD $1,500.00** de flete internacional y **USD $300.00** de seguro internacional.\n\nLa operación será despachada por la aduana del **Aeropuerto Internacional de la Ciudad de México (AICM)**. El transporte es por **American Airlines Cargo** desde Dallas-Fort Worth. La mercancía, con un peso bruto de **420 kg**, viaja en un contenedor aéreo **LD3** (`LD31172`), sellado con el candado `AAMX55821`. La guía aérea es `00112345675`.\n\nEl embarque llegó a México, se validó y se pagó el **10 de octubre de 2025**. La operación es la número **112**, bajo el régimen de **importación definitiva**. La fracción arancelaria es `8471.50.99` (NICO `00`). Se aplica trato preferencial **T-MEC** (Identificador `TL`), resultando en un **IGI del 0%**.\n\nEl despacho es realizado por **Logística del Norte S.A. de C.V.**, patente `6123`, RFC `ALN040404HNL`, representada por **Gabriel Ramírez Morales**, RFC `GARM750101HNL`, CURP `GARM750101HNLXRS01`.",
+  "answerKey": {
+    "numPedimento": "25 47 6123 5 000112",
+    "tipoOperacion": "IMP",
+    "clavePedimento": "A1",
+    "regimen": "IMD",
+    "destino": "1",
+    "tipoCambio": 18.7,
+    "pesoBruto": 420,
+    "aduana": "47-0",
+    "transporteEntradaSalida": "4",
+    "transporteArribo": "7",
+    "transporteSalida": "4",
+    "valorDolares": 50000.0,
+    "valorAduana": 968660.0,
+    "valorComercial": 935000.0,
+    "datosImportadorExportador": {
+      "rfc": "DHM040404MX1",
+      "curp": "",
+      "nombre": "DataHub México S.A. de C.V.",
+      "domicilio": "Blvd. Tecnológico 1500, Naucalpan, Edo. Méx., C.P. 53100, México"
+    },
+    "incrementables": {
+      "valSeguros": 5610.0,
+      "seguros": 5610.0,
+      "fletes": 28050.0,
+      "embalajes": 0.0,
+      "otros": 0.0
+    },
+    "acuseValidacion": {
+      "electronico": "VAL2025IMP33221"
+    },
+    "seccionAduanera": {
+      "clave": "470",
+      "despacho": ""
+    },
+    "marcasBultos": "10 cajas / marca TECHCORE / bultos 10",
+    "fechas": [
+      {
+        "tipo": "1",
+        "fecha": "2025-10-10"
+      },
+      {
+        "tipo": "2",
+        "fecha": "2025-10-10"
+      },
+      {
+        "tipo": "5",
+        "fecha": "2025-10-10"
+      }
+    ],
+    "tasasNivelPedimento": [
+      {
+        "contrib": "DTA",
+        "cveTTasa": "1",
+        "tasa": 0.008
+      }
+    ],
+    "cuadroLiquidacion": [
+      {
+        "concepto": "DTA",
+        "fp": "0",
+        "importe": 7749.28
+      },
+      {
+        "concepto": "IVA",
+        "fp": "0",
+        "importe": 156225.48
+      }
+    ],
+    "totales": {
+      "efectivo": 163974.76,
+      "otros": 0.0,
+      "total": 163974.76
+    },
+    "proveedorComprador": {
+      "idFiscal": "US941234567 (EIN)",
+      "nombre": "TechCore Inc.",
+      "domicilio": "1200 Innovation Dr., Dallas, TX 75201, USA",
+      "vinculacion": "NO"
+    },
+    "facturas": {
+      "numero": "TCINV78421",
+      "fecha": "2025-10-08",
+      "incoterm": "FOB",
+      "moneda": "USD",
+      "valMonFact": 50000.0,
+      "factorMonFact": 1.0,
+      "valDolares": 50000.0
+    },
+    "transporte": {
+      "identificacion": "AACLAX987654",
+      "pais": "US",
+      "transportistaNombre": "American Airlines Cargo",
+      "rfc": "AAC900101AA1",
+      "curp": "",
+      "domicilio": "Av. Aeropuerto S/N, Ciudad de México"
+    },
+    "candadosContenedores": {
+      "noCandado": "AAMX55821",
+      "numeroContenedor": "LD31172",
+      "tipoContenedor": "60"
+    },
+    "agenteAduanal": {
+      "nombreRazonSocial": "Logística del Norte S.A. de C.V.",
+      "rfc": "ALN040404HNL",
+      "curp": ""
+    },
+    "mandatario": {
+      "nombre": "Gabriel Ramírez Morales",
+      "rfc": "GARM750101HNL",
+      "curp": "GARM750101HNLXRS01"
+    },
+    "partidas": [
+      {
+        "sec": 1,
+        "fraccion": "8471.50.99",
+        "subd": "00",
+        "vinc": "0",
+        "metVal": "1",
+        "umc": "06",
+        "cantUmc": 10,
+        "umt": "06",
+        "cantUmt": 10,
+        "pvc": "US",
+        "pod": "US",
+        "descripcion": "Servidores en rack para centro de datos, 2U, 64core, 256GB RAM, 4xNVMe 4TB, PSU redundante, marca TECHCORE, modelo SR2U642564NV",
+        "valAduUsd": 968660.0,
+        "impPrecioPag": 935000.0,
+        "precioUnit": 93500.0,
+        "valAgreg": null,
+        "contribuciones": [
+          {
+            "con": "IGI",
+            "tasa": 0,
+            "tt": "1",
+            "fp": "0",
+            "importe": 0.0
+          },
+          {
+            "con": "IVA",
+            "tasa": 16,
+            "tt": "1",
+            "fp": "0",
+            "importe": 156225.48
+          }
+        ],
+        "permiso": "",
+        "numPermiso": "",
+        "firmaPermiso": "",
+        "valComDls": null,
+        "cantidadUmtPermiso": null,
+        "identif": "TL",
+        "complemento1": "US",
+        "complemento2": "A1",
+        "observaciones": ""
+      }
+    ]
+  }
+}

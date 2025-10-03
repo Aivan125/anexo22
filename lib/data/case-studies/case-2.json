@@ -1,0 +1,111 @@
+{
+  "id": "case-2",
+  "title": "EXPORTACIÓN TEMPORAL DE EQUIPO MÉDICO A ALEMANIA",
+  "description": "Simulación de una exportación temporal de equipo médico para una exposición internacional en Berlín, Alemania.",
+  "narrative": "### Caso Práctico: Exportación Temporal de Equipo Médico a Alemania\n\n**Contexto narrativo:**\nLa empresa mexicana **BioSalud Integral S.A. de C.V.**, con RFC `BSI020202MX0`, CURP `BSIG020202HMCLRN05`, y domicilio fiscal en `Av. Paseo de la Salud 980, Monterrey, Nuevo León`, ha sido invitada a participar en una exposición internacional de tecnologías médicas en Berlín, Alemania, del **15 al 20 de noviembre de 2025**.\n\nLa empresa enviará **6 unidades** de un equipo médico portátil. Este equipo no será vendido y retornará a México, por lo que se efectúa una **exportación temporal para retornar al mismo estado**.\n\nEl envío será **vía aérea** desde el **Aeropuerto Internacional General Mariano Escobedo (Aduana 520, Sección 1)**, al aeropuerto Berlin Brandenburg (BER), con transporte de **Lufthansa Cargo**. La guía aérea es `LHMXTEMP4523` y el candado fiscal `LH-TEMP-2025MX`. El contenedor es tipo **LD3**.\n\nLa mercancía consta de **6 bultos**, con un peso bruto de **310 kg**. La fracción arancelaria es `9018.19.99` con NICO `99`. La unidad de medida (UMC y UMT) es **pieza (PZA)**.\n\nLa operación es la **número 112** y se realiza bajo el régimen de **exportación temporal con retorno al mismo estado (ETR)**. Se debe pagar el DTA.\n\nLa exportación se enviará al comprador **MedTech Expo GmbH**. La factura comercial es `BSI-2025-112TEMP`, con un valor de **USD $45,000.00**, emitida el **1 de noviembre de 2025**. El tipo de cambio es de **18.80**, equivalente a **$846,000.00 MXN**. La mercancía está asegurada por **USD $500.00** y tiene un flete de **USD $1,200.00**.\n\nDespacha la **Agencia Aduanal Logística del Norte S.A. de C.V.**, patente `6123`, RFC `ALN040404HNL`, representada por **Gabriel Ramírez Morales**, RFC `GARM750101HNL` y CURP `GARM750101HNLXRS01`.",
+  "answerKey": {
+    "numPedimento": "25 52 6123 5 000112",
+    "tipoOperacion": "EXP",
+    "clavePedimento": "RT",
+    "regimen": "ETR",
+    "destino": "9",
+    "tipoCambio": 18.8,
+    "pesoBruto": 310,
+    "aduana": "52-1",
+    "transporteEntradaSalida": "4",
+    "transporteArribo": "7",
+    "transporteSalida": "4",
+    "valorDolares": 45000.0,
+    "valorAduana": 0,
+    "valorComercial": 846000.0,
+    "datosImportadorExportador": {
+      "rfc": "BSI020202MX0",
+      "curp": "BSIG020202HMCLRN05",
+      "nombre": "BioSalud Integral S.A. de C.V.",
+      "domicilio": "Av. Paseo de la Salud 980, Monterrey, N.L."
+    },
+    "incrementables": {
+      "valSeguros": 500.0,
+      "seguros": 9400.0,
+      "fletes": 1200.0,
+      "embalajes": 0.0,
+      "otros": 0.0
+    },
+    "acuseValidacion": {
+      "electronico": "VAL2025TEMP48321"
+    },
+    "seccionAduanera": {
+      "clave": "521",
+      "despacho": ""
+    },
+    "marcasBultos": "6",
+    "fechas": [
+      {
+        "tipo": "1",
+        "fecha": "2025-11-05"
+      },
+      {
+        "tipo": "2",
+        "fecha": "2025-11-05"
+      }
+    ],
+    "tasasNivelPedimento": [
+      {
+        "contrib": "DTA",
+        "cveTTasa": "1",
+        "tasa": 378
+      }
+    ],
+    "cuadroLiquidacion": [
+      {
+        "concepto": "",
+        "fp": "0",
+        "importe": 0
+      }
+    ],
+    "totales": {
+      "efectivo": null,
+      "otros": null,
+      "total": null
+    },
+    "proveedorComprador": {
+      "idFiscal": "DE-5566778899",
+      "nombre": "MedTech Expo GmbH",
+      "domicilio": "Messe Berlin, Messedamm 22, 14055 Berlin",
+      "vinculacion": "NO"
+    },
+    "facturas": {
+      "numero": "BSI-2025-112TEMP",
+      "fecha": "2025-11-01",
+      "incoterm": "EXW",
+      "moneda": "USD",
+      "valMonFact": 45000.0,
+      "factorMonFact": 1.0,
+      "valDolares": 45000.0
+    },
+    "transporte": {
+      "identificacion": "LHMXTEMP4523 (Master)",
+      "pais": "MEX",
+      "transportistaNombre": "Lufthansa Cargo",
+      "rfc": "LHC951201LFT",
+      "curp": "",
+      "domicilio": "Av. Aeropuerto 123, Monterrey, N.L."
+    },
+    "candadosContenedores": {
+      "noCandado": "LH-TEMP-2025MX",
+      "numeroContenedor": "LD3",
+      "tipoContenedor": "60"
+    },
+    "agenteAduanal": {
+      "nombreRazonSocial": "Logística del Norte S.A. de C.V.",
+      "rfc": "ALN040404HNL",
+      "curp": "N/A"
+    },
+    "mandatario": {
+      "nombre": "Gabriel Ramírez Morales",
+      "rfc": "GARM750101HNL",
+      "curp": "GARM750101HNLXRS01"
+    },
+    "patente": "6123"
+  }
+}

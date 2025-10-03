@@ -98,6 +98,11 @@ export const APENDIX_1 = [
     value: "52-0",
     label: "520 - MONTERREY, GENERAL MARIANO ESCOBEDO, NUEVO LEON",
   },
+  {
+    value: "52-1",
+    label:
+      "521 - Aeropuerto Internacional General Mariano Escobedo, Apodaca, Nuevo León.",
+  },
   { value: "53-0", label: "530 - CANCUN, CANCUN, QUINTANA ROO" },
   { value: "64-0", label: "640 - QUERETARO, SANTIAGO DE QUERETARO, QUERETARO" },
   { value: "65-0", label: "650 - TOLUCA, TOLUCA, ESTADO DE MEXICO" },
@@ -198,7 +203,7 @@ export const APENDIX_4 = [
   { value: "MEX", label: "MEX - México" },
   { value: "USA", label: "USA - Estados Unidos de América" },
   { value: "CHN", label: "CHN - China" },
-  // ... (Idealmente, este sería un archivo muy grande)
+  { value: "DEU", label: "DEU - Alemania (República Federal de)" },
 ];
 
 export const APENDIX_7 = [

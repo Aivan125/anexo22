@@ -154,7 +154,7 @@ export function FechasTasasSection() {
               )}
             </div>
           ))}
-          {fechaFields.length < 2 && mode === "editing" && (
+          {fechaFields.length < 3 && mode === "editing" && (
             <Button
               type="button"
               variant="outline"

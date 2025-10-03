@@ -18,6 +18,7 @@ datasource db {
 model Profile {
   id              String    @id
   email           String?   @unique
+  name            String?
   accessExpiresAt DateTime?
 
   attempts UserAttempt[]
