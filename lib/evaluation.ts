@@ -17,8 +17,6 @@ export function compareAnswers(
     correctValue: FormValue,
     path: string
   ) => {
-    // REGLA DE NEGOCIO: No evaluar la clave 'partidas'.
-    // Esto se maneja ahora dentro de la recursión para cubrir todos los niveles.
     if (path.endsWith("partidas")) {
       return;
     }
@@ -58,30 +56,66 @@ export function compareAnswers(
     }
 
     // --- MANEJO DE VALORES PRIMITIVOS Y FECHAS ---
+    // if (path.endsWith(".fecha")) {
+    //   // El valor del usuario es un objeto Date o un string ISO
+    //   const userDate = userValue ? new Date(userValue as string | Date) : null;
+    //   // El valor correcto ahora es un string 'YYYY-MM-DD' del JSON
+    //   const correctDateString = correctValue as string | null;
+
+    //   // Comprobamos que ambos valores sean válidos para comparar
+    //   if (isValid(userDate) && correctDateString) {
+    //     // Formateamos la fecha del usuario al mismo formato 'yyyy-MM-dd'
+    //     const userDateString = format(userDate as Date, "yyyy-MM-dd");
+
+    //     // Comparamos los dos strings directamente. Esto ignora la zona horaria.
+    //     result[path as keyof EvaluationResult] =
+    //       userDateString === correctDateString;
+    //   } else {
+    //     // Si uno o ambos no son válidos, usamos isEqual para la comparación (ej. null === null)
+    //     result[path as keyof EvaluationResult] = isEqual(
+    //       userValue,
+    //       correctValue
+    //     );
+    //   }
+    // } else {
+    //   // Para todos los demás campos, usamos la lógica de comparación profunda por defecto.
+    //   result[path as keyof EvaluationResult] = isEqual(userValue, correctValue);
+    // }
+
     if (path.endsWith(".fecha")) {
-      // El valor del usuario es un objeto Date o un string ISO
+      // La lógica para fechas se mantiene igual.
       const userDate = userValue ? new Date(userValue as string | Date) : null;
-      // El valor correcto ahora es un string 'YYYY-MM-DD' del JSON
       const correctDateString = correctValue as string | null;
 
-      // Comprobamos que ambos valores sean válidos para comparar
       if (isValid(userDate) && correctDateString) {
-        // Formateamos la fecha del usuario al mismo formato 'yyyy-MM-dd'
         const userDateString = format(userDate as Date, "yyyy-MM-dd");
-
-        // Comparamos los dos strings directamente. Esto ignora la zona horaria.
         result[path as keyof EvaluationResult] =
           userDateString === correctDateString;
       } else {
-        // Si uno o ambos no son válidos, usamos isEqual para la comparación (ej. null === null)
         result[path as keyof EvaluationResult] = isEqual(
           userValue,
           correctValue
         );
       }
     } else {
-      // Para todos los demás campos, usamos la lógica de comparación profunda por defecto.
-      result[path as keyof EvaluationResult] = isEqual(userValue, correctValue);
+      // Esta es la parte que cambia para los demás campos.
+      let finalUserValue = userValue;
+      let finalCorrectValue = correctValue;
+
+      // Lógica de normalización para strings:
+      if (
+        typeof finalUserValue === "string" &&
+        typeof finalCorrectValue === "string"
+      ) {
+        finalUserValue = finalUserValue.trim();
+        finalCorrectValue = finalCorrectValue.trim();
+      }
+
+      // Comparación final para todos los campos que no son fechas.
+      result[path as keyof EvaluationResult] = isEqual(
+        finalUserValue,
+        finalCorrectValue
+      );
     }
   };
 
