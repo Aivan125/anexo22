@@ -42,7 +42,6 @@ export interface PedimentoFormValues {
   };
   seccionAduanera: {
     clave: string;
-    despacho: string;
   };
   marcasBultos: string;
 
@@ -148,7 +147,6 @@ export const pedimentoDefaultValues: PedimentoFormValues = {
   },
   seccionAduanera: {
     clave: "",
-    despacho: "",
   },
   marcasBultos: "",
 
