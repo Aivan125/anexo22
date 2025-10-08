@@ -13,18 +13,10 @@ El warning [Violation] 'pointerdown' handler took X ms ocurre porque el navegado
 1. Al renderizar el campo CVE. PEDIMENTO con una lista larga de opciones se vuelve lento y chrome marca un error de violación. La solución de SelectViewport de radix NO funcionó.
 2. Mismo caso anterior pero con el campo de aduana, pero este tiene un problema de estado actual que re-renderiza el componente EncabezadoPedimento.
 
-// todo:
-Implementar correctamente el boton de evaluar pedimento para que guarda en una base de datos los intentos de los usuarios y los resultados de la evaluación.
-// quizá para renderizar estáticamente el componente podemos poner en los params el id del usuario para no tener que llamar a la api para obtener los datos del usuario y no se renderize el componente de forma dinámica.
-
-// faltantes en las respuestas:
-Tipo de contenedor: no está especificado: dejarlo en 60
-Cve.Tasa en tasa a nivel pedimento no se encuentra en la lista del apéndice 18: valor es 2
-Valor de Incoterm no se encuentra en el apéndice 14: revisar anexo 22 pagina 110
-
-// CASO 2:
-añadir contribución: tasa viene como DTA pero en mi input es de valor numerico.
-
 // caso 3:
 1 (Importación a territorio nacional) seria la 6, no?
 2 revisar totales 3. puntos 43,44 y 45
+
+Notas de 08/10/2025
+
+- Para los videos, necesito diferenciar a quien pertenece por generación.

@@ -1,4 +1,3 @@
-// src/components/pedimento/EncabezadoPedimento.tsx
 "use client";
 
 import { useFormContext } from "react-hook-form";
@@ -42,7 +41,7 @@ import React from "react";
 import { SelectViewport } from "@radix-ui/react-select";
 
 const fieldBaseStyle =
-  "bg-white w-full h-8 text-xs border-none focus-visible:ring-0 focus-visible:ring-offset-0";
+  "bg-white w-full h-8 text-xs border-none focus-visible:ring-0 focus-visible:ring-offset-0 truncate text-left";
 
 const titleCellStyle =
   "bg-gray-600 text-primary-foreground text-center  font-bold text-sm p-3 border-b border-gray-400";
@@ -60,7 +59,7 @@ function EncabezadoPedimentoComponent() {
           name="numPedimento"
           control={control}
           drawerContent={numPedimentoContent}
-          className="col-span-6"
+          className="col-span-5"
         >
           {(field, disabled) => (
             <Input {...field} disabled={disabled} className={fieldBaseStyle} />
@@ -71,7 +70,7 @@ function EncabezadoPedimentoComponent() {
           name="tipoOperacion"
           control={control}
           drawerContent={tOperContent}
-          className="col-span-5"
+          className="col-span-6"
         >
           {(field, disabled) => (
             <Select
