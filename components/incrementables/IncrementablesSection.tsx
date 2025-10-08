@@ -1,4 +1,3 @@
-// /src/components/pedimento/IncrementablesSection.tsx
 "use client";
 
 import { useFormContext, ControllerRenderProps } from "react-hook-form";
@@ -14,7 +13,6 @@ import {
   otrosIncrementablesDrawer,
   acuseElectronicoDrawer,
   claveSeccionAduaneraDrawer,
-  despachoDrawer,
   marcasBultosDrawer,
 } from "@/lib/data/drawer-content";
 import { PedimentoField } from "../pedimento/PedimentoField";
@@ -166,25 +164,10 @@ export function IncrementablesSection() {
 
         <div className="col-span-6 grid grid-rows-2">
           <PedimentoField
-            label="CLAVE DE LA SECCION ADUANERA"
+            label="CLAVE DE LA SECCION ADUANERA DE DESPACHO"
             name="seccionAduanera.clave"
             control={control}
             drawerContent={claveSeccionAduaneraDrawer}
-          >
-            {(field: ControllerRenderProps, disabled) => (
-              <Input
-                {...field}
-                disabled={disabled}
-                value={field.value ?? ""}
-                className={fieldBaseStyle}
-              />
-            )}
-          </PedimentoField>
-          <PedimentoField
-            label="DE DESPACHO:"
-            name="seccionAduanera.despacho"
-            control={control}
-            drawerContent={despachoDrawer}
           >
             {(field: ControllerRenderProps, disabled) => (
               <Input

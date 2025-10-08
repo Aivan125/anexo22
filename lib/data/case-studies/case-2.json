@@ -35,8 +35,7 @@
       "electronico": "VAL2025TEMP48321"
     },
     "seccionAduanera": {
-      "clave": "521",
-      "despacho": ""
+      "clave": "521"
     },
     "marcasBultos": "6",
     "fechas": [
@@ -99,7 +98,7 @@
     "agenteAduanal": {
       "nombreRazonSocial": "Logística del Norte S.A. de C.V.",
       "rfc": "ALN040404HNL",
-      "curp": "N/A"
+      "curp": ""
     },
     "mandatario": {
       "nombre": "Gabriel Ramírez Morales",

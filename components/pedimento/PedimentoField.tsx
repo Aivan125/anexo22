@@ -53,21 +53,11 @@ type FormValue =
   | FormValue[]
   | { [key: string]: FormValue };
 
-// Definimos un tipo para un objeto que puede ser indexado por strings.
 type Indexable = { [key: string]: FormValue };
 
-/**
- * Navega de forma segura y 100% tipada dentro de un objeto anidado usando un path.
- * Esta implementación no utiliza 'any' en ningún punto.
- * @param obj El objeto a navegar.
- * @param path La ruta en formato string (ej. "incrementables.valSeguros").
- * @returns El valor encontrado o undefined si la ruta no es válida.
- */
 export function getValueByPath(obj: object, path: string): FormValue {
   const keys = path.split(".");
 
-  // El 'reduce' ahora opera sobre nuestro tipo 'FormValue'.
-  // El valor inicial es el objeto mismo, casteado a 'FormValue'.
   return keys.reduce((currentValue: FormValue, currentKey: string) => {
     // Verificación de seguridad en cada paso:
     // 1. Si el valor actual no es un objeto, no podemos seguir navegando.
@@ -133,7 +123,7 @@ export function PedimentoField({
         render={({ field }) => (
           <FormItem className="w-full flex items-center gap-2 min-w-0">
             {/* Le pasamos el estado 'disabled' al hijo */}
-            <FormControl className="flex-grow">
+            <FormControl className="flex-grow min-w-0">
               {children(field, isReviewing)}
             </FormControl>
 

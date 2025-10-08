@@ -13,6 +13,7 @@ import { ArrowRight, FileText, Package, Shield } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type React from "react";
+import { CourseMaterial } from "@/components/shared/CourseMaterial";
 
 export default async function Anexo22Page() {
   const user = await getUser();
@@ -93,6 +94,9 @@ export default async function Anexo22Page() {
               </CardFooter>
             </Card>
           ))}
+        </div>
+        <div className="mt-12">
+          <CourseMaterial />
         </div>
       </div>
     </div>

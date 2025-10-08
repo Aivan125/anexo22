@@ -1,9 +1,7 @@
-// /src/components/pedimento/CertificacionesSection.tsx
 "use client";
 
 import React from "react";
 
-// Componente para un renglón de información
 const CertificacionRow = ({
   label,
   value,
@@ -28,12 +26,12 @@ export function CertificacionesSection() {
       </div>
       <div className="space-y-2 px-1">
         {/* Aquí puedes mapear sobre datos reales en el futuro si es necesario */}
-        <CertificacionRow label="BANCO:" value="HSBC" />
-        <CertificacionRow label="DOCUMENTO:" value="34150000247" />
-        <CertificacionRow label="OP.:" value="1843109409" />
-        <CertificacionRow label="FECHA DE PAGO:" value="08/07/2010" />
-        <CertificacionRow label="ACUSE:" value="F5A82H1QQQ" />
-        <CertificacionRow label="IMPORTE TOTAL:" value="$386.00" />
+        <CertificacionRow label="BANCO:" value="xxxxxx" />
+        <CertificacionRow label="DOCUMENTO:" value="xxxxxx" />
+        <CertificacionRow label="OP.:" value="xxxxxx" />
+        <CertificacionRow label="FECHA DE PAGO:" value="xxxxxx" />
+        <CertificacionRow label="ACUSE:" value="xxxxxx" />
+        <CertificacionRow label="IMPORTE TOTAL:" value="$xxxxxx" />
       </div>
     </div>
   );
