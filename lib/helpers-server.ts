@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import fs from "fs";
 import path from "path";
 import { CaseStudy } from "@/types/pedimento";
+import prisma from "./prisma";
 
 export async function getUser() {
   const supabase = await createClient();
@@ -41,4 +42,26 @@ export function getAllCaseStudies(): CaseStudy[] {
     console.error("Error al leer los casos de estudio:", error);
     return []; // Devuelve un array vacío en caso de error
   }
+}
+
+export async function getUserWithProfile() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const profile = await prisma.profile.findUnique({
+    where: { id: user.id },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      groupId: true,
+    },
+  });
+
+  if (!profile) return null;
+
+  return { user, profile };
 }
