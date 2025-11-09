@@ -20,3 +20,41 @@ El warning [Violation] 'pointerdown' handler took X ms ocurre porque el navegado
 Notas de 08/10/2025
 
 - Para los videos, necesito diferenciar a quien pertenece por generación.
+
+// caso 1 totales
+"tasasNivelPedimento": [
+{
+"contrib": "DTA",
+"cveTTasa": "1",
+"tasa": 445
+},
+{
+"contrib": "PRV",
+"cveTTasa": "2",
+"tasa": 310
+}
+],
+"cuadroLiquidacion": [
+{
+"concepto": "DTA",
+"fp": "0",
+"importe": 445.0
+},
+{
+"concepto": "PRV",
+"fp": "0",
+"importe": 310.0
+}
+],
+"totales": {
+"efectivo": 755.0,
+"otros": 0.0,
+"total": 755.0
+
+// correccion 2: debe ser exw
+"incoterm": "EXW",
+
+// pasame los párrafos con correcciones
+
+/// apendice 4
+poner a colombia, alemania, esstados unidos y mexico

@@ -204,6 +204,7 @@ export const APENDIX_4 = [
   { value: "USA", label: "USA - Estados Unidos de América" },
   { value: "CHN", label: "CHN - China" },
   { value: "DEU", label: "DEU - Alemania (República Federal de)" },
+  { value: "COL", label: "COL - Colombia" },
 ];
 
 export const APENDIX_7 = [
