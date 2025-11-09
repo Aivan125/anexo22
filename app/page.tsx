@@ -1,6 +1,7 @@
 import CallToAction from "@/components/shared/CallToAction";
 import Header from "@/components/shared/Header";
 import { WhatsAppIcon } from "@/components/shared/WhatsAppIcon";
+import { CourseExperienceVideo } from "@/components/shared/CourseExperienceVideo";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -249,6 +250,9 @@ export default function AnexoLandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Course Experience Video Section */}
+      <CourseExperienceVideo />
 
       {/* Instructor Section */}
       <section id="instructor" className="py-20 px-4 bg-card/30">
