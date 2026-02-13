@@ -102,6 +102,9 @@
   /* Color turquesa del gradiente hero - rgb(0, 162, 148) convertido a OKLCH */
   --turquoise: oklch(0.63 0.13 180);
   --turquoise-hover: oklch(0.65 0.14 180);
+
+  /* Fondo pastel turquesa para panel admin */
+  --admin-bg-pastel: oklch(0.97 0.02 180);
 }
 
 .dark {
@@ -158,6 +161,9 @@
   /* Color turquesa del gradiente hero (dark mode) */
   --turquoise: oklch(0.7 0.12 180);
   --turquoise-hover: oklch(0.72 0.13 180);
+
+  /* Fondo pastel turquesa para panel admin (dark mode) */
+  --admin-bg-pastel: oklch(0.2 0.03 180);
 }
 
 @layer base {
