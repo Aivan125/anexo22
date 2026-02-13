@@ -77,3 +77,53 @@ export const loginFormSchema = z.object({
 });
 
 export type LoginFormValues = z.infer<typeof loginFormSchema>;
+
+// Admin - Crear usuario
+export const createUserSchema = z.object({
+  email: z.string().email("Correo inválido").trim().toLowerCase(),
+  name: z.string().max(100).optional(),
+  password: z
+    .string()
+    .trim()
+    .min(8, "La contraseña debe tener al menos 8 caracteres"),
+  role: z.enum(["user", "admin"]),
+  groupId: z.string().optional(),
+});
+
+export type CreateUserFormValues = z.infer<typeof createUserSchema>;
+
+// Admin - Grupos
+export const createGroupSchema = z.object({
+  name: z
+    .string()
+    .min(1, "El nombre es requerido")
+    .max(100, "Máximo 100 caracteres")
+    .trim(),
+});
+
+export const updateGroupSchema = z.object({
+  id: z.string().min(1, "ID requerido"),
+  name: z
+    .string()
+    .min(1, "El nombre es requerido")
+    .max(100, "Máximo 100 caracteres")
+    .trim(),
+});
+
+export type CreateGroupFormValues = z.infer<typeof createGroupSchema>;
+export type UpdateGroupFormValues = z.infer<typeof updateGroupSchema>;
+
+// Admin - Videos
+export const createVideoSchema = z.object({
+  title: z.string().min(1, "El título es requerido").max(200).trim(),
+  description: z.string().max(500).optional(),
+  youtubeId: z.string().min(1, "El ID de YouTube es requerido").trim(),
+  groupId: z.string().min(1, "Selecciona un grupo"),
+});
+
+export const updateVideoSchema = createVideoSchema.extend({
+  id: z.string().min(1, "ID requerido"),
+});
+
+export type CreateVideoFormValues = z.infer<typeof createVideoSchema>;
+export type UpdateVideoFormValues = z.infer<typeof updateVideoSchema>;

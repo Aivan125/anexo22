@@ -67,7 +67,7 @@ const HeaderDashboard = ({ isAdmin = false }: HeaderDashboardProps) => {
               </Button>
             </Link>
             {isAdmin && (
-              <Link href="/dashboard/admin">
+              <Link href="/admin">
                 <Button variant="outline" className="gap-2">
                   <Shield className="h-4 w-4" />
                   Admin
@@ -111,7 +111,7 @@ const HeaderDashboard = ({ isAdmin = false }: HeaderDashboardProps) => {
                   </Button>
                 </Link>
                 {isAdmin && (
-                  <Link href="/dashboard/admin" className="block">
+                  <Link href="/admin" className="block">
                     <Button
                       variant="outline"
                       size="sm"
