@@ -79,7 +79,7 @@ type DynamicAuthButtonProps = {
 export default function DynamicAuthButton({
   TextWhenUser = "Mi Cuenta",
   TextWhenNotUser = "Iniciar Sesión",
-  userLink = "/anexo22",
+  userLink = "/dashboard",
 }: DynamicAuthButtonProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -104,7 +104,7 @@ export default function DynamicAuthButton({
         setUser(session?.user ?? null);
         // Asegurarse de que el esqueleto no reaparezca en cambios de sesión
         if (isLoading) setIsLoading(false);
-      }
+      },
     );
 
     // 3. Limpiar la suscripción cuando el componente se desmonte

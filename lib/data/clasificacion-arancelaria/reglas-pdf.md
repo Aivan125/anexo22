@@ -1,0 +1,109 @@
+/\*\*
+
+- SPEC v1 — Reglas de extracción LIGIE/TIGIE PDF → Objeto TypeScript
+- Objetivo: convertir 1 PDF arancelario a objetos Section/Chapter/Heading/Subheading/Classification/NICO
+- sin inventar texto y respetando exactamente puntuación/acentos/mayúsculas del PDF.
+-
+- ***
+- A) Jerarquía y detección de renglones
+- ***
+- R1) Heading (partida): código con patrón `NN.NN` (ej. "48.01").
+- R2) Subheading (subpartida): código con patrón `NNNN.NN` (ej. "4801.00", "4802.10").
+-     - Puede venir como `NNNN.NN -` o con guiones que indican nivel (ver R6-R8).
+- R3) Classification (fracción): código con patrón `NNNN.NN.NN` (ej. "4801.00.01").
+- R4) NICO: código de 2 dígitos `00`..`99` (ej. "00", "01", "02", "99") en renglón debajo
+-     de una Classification. Nunca existe sin una Classification “activa”.
+-
+- R5) Nunca se inventa contenido. Todo texto (títulos, notas, descripciones, NICOs)
+-     debe existir literal en el PDF.
+-
+- ***
+- B) Reglas de agrupación y continuidad (texto partido en varias líneas)
+- ***
+- R6) La descripción de un Heading/Subheading/Classification puede “envolverse” (wrap) a la siguiente línea.
+-     - Se concatena con un espacio: `linea1 + " " + linea2`, preservando signos y acentos.
+- R7) Se continúa concatenando hasta que aparezca un nuevo código detectado por R1-R4
+-     o un encabezado de notas/fin de capítulo.
+- R8) Un guion al inicio/medio NO es parte del código; es indicador visual del PDF.
+-     - El código es el token numérico (ej. "4102.21") aunque aparezca como "4102.21 --".
+-
+- ***
+- C) Reglas para “no correr” descripciones entre niveles
+- ***
+- R9) El `title` de cada nivel sale del renglón donde aparece su propio `code`.
+-     - No se toma la descripción de un nivel superior/inferior aunque sea similar.
+- R10) Un Subheading puede tener texto “introductorio” o “agrupador” (ej. "Sin lana (depilados):")
+-      sin código: ese texto NO se convierte en nodo. Solo se usa como contexto visual y se ignora.
+-
+- ***
+- D) Columnas de la tabla para Classification
+- ***
+- R11) Solo las Classification (`NNNN.NN.NN`) tienen columnas: UMT, IMP (importDuty), EXP (exportDuty), REG/PROG.
+- R12) `umt`: se toma literal de la columna UMT (ej. "Kg", "Pza", "M²", "Cbza"). Si está vacío, `umt: ""`.
+- R13) `importDuty` / `exportDuty`:
+-      - Si el PDF dice "Ex." → convertir a `0` (number).
+-      - Si el PDF dice "Prohibida" → conservar `"Prohibida"` (string).
+-      - Si es porcentaje/número → convertir a number (ej. "20" → 20, "5" → 5).
+-      - No inventar formatos (no agregar "%", etc.).
+- R14) `regimenes`: se toma del bloque REG/PROG.
+-      - Separar por `;`
+-      - Hacer trim de cada elemento
+-      - Mantener el orden
+-      - Eliminar entradas vacías
+-      Ej: "PS4; SAD; SEM" → ["PS4","SAD","SEM"]
+- R15) Si REG/PROG se parte por salto de línea (wrap), se concatena antes de separar (ver R6-R7).
+-
+- ***
+- E) Reglas de asociación de NICOs
+- ***
+- R16) Un NICO pertenece a la última Classification leída (“classification activa”) hasta que aparezca:
+-      - otra Classification, o
+-      - un nuevo Subheading/Heading/Capítulo, o
+-      - fin de tabla.
+- R17) Cada NICO:
+-      - `code`: 2 dígitos (string "00".."99") tal como aparece.
+-      - `title`: texto literal del PDF en el renglón del NICO (puede envolver, aplicar R6-R7).
+- R18) Si una Classification no tiene NICOs en el PDF, debe quedar `nicos: []`.
+- R19) Si el PDF muestra NICOs "00" con la misma descripción de la fracción/subpartida,
+-      se conserva igual (no deduplicar, no “optimizar”).
+-
+- ***
+- F) Notas (Notes) y generación de IDs
+- ***
+- R20) Notas del Capítulo:
+-      - Si el PDF dice “Notas” del capítulo → `chapter.notes.legales[]`
+-      - Formato id: `NL-CAPXX-1`, `NL-CAPXX-2`, ...
+- R21) Notas de subpartida:
+-      - Si el PDF dice “Notas de subpartida” → `chapter.notes.subpartida[]`
+-      - Formato id: `NS-CAPXX-1`, `NS-CAPXX-2`, ...
+- R22) Notas Nacionales:
+-      - Si el PDF dice “Notas Nacionales” → `chapter.notes.nacionales[]`
+-      - Formato id: `NN-CAPXX-1`, `NN-CAPXX-2`, ...
+- R23) Explicativas:
+-      - Si el PDF contiene “Notas Explicativas” o “Explicativas” → `chapter.notes.explicativas[]`
+-      - Formato id recomendado: `NE-CAPXX-1`, `NE-CAPXX-2`, ...
+- R24) Cada nota:
+-      - `text` literal del PDF, concatenando líneas partidas (R6-R7)
+-      - conservar enumeraciones "a)", "b)", "A)", etc.
+-
+- ***
+- G) Reglas de salida / entrega
+- ***
+- R25) Respetar nombres exactos de propiedades:
+-      - `umt`, `importDuty`, `exportDuty`, `regimenes`, `nicos`.
+- R26) Respetar exactamente acentos, mayúsculas y puntuación del PDF en `title`/`text`.
+- R27) Salida estricta según pedido:
+-      - Si piden “solo el capítulo 48” → entregar únicamente:
+-        `export const chapter48 = { ... } as const;`
+-      - No incluir sección completa ni otros capítulos.
+- R28) Orden:
+-      - Mantener el orden del PDF para headings/subheadings/classifications/nicos.
+- R29) No inventar nodos vacíos “de relleno”.
+-      - Si no hay notas de cierto tipo, usar `[]` solo si el patrón del proyecto lo exige;
+-        de lo contrario, omitir la propiedad opcional.
+- R30) Validación básica:
+-      - Todo NICO debe estar dentro de una Classification.
+-      - Toda Classification debe estar dentro de un Subheading.
+-      - Todo Subheading dentro de un Heading.
+-      - Todo Heading dentro de un Chapter.
+  \*/

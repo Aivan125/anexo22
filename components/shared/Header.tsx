@@ -114,9 +114,9 @@ const Header = () => {
                 </button>
               ))}
               <div className="pt-4 space-y-2">
-                <Link href="/anexo22" className="block">
+                <Link href="/dashboard" className="block">
                   <Button variant="outline" size="sm" className="w-full">
-                    Simulador
+                    Dashboard
                   </Button>
                 </Link>
                 <Link href="/login" className="block">

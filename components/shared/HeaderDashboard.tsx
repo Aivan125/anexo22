@@ -1,17 +1,20 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { LogIn, LogOut, Menu, X } from "lucide-react";
+import { LogIn, LogOut, Menu, X, BookOpen, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useTransition } from "react";
-import DynamicClientButton from "./DynamicClientButton";
 import LoadingButton from "./LoadingButton";
 import { logout } from "@/app/login/action";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-const HeaderDashboard = () => {
+interface HeaderDashboardProps {
+  isAdmin?: boolean;
+}
+
+const HeaderDashboard = ({ isAdmin = false }: HeaderDashboardProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -57,9 +60,20 @@ const HeaderDashboard = () => {
 
           {/* Botones Desktop */}
           <div className="hidden lg:flex items-center gap-4">
-            <div>
-              <DynamicClientButton TextWhenUser="Ver Otros Casos" />
-            </div>
+            <Link href="/dashboard">
+              <Button variant="outline" className="gap-2">
+                <BookOpen className="h-4 w-4" />
+                Cursos
+              </Button>
+            </Link>
+            {isAdmin && (
+              <Link href="/dashboard/admin">
+                <Button variant="outline" className="gap-2">
+                  <Shield className="h-4 w-4" />
+                  Admin
+                </Button>
+              </Link>
+            )}
             <LoadingButton
               onClick={handleLogout}
               loading={isPending}
@@ -90,18 +104,35 @@ const HeaderDashboard = () => {
           <div className="lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-md rounded-lg mt-2 shadow-lg border border-border/50">
               <div className="pt-4 space-y-2">
-                <Link href="/anexo22" className="block">
-                  <Button variant="outline" size="sm" className="w-full">
-                    Simulador
+                <Link href="/dashboard" className="block">
+                  <Button variant="outline" size="sm" className="w-full gap-2">
+                    <BookOpen className="h-4 w-4" />
+                    Cursos
                   </Button>
                 </Link>
-
-                <Link href="/login" className="block">
-                  <Button size="sm" className="w-full gap-2">
-                    <LogIn className="h-4 w-4" />
-                    Iniciar Sesión
-                  </Button>
-                </Link>
+                {isAdmin && (
+                  <Link href="/dashboard/admin" className="block">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full gap-2"
+                    >
+                      <Shield className="h-4 w-4" />
+                      Admin
+                    </Button>
+                  </Link>
+                )}
+                <LoadingButton
+                  onClick={handleLogout}
+                  loading={isPending}
+                  size="sm"
+                  className="w-full bg-red-600 hover:bg-red-700 gap-2"
+                >
+                  {!isPending && (
+                    <LogOut className="text-primary-foreground h-4 w-4" />
+                  )}
+                  <span>Cerrar Sesión</span>
+                </LoadingButton>
               </div>
             </div>
           </div>

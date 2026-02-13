@@ -19,7 +19,7 @@ export function getAllCaseStudies(): CaseStudy[] {
     process.cwd(),
     "lib",
     "data",
-    "case-studies"
+    "case-studies",
   );
   try {
     // Lee todos los nombres de archivo en el directorio
@@ -58,10 +58,20 @@ export async function getUserWithProfile() {
       email: true,
       name: true,
       groupId: true,
+      role: true,
     },
   });
 
   if (!profile) return null;
 
   return { user, profile };
+}
+
+export async function requireAdmin() {
+  const result = await getUserWithProfile();
+  if (!result || result.profile.role !== "admin") {
+    const { redirect } = await import("next/navigation");
+    redirect("/dashboard");
+  }
+  return result;
 }
