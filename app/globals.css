@@ -37,6 +37,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-turquoise: var(--turquoise);
+  --color-turquoise-hover: var(--turquoise-hover);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -76,6 +78,30 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Variables adicionales para clasificación arancelaria */
+  --gradient-hero: linear-gradient(
+    135deg,
+    oklch(0.208 0.042 265.755),
+    oklch(0.5 0.03 167)
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    oklch(0.5 0.03 167),
+    oklch(0.55 0.035 44)
+  );
+  --shadow-soft:
+    0 1px 3px 0 oklch(0.208 0.042 265.755 / 0.05),
+    0 1px 2px -1px oklch(0.208 0.042 265.755 / 0.05);
+  --shadow-medium:
+    0 4px 6px -1px oklch(0.208 0.042 265.755 / 0.1),
+    0 2px 4px -2px oklch(0.208 0.042 265.755 / 0.1);
+  --shadow-elegant: 0 10px 30px -10px oklch(0.208 0.042 265.755 / 0.3);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Color turquesa del gradiente hero - rgb(0, 162, 148) convertido a OKLCH */
+  --turquoise: oklch(0.63 0.13 180);
+  --turquoise-hover: oklch(0.65 0.14 180);
 }
 
 .dark {
@@ -110,6 +136,28 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+
+  /* Variables adicionales para clasificación arancelaria (dark mode) */
+  --gradient-hero: linear-gradient(
+    135deg,
+    oklch(0.25 0.042 265.755),
+    oklch(0.35 0.03 167)
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    oklch(0.35 0.03 167),
+    oklch(0.45 0.035 44)
+  );
+  --shadow-soft:
+    0 1px 3px 0 oklch(0 0 0 / 0.3), 0 1px 2px -1px oklch(0 0 0 / 0.3);
+  --shadow-medium:
+    0 4px 6px -1px oklch(0 0 0 / 0.4), 0 2px 4px -2px oklch(0 0 0 / 0.4);
+  --shadow-elegant: 0 10px 30px -10px oklch(0.25 0.042 265.755 / 0.5);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Color turquesa del gradiente hero (dark mode) */
+  --turquoise: oklch(0.7 0.12 180);
+  --turquoise-hover: oklch(0.72 0.13 180);
 }
 
 @layer base {
@@ -129,5 +177,13 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* Respetar prefers-reduced-motion para animaciones */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  [class*="animate-in"] {
+    animation: none !important;
   }
 }

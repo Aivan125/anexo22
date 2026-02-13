@@ -20,6 +20,7 @@ model Profile {
   email           String?   @unique
   name            String?
   accessExpiresAt DateTime?
+  role            String    @default("user")
 
   attempts UserAttempt[]
 

@@ -14,9 +14,8 @@ export async function login(values: LoginFormValues): Promise<{
 
   const data = loginFormSchema.parse(values);
 
-  const { error: signInUserError } = await supabase.auth.signInWithPassword(
-    data
-  );
+  const { error: signInUserError } =
+    await supabase.auth.signInWithPassword(data);
 
   if (signInUserError) {
     if (
@@ -37,8 +36,8 @@ export async function login(values: LoginFormValues): Promise<{
     };
   }
 
-  revalidatePath("/anexo22");
-  redirect("/anexo22");
+  revalidatePath("/dashboard");
+  redirect("/dashboard");
 }
 
 export async function signup(formData: FormData) {

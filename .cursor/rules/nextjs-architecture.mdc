@@ -1,0 +1,326 @@
+---
+description: Global architecture rules for Next.js 15, React 19, Shadcn UI, and TypeScript project structure.
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.js"
+  - "**/*.jsx"
+  - "**/*.json"
+  - "**/*.css"
+alwaysApply: false
+---
+
+# Cursor Rules for Next.js Expert Projects
+
+You are an expert in TypeScript, Next.js 15 App Router, React 19, Prisma, Supabase Auth, Zustand, Shadcn UI, Radix UI, Tailwind CSS 4, and Zod.
+
+## Code Style and Structure
+
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., `isLoading`, `hasError`, `isHydrated`, `isCompleted`).
+- Structure files: exported component, subcomponents, helpers, static content, types.
+- Use early returns to avoid deeply nested conditionals.
+- Keep functions small and focused on a single responsibility.
+
+## Naming Conventions
+
+- Use lowercase with dashes for directories (e.g., `components/skill-layout`, `lib/helpers-server`).
+- Favor named exports for components and utilities.
+- Use PascalCase for component files (e.g., `ExamEngine.tsx`, `LoginForm.tsx`).
+- Use camelCase for utility files and actions (e.g., `examActions.ts`, `getUserServer.ts`).
+- Suffix server-only helpers with "Server" (e.g., `getUserServer`, `validateContentAccess`).
+
+## TypeScript Usage
+
+- Use TypeScript for all code; prefer interfaces over types for object shapes.
+- Avoid enums; use const objects or union types instead.
+- Use Prisma's generated types with `satisfies` for type-safe includes:
+
+```typescript
+const include = { ... } satisfies Prisma.ExamInclude;
+type ExamData = Prisma.ExamGetPayload<{ include: typeof include }>;
+```
+
+- Define explicit return types for Server Actions using discriminated unions:
+
+```typescript
+type ActionResult =
+  | { ok: true; data: SomeType }
+  | { ok: false; code: ErrorCode; message: string };
+```
+
+- Use `z.infer<typeof Schema>` to derive types from Zod schemas.
+
+## React and Next.js Patterns
+
+### Server Components (RSC) - Default Choice
+
+- Fetch data directly in components using async/await.
+- Use `server-only` import to prevent client bundle leakage.
+- Co-locate data fetching with the component that needs it.
+- Pass data as props to client components when needed.
+
+### Client Components - Use Sparingly
+
+Mark with `"use client"` ONLY when you need:
+
+- Event handlers (onClick, onChange, onSubmit)
+- React hooks (useState, useReducer, useRef)
+- Browser APIs (localStorage, window, document)
+- Third-party client libraries (Zustand stores, react-hook-form)
+
+### useEffect - Avoid When Possible
+
+**Do NOT use useEffect for:**
+
+- Data fetching (use Server Components or Server Actions)
+- Derived state (compute in render or useMemo)
+- Transforming data for rendering
+- Resetting state on prop changes (use key prop instead)
+
+**Valid useEffect uses:**
+
+- Syncing with external systems (localStorage, timers, subscriptions)
+- Hydration from persisted state
+- Browser API interactions that can't be in event handlers
+- Cleanup functions for subscriptions/timers
+
+Example of GOOD useEffect (hydration):
+
+```typescript
+useEffect(() => {
+  const stored = localStorage.getItem(storageKey);
+  if (stored) hydrate(JSON.parse(stored));
+  setIsHydrated(true);
+}, [storageKey]);
+```
+
+### State Management
+
+- Use Zustand for complex client state that needs persistence or cross-component sharing.
+- Use `useReducer` for complex local state with multiple actions.
+- Prefer URL state with `nuqs` or searchParams for shareable/bookmarkable state.
+- Use React 19's `useActionState` and `useFormStatus` for form states.
+
+## UI Components - Shadcn ONLY
+
+**CRITICAL: Never create custom UI components when Shadcn equivalents exist.**
+
+Always use components from `@/components/ui/`:
+
+- `Button`, `Input`, `Label` for forms
+- `Card`, `CardContent`, `CardHeader`, `CardFooter` for containers
+- `Dialog`, `AlertDialog`, `Sheet` for modals and overlays
+- `Select`, `Checkbox`, `RadioGroup` for form controls
+- `Table`, `Tabs`, `Accordion` for complex layouts
+- `Skeleton` for loading states
+- `Form`, `FormField`, `FormItem`, `FormLabel`, `FormMessage` for forms with react-hook-form
+
+If you need custom styling, extend Shadcn components with `className` or create wrapper components.
+
+```typescript
+// ✅ Good: Extend Shadcn component
+<Button variant="outline" className="bg-blue-500 hover:bg-blue-600">
+  Custom Button
+</Button>
+
+// ❌ Bad: Create custom button from scratch
+<button className="px-4 py-2 rounded-md bg-blue-500">
+  Custom Button
+</button>
+```
+
+## Forms and Validation
+
+Use react-hook-form + Zod + Shadcn Form components:
+
+```typescript
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+type FormValues = z.infer<typeof schema>;
+
+export function LoginForm() {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { email: "", password: "" },
+  });
+
+  const onSubmit = async (data: FormValues) => {
+    const result = await loginAction(data);
+    if (!result.ok) {
+      // Handle error
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
+  );
+}
+```
+
+## Server Actions
+
+- Always mark with `"use server"` at the top of the file.
+- Validate inputs with Zod schemas.
+- Return typed discriminated unions for results.
+- Use Prisma transactions for complex operations.
+- Call `revalidatePath` or `revalidateTag` after mutations.
+- Handle errors gracefully with specific error codes.
+
+```typescript
+"use server";
+
+import { z } from "zod";
+import prisma from "@/lib/prisma";
+import { getUserServer } from "@/lib/helpers-server/getUserServer";
+import { revalidatePath } from "next/cache";
+
+const InputSchema = z.object({ ... });
+
+type Result =
+  | { ok: true; data: SomeType }
+  | { ok: false; code: "auth_required" | "validation_error" | "unexpected"; message: string };
+
+export async function myAction(rawInput: unknown): Promise<Result> {
+  try {
+    const user = await getUserServer();
+    if (!user) return { ok: false, code: "auth_required", message: "Please sign in" };
+
+    const input = InputSchema.parse(rawInput);
+
+    const result = await prisma.$transaction(async (tx) => {
+      // ... operations
+    });
+
+    revalidatePath("/relevant-path");
+    return { ok: true, data: result };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { ok: false, code: "validation_error", message: "Invalid input" };
+    }
+    console.error("[myAction] Error:", error);
+    return { ok: false, code: "unexpected", message: "An error occurred" };
+  }
+}
+```
+
+## Database (Prisma)
+
+- Define reusable include/select objects with `satisfies` for type safety.
+- Use Prisma validators for complex includes.
+- Prefer `findUnique` over `findFirst` when querying by unique fields.
+- Use transactions for operations that must be atomic.
+- Always handle Prisma errors specifically (`PrismaClientKnownRequestError`).
+
+```typescript
+export const examInclude = {
+  parts: {
+    orderBy: { order: "asc" },
+    include: {
+      questions: { orderBy: { order: "asc" } },
+    },
+  },
+} satisfies Prisma.ExamInclude;
+
+export type ExamWithParts = Prisma.ExamGetPayload<{
+  include: typeof examInclude;
+}>;
+```
+
+## Authentication (Supabase)
+
+- Use `createClient()` from `@/utils/supabase/server` for server-side auth.
+- Create a centralized `getUserServer()` helper for all server-side auth checks.
+- Protect routes in middleware or Server Components, not Client Components.
+
+## Performance Optimization
+
+- Minimize `"use client"` boundaries - push them down to leaf components.
+- Wrap client components in `Suspense` with meaningful fallbacks (`Skeleton` components).
+- Use `loading.tsx` files for route-level loading states.
+- Use dynamic imports with `next/dynamic` for heavy client components.
+- Optimize images with `next/image` (WebP, proper sizing, lazy loading).
+- Use Prisma's `select` to fetch only needed fields.
+- Implement pagination for large data sets.
+
+## Error Handling
+
+- Use `error.tsx` for route error boundaries.
+- Use `not-found.tsx` for 404 pages.
+- Display user-friendly error messages with `sonner` toasts.
+- Log detailed errors server-side, show generic messages client-side.
+
+## File Structure
+
+```
+app/
+  (routes)/
+    page.tsx          # Server Component (default)
+    loading.tsx       # Suspense fallback
+    error.tsx         # Error boundary
+    layout.tsx        # Shared layout
+  api/                # API routes (avoid when possible, prefer Server Actions)
+
+components/
+  ui/                 # Shadcn components ONLY (do not modify unless necessary)
+  shared/             # Reusable presentational components
+  [feature]/          # Feature-specific components
+
+hooks/                # Custom React hooks (client-side only)
+
+lib/
+  actions/            # Server Actions
+  helpers-server/     # Server-only utilities
+  store/              # Zustand stores
+  types.ts            # Shared TypeScript types
+  utils.ts            # Client-safe utilities
+  validation.ts       # Zod schemas
+  prisma.ts           # Prisma client instance
+
+utils/
+  supabase/           # Supabase client configurations
+```
+
+## Testing and Quality
+
+- Use TypeScript strict mode.
+- Validate all external inputs with Zod.
+- Use ESLint with Next.js config.
+- Use Prettier with Tailwind plugin for consistent formatting.
+
+## Key Reminders
+
+1. **Server Components are the default** - only add `"use client"` when necessary.
+2. **useEffect is a last resort** - most side effects belong in event handlers or Server Actions.
+3. **Never reinvent Shadcn** - use existing components, extend with className.
+4. **Type everything** - use Prisma types, Zod inference, and discriminated unions.
+5. **Keep client bundles small** - push interactivity to the edges.
+6. **Validate at boundaries** - user input, external APIs, not internal code.
