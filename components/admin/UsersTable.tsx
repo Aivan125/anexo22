@@ -19,10 +19,60 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { updateUserRole, updateUserGroup } from "@/lib/actions/adminUsers";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  updateUserRole,
+  updateUserGroup,
+  updateUserName,
+  deleteUser,
+} from "@/lib/actions/adminUsers";
+import {
+  updateUserNameSchema,
+  type UpdateUserNameFormValues,
+} from "@/lib/validation";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
-import { UserPlus, Search, X } from "lucide-react";
+import {
+  UserPlus,
+  Search,
+  X,
+  MoreHorizontal,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { normalizeForSearch } from "@/lib/search-utils";
 
@@ -51,8 +101,15 @@ const NO_GROUP_VALUE = "__none__";
 export function UsersTable({ users, groups }: UsersTableProps) {
   const [isPending, startTransition] = useTransition();
   const [updatingUserId, setUpdatingUserId] = useState<string | null>(null);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [deletingUser, setDeletingUser] = useState<User | null>(null);
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearch = useDebouncedValue(searchInput, 300);
+
+  const editForm = useForm<UpdateUserNameFormValues>({
+    resolver: zodResolver(updateUserNameSchema),
+    defaultValues: { userId: "", name: "" },
+  });
 
   const filteredUsers = useMemo(() => {
     const term = debouncedSearch.trim();
@@ -86,6 +143,39 @@ export function UsersTable({ users, groups }: UsersTableProps) {
       setUpdatingUserId(null);
       if (result.ok) {
         toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
+    });
+  };
+
+  const handleEditOpen = (user: User) => {
+    setEditingUser(user);
+    editForm.reset({ userId: user.id, name: user.name ?? "" });
+  };
+
+  const handleEditSubmit = (data: UpdateUserNameFormValues) => {
+    setUpdatingUserId(data.userId);
+    startTransition(async () => {
+      const result = await updateUserName(data);
+      setUpdatingUserId(null);
+      if (result.ok) {
+        toast.success(result.message);
+        setEditingUser(null);
+      } else {
+        toast.error(result.message);
+      }
+    });
+  };
+
+  const handleDeleteConfirm = (user: User) => {
+    setUpdatingUserId(user.id);
+    startTransition(async () => {
+      const result = await deleteUser(user.id);
+      setUpdatingUserId(null);
+      if (result.ok) {
+        toast.success(result.message);
+        setDeletingUser(null);
       } else {
         toast.error(result.message);
       }
@@ -135,13 +225,16 @@ export function UsersTable({ users, groups }: UsersTableProps) {
               <TableHead className="px-4 text-left">
                 Modificar Rol de Usuario
               </TableHead>
+              <TableHead className="px-4 text-left w-[60px]">
+                Acciones
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   className="text-center text-muted-foreground py-12"
                 >
                   <div className="flex flex-col items-center gap-4">
@@ -158,7 +251,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
             ) : filteredUsers.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   className="text-left text-muted-foreground py-12"
                 >
                   <p>
@@ -254,12 +347,140 @@ export function UsersTable({ users, groups }: UsersTableProps) {
                       </Select>
                     </div>
                   </TableCell>
+                  <TableCell className="px-4 text-left">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="size-8"
+                          aria-label={`Acciones de ${user.email ?? "usuario"}`}
+                          disabled={
+                            isPending &&
+                            (updatingUserId === user.id ||
+                              deletingUser?.id === user.id)
+                          }
+                        >
+                          <MoreHorizontal className="size-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem
+                          onClick={() => handleEditOpen(user)}
+                          disabled={isPending && updatingUserId === user.id}
+                        >
+                          <Pencil className="size-4" />
+                          Editar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          variant="destructive"
+                          onClick={() => setDeletingUser(user)}
+                          disabled={isPending && updatingUserId === user.id}
+                        >
+                          <Trash2 className="size-4" />
+                          Borrar usuario
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
                 </TableRow>
               ))
             )}
           </TableBody>
         </Table>
       </div>
+
+      {/* Dialog Editar nombre */}
+      <Dialog
+        open={!!editingUser}
+        onOpenChange={(open) => !open && setEditingUser(null)}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Editar nombre</DialogTitle>
+            <DialogDescription>Modifica el nombre del alumno</DialogDescription>
+          </DialogHeader>
+          {editingUser && (
+            <Form {...editForm}>
+              <form
+                onSubmit={editForm.handleSubmit(handleEditSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={editForm.control}
+                  name="userId"
+                  render={({ field }) => <input type="hidden" {...field} />}
+                />
+                <FormField
+                  control={editForm.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="edit-name">Nombre</FormLabel>
+                      <FormControl>
+                        <Input
+                          id="edit-name"
+                          placeholder="Ej: Juan Pérez"
+                          disabled={isPending}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <DialogFooter>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setEditingUser(null)}
+                  >
+                    Cancelar
+                  </Button>
+                  <Button type="submit" disabled={isPending}>
+                    {isPending ? "Guardando…" : "Guardar"}
+                  </Button>
+                </DialogFooter>
+              </form>
+            </Form>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* AlertDialog Borrar usuario */}
+      <AlertDialog
+        open={!!deletingUser}
+        onOpenChange={(open) => !open && setDeletingUser(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Borrar usuario?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {deletingUser && (
+                <>
+                  Se eliminará el usuario{" "}
+                  {deletingUser.email ? (
+                    <strong>{deletingUser.email}</strong>
+                  ) : (
+                    "sin email"
+                  )}{" "}
+                  y todos sus datos asociados. Esta acción no se puede deshacer.
+                </>
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => deletingUser && handleDeleteConfirm(deletingUser)}
+              disabled={isPending}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isPending ? "Eliminando…" : "Eliminar"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

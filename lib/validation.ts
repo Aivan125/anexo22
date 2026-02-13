@@ -92,6 +92,13 @@ export const createUserSchema = z.object({
 
 export type CreateUserFormValues = z.infer<typeof createUserSchema>;
 
+// Admin - Editar nombre de usuario
+export const updateUserNameSchema = z.object({
+  userId: z.string().min(1),
+  name: z.string().max(100).trim().optional(),
+});
+export type UpdateUserNameFormValues = z.infer<typeof updateUserNameSchema>;
+
 // Admin - Grupos
 export const createGroupSchema = z.object({
   name: z
