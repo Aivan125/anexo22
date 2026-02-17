@@ -93,3 +93,25 @@ export interface ModuloCasos {
   descripcion_modulo: string;
   casos: CasoPractico[];
 }
+
+// Tipos para el simulador de clasificación arancelaria
+export interface SimuladorOpcion {
+  value: string;
+  label: string;
+}
+
+export interface SimuladorStep {
+  id: string;
+  tipo: string;
+  titulo: string;
+  instruccion: string;
+  opciones: SimuladorOpcion[];
+  correcta: string;
+  explicacion: string;
+  pista: string;
+}
+
+export interface SimuladorCaso {
+  casoId: string;
+  pasos: SimuladorStep[];
+}

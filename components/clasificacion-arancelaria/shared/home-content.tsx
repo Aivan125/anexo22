@@ -56,7 +56,7 @@ export function HomeContent() {
               </Link>
             </Card>
 
-            {/* <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 border-2 hover:border-[var(--turquoise)] bg-gradient-to-br from-card to-card/80 group">
+            <Card className="cursor-pointer hover:shadow-lg transition-all duration-300 border-2 hover:border-[var(--turquoise)] bg-gradient-to-br from-card to-card/80 group">
               <Link href="/clasificacion-arancelaria/casos-practicos">
                 <CardHeader className="p-4 sm:p-6">
                   <div className="flex items-center gap-3 mb-2">
@@ -76,11 +76,11 @@ export function HomeContent() {
                 <CardContent className="p-4 sm:p-6 pt-0">
                   <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
                     <BookOpen className="h-3 w-3 sm:h-4 sm:w-4" />
-                    <span>5 casos prácticos disponibles</span>
+                    <span>6 casos prácticos disponibles</span>
                   </div>
                 </CardContent>
               </Link>
-            </Card> */}
+            </Card>
           </div>
         )}
       </main>
