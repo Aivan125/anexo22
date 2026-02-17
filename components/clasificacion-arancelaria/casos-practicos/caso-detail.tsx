@@ -7,6 +7,7 @@ import {
   Lightbulb,
   HelpCircle,
   CheckCircle2,
+  ListChecks,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,6 +16,10 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { CasoPractico } from "@/types/clasificacion-arancelaria";
 import Link from "next/link";
+import { SimuladorClasificacion } from "../simulador/SimuladorClasificacion";
+import { getSimuladorByCasoId } from "@/lib/data/clasificacion-arancelaria/simulador-data";
+import { getRespuestasByCasoId } from "@/lib/data/clasificacion-arancelaria/respuestas-preguntas";
+import { PreguntaRespuestaCard } from "./PreguntaRespuestaCard";
 
 interface CasoDetailProps {
   caso: CasoPractico;
@@ -35,10 +40,12 @@ function getDifficultyColor(dificultad: string) {
 
 export function CasoDetail({ caso }: CasoDetailProps) {
   const [showSolution, setShowSolution] = useState(false);
+  const simulador = getSimuladorByCasoId(caso.id);
+  const respuestas = getRespuestasByCasoId(caso.id);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
+      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-16 lg:top-20 z-10">
         <div className="container mx-auto px-4 py-4 sm:py-6">
           <Button variant="ghost" asChild className="mb-4 -ml-2 min-h-[44px]">
             <Link href="/clasificacion-arancelaria/casos-practicos">
@@ -67,6 +74,8 @@ export function CasoDetail({ caso }: CasoDetailProps) {
             </div>
             <Button
               onClick={() => setShowSolution(!showSolution)}
+              aria-expanded={showSolution}
+              aria-controls="solucion-card"
               variant={showSolution ? "secondary" : "default"}
               className="flex items-center gap-2 min-h-[44px] w-full sm:w-auto"
             >
@@ -77,7 +86,10 @@ export function CasoDetail({ caso }: CasoDetailProps) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-6 sm:py-8">
+      <main
+        id="main-content"
+        className="container mx-auto px-4 py-6 sm:py-8 scroll-mt-24 lg:scroll-mt-28"
+      >
         <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
           {/* Contexto Empresarial */}
           <Card>
@@ -140,143 +152,206 @@ export function CasoDetail({ caso }: CasoDetailProps) {
             </CardContent>
           </Card>
 
-          {/* Tabs para análisis */}
+          {/* Tabs para análisis - diseño integrado */}
           <Tabs defaultValue="datos" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 h-auto">
+            <TabsList
+              aria-label="Secciones de análisis del caso"
+              className="grid w-full grid-cols-2 gap-2 h-auto p-2 rounded-t-xl rounded-b-none bg-[var(--turquoise)]/5 border border-b-0 border-[var(--turquoise)]/20"
+            >
               <TabsTrigger
                 value="datos"
-                className="text-xs sm:text-sm py-2 sm:py-3"
+                className="gap-1.5 text-xs sm:text-sm py-2.5 sm:py-3 rounded-lg text-foreground/70 hover:text-foreground hover:bg-[var(--turquoise)]/10 data-[state=active]:bg-[var(--turquoise)]/10 data-[state=active]:text-foreground data-[state=active]:[&_svg]:text-[var(--turquoise)] data-[state=active]:shadow-sm data-[state=active]:border-b-2 data-[state=active]:border-[var(--turquoise)] transition-[color,background-color,box-shadow] focus-visible:ring-2 focus-visible:ring-[var(--turquoise)]/50 focus-visible:ring-offset-2"
               >
+                <ListChecks
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0"
+                  aria-hidden="true"
+                />
                 Datos Relevantes
               </TabsTrigger>
               <TabsTrigger
                 value="preguntas"
-                className="text-xs sm:text-sm py-2 sm:py-3"
+                className="gap-1.5 text-xs sm:text-sm py-2.5 sm:py-3 rounded-lg text-foreground/70 hover:text-foreground hover:bg-[var(--turquoise)]/10 data-[state=active]:bg-[var(--turquoise)]/10 data-[state=active]:text-foreground data-[state=active]:[&_svg]:text-[var(--turquoise)] data-[state=active]:shadow-sm data-[state=active]:border-b-2 data-[state=active]:border-[var(--turquoise)] transition-[color,background-color,box-shadow] focus-visible:ring-2 focus-visible:ring-[var(--turquoise)]/50 focus-visible:ring-offset-2"
               >
+                <HelpCircle
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0"
+                  aria-hidden="true"
+                />
                 Preguntas
               </TabsTrigger>
+              {/* Tab Pistas - comentado por si se quiere restaurar después
               <TabsTrigger
                 value="pistas"
-                className="text-xs sm:text-sm py-2 sm:py-3"
+                className="gap-1.5 text-xs sm:text-sm py-2.5 sm:py-3 rounded-lg text-foreground/70 hover:text-foreground hover:bg-[var(--turquoise)]/10 data-[state=active]:bg-[var(--turquoise)]/10 data-[state=active]:text-foreground data-[state=active]:[&_svg]:text-[var(--turquoise)] data-[state=active]:shadow-sm data-[state=active]:border-b-2 data-[state=active]:border-[var(--turquoise)] transition-[color,background-color,box-shadow] focus-visible:ring-2 focus-visible:ring-[var(--turquoise)]/50 focus-visible:ring-offset-2"
               >
+                <Lightbulb
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0"
+                  aria-hidden="true"
+                />
                 Pistas
               </TabsTrigger>
+              */}
             </TabsList>
 
-            <TabsContent value="datos" className="mt-4">
-              <Card>
-                <CardHeader className="p-4 sm:p-6">
-                  <CardTitle className="text-sm sm:text-base">
-                    Datos Relevantes
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  <ul className="space-y-2">
-                    {caso.datos_relevantes.map((dato, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-primary mt-0.5 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm text-foreground/90">
-                          {dato}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </TabsContent>
+            <div className="rounded-b-xl border border-t-0 border-[var(--turquoise)]/20 bg-card shadow-sm">
+              <TabsContent value="datos" className="mt-0">
+                <Card className="border-0 shadow-none rounded-t-none rounded-b-xl">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="text-sm sm:text-base">
+                      Datos Relevantes
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <ul className="space-y-2">
+                      {caso.datos_relevantes.map((dato, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 text-primary mt-0.5 flex-shrink-0" />
+                          <span className="text-xs sm:text-sm text-foreground/90">
+                            {dato}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-            <TabsContent value="preguntas" className="mt-4">
-              <Card>
-                <CardHeader className="p-4 sm:p-6">
-                  <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
-                    <HelpCircle className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                    Preguntas de Análisis
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  <ul className="space-y-2 sm:space-y-3">
-                    {caso.preguntas_analisis.map((pregunta, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="font-semibold text-primary flex-shrink-0 text-xs sm:text-sm">
-                          {index + 1}.
-                        </span>
-                        <span className="text-xs sm:text-sm text-foreground/90">
-                          {pregunta}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </TabsContent>
+              <TabsContent value="preguntas" className="mt-0">
+                <Card className="border-0 shadow-none rounded-t-none rounded-b-xl">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <HelpCircle className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                      Preguntas de Análisis
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    {showSolution && respuestas && respuestas.length > 0 ? (
+                      <ul className="space-y-3 sm:space-y-4" role="list">
+                        {caso.preguntas_analisis.map((pregunta, index) => (
+                          <li key={index}>
+                            <PreguntaRespuestaCard
+                              pregunta={pregunta}
+                              respuesta={respuestas[index] ?? ""}
+                              numero={index + 1}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    ) : showSolution &&
+                      (!respuestas || respuestas.length === 0) ? (
+                      <div className="space-y-3 sm:space-y-4">
+                        <p className="text-sm text-muted-foreground italic">
+                          Respuestas disponibles próximamente para este caso.
+                        </p>
+                        <ul className="space-y-2 sm:space-y-3">
+                          {caso.preguntas_analisis.map((pregunta, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <span className="font-semibold text-primary flex-shrink-0 text-xs sm:text-sm">
+                                {index + 1}.
+                              </span>
+                              <span className="text-xs sm:text-sm text-foreground/90">
+                                {pregunta}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      <ul className="space-y-2 sm:space-y-3">
+                        {caso.preguntas_analisis.map((pregunta, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <span className="font-semibold text-primary flex-shrink-0 text-xs sm:text-sm">
+                              {index + 1}.
+                            </span>
+                            <span className="text-xs sm:text-sm text-foreground/90">
+                              {pregunta}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
 
-            <TabsContent value="pistas" className="mt-4">
-              <Card>
-                <CardHeader className="p-4 sm:p-6">
-                  <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
-                    <Lightbulb className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                    Pistas para la Resolución
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  <ul className="space-y-2">
-                    {caso.pistas.map((pista, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <Lightbulb className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm text-foreground/90">
-                          {pista}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </TabsContent>
+              {/* TabsContent Pistas - comentado por si se quiere restaurar después
+              <TabsContent value="pistas" className="mt-0">
+                <Card className="border-0 shadow-none rounded-t-none rounded-b-xl">
+                  <CardHeader className="p-4 sm:p-6">
+                    <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
+                      <Lightbulb className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                      Pistas para la Resolución
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6 pt-0">
+                    <ul className="space-y-2">
+                      {caso.pistas.map((pista, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <Lightbulb className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-xs sm:text-sm text-foreground/90">
+                            {pista}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              */}
+            </div>
           </Tabs>
+
+          {/* Simulador Paso a Paso */}
+          {simulador && (
+            <SimuladorClasificacion
+              caso={caso}
+              simulador={simulador}
+              showSolution={showSolution}
+              onShowSolutionChange={(show) => setShowSolution(show)}
+            />
+          )}
 
           {/* Solución */}
           {showSolution && (
-            <Card className="border-primary/50 bg-primary/5">
+            <Card
+              id="solucion-card"
+              className="border border-border border-l-2 sm:border-l-[3px] border-l-[var(--turquoise)] bg-card shadow-sm scroll-mt-24 lg:scroll-mt-28"
+            >
               <CardHeader className="p-4 sm:p-6">
-                <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-semibold text-foreground">
+                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[var(--turquoise)]" />
                   Respuesta Esperada
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-4 sm:p-6 pt-0 space-y-3 sm:space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+              <CardContent className="p-4 sm:p-6 pt-0 space-y-4 sm:space-y-5">
+                <div className="rounded-lg bg-muted/20 p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <h4 className="font-semibold text-xs sm:text-sm text-muted-foreground mb-1">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                       Fracción Arancelaria
-                    </h4>
-                    <p className="text-base sm:text-lg font-bold text-primary">
+                    </p>
+                    <p className="font-mono text-lg sm:text-xl font-bold text-foreground">
                       {caso.respuesta_esperada.fraccion}
                     </p>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-xs sm:text-sm text-muted-foreground mb-1">
-                      NICO
-                    </h4>
-                    <p className="text-base sm:text-lg font-bold text-primary">
-                      {caso.respuesta_esperada.nico}
-                    </p>
-                  </div>
+                  <Badge
+                    variant="outline"
+                    className="border-[var(--turquoise)]/40 text-[var(--turquoise)]"
+                  >
+                    NICO {caso.respuesta_esperada.nico}
+                  </Badge>
                 </div>
-                <Separator />
                 <div>
-                  <h4 className="font-semibold text-xs sm:text-sm text-muted-foreground mb-1">
+                  <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
                     Descripción
                   </h4>
-                  <p className="text-sm sm:text-base text-foreground">
+                  <p className="text-sm sm:text-base text-foreground leading-relaxed">
                     {caso.respuesta_esperada.descripcion_fraccion}
                   </p>
                 </div>
-                <Separator />
                 <div>
-                  <h4 className="font-semibold text-xs sm:text-sm text-muted-foreground mb-2">
+                  <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
                     Justificación
                   </h4>
-                  <p className="text-sm sm:text-base text-foreground/90 leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     {caso.respuesta_esperada.justificacion_resumida}
                   </p>
                 </div>

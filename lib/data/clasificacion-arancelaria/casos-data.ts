@@ -224,5 +224,52 @@ export const casosData: ModuloCasos = {
       },
       tipo_actividad: "caso_practico",
     },
+    {
+      id: "CASO_SEC2_006",
+      titulo: "Exportación de maíz palomero a Estados Unidos",
+      seccion: "II",
+      capitulo_aproximado: "10",
+      nivel_dificultad: "intermedio",
+      contexto_empresarial:
+        "ANMINCADISA (Sinaloa, México) es una empresa dedicada a la producción, selección y empaque de granos de maíz agrícolas. Su objetivo es exportar a mercados de Norteamérica (EE. UU.). Necesita identificar la fracción arancelaria para cumplimiento regulatorio, tarifas preferenciales y normativas sanitarias. El producto estrella es un grano seco de origen vegetal, cáscara dura y forma redondeada, conocido por su capacidad de expansión (palomitas de maíz), utilizado en cines y autoservicios tras expansión térmica.",
+      producto: {
+        nombre_comercial:
+          "Grano expandible de endospermo vítreo (variedad híbrida)",
+        descripcion_detallada:
+          "Zea mays var. everta – grano íntegro, deshidratado. 100% grano entero con contenido natural de almidón vítreo y humedad <14%. Grano crudo, sin cocción, sin molienda, sin aditivos ni condimentos. No contiene sal, grasa, saborizantes ni ingredientes añadidos.",
+        uso_previsto:
+          "Consumo humano tras expansión térmica (proceso doméstico o industrial). Destino: cines y autoservicios.",
+        presentacion:
+          "Bolsa plástica grado alimenticio de 1 kg, al vacío. Origen: cultivo nacional, zona centro-norte de Sinaloa.",
+      },
+      datos_relevantes: [
+        "Nombre técnico: Zea mays var. everta – grano íntegro, deshidratado.",
+        "Tratamiento: grano crudo, sin cocción, sin molienda, sin aditivos ni condimentos.",
+        "Composición: 100% grano entero, almidón vítreo, humedad <14%.",
+        "Proceso productivo: selección, secado, calibración y empaque.",
+        "No se presenta como alimento listo para consumo.",
+        "Destino aduanal: Estados Unidos de América.",
+      ],
+      preguntas_analisis: [
+        "¿En qué sección de la LIGIE se clasifican los cereales en grano?",
+        "Dentro del Capítulo 10, ¿qué partida corresponde al maíz?",
+        "¿El producto es maíz para siembra o entra en 'Los demás'?",
+        "Dentro de 1005.90, ¿cómo se distingue entre maíz blanco, amarillo y palomero?",
+        "¿Es necesario aplicar la Regla 6 para la subpartida específica?",
+      ],
+      pistas: [
+        "Inicia en la Sección II (Productos del reino vegetal) y revisa el Capítulo 10 (Cereales).",
+        "La Nota 1 del Capítulo 10 excluye cereales cocidos o preparados (partida 19.04).",
+        "La Nota Nacional 2 del Capítulo 10 define el grano de maíz palomero.",
+      ],
+      respuesta_esperada: {
+        fraccion: "1005.90.99",
+        nico: "01",
+        descripcion_fraccion: "Maíz, los demás (Palomero).",
+        justificacion_resumida:
+          "Se clasifica en Sección II, Capítulo 10 (Cereales), partida 10.05 (Maíz). No es para siembra; entra en 1005.90 (Los demás). El producto es grano íntegro, sin cocción ni aditivos, destinado a expansión térmica, conforme a la Nota Nacional 2 del Capítulo 10. RGI 1 y 6 aplicadas.",
+      },
+      tipo_actividad: "caso_practico",
+    },
   ],
 };
