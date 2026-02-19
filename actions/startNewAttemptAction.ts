@@ -1,19 +1,17 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-
-import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
+import { getUserWithProfile } from "@/lib/helpers-server";
 
 export async function startNewAttemptAction(caseId: string) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const result = await getUserWithProfile();
 
-  if (!user) {
+  if (!result) {
     throw new Error("No autorizado");
   }
+
+  const { user } = result;
 
   try {
     // Simplemente crea un nuevo registro UserAttempt vacío.

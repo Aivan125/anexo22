@@ -1,20 +1,17 @@
 // src/app/api/attempts/save/route.ts
 
 import { NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
 import prisma from "@/lib/prisma";
+import { getUserWithProfile } from "@/lib/helpers-server";
 
 export async function POST(request: Request) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const result = await getUserWithProfile();
 
-  console.log("user de Supabase", user);
-
-  if (!user) {
+  if (!result) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
+
+  const { user } = result;
 
   const { attemptId, userAnswers } = await request.json();
 
@@ -23,7 +20,7 @@ export async function POST(request: Request) {
   if (!attemptId || !userAnswers) {
     return NextResponse.json(
       { error: "Faltan datos (caseStudyId o userAnswers)" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -44,7 +41,7 @@ export async function POST(request: Request) {
     console.error("Error al guardar el intento:", error);
     return NextResponse.json(
       { error: "No se pudo guardar el progreso" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

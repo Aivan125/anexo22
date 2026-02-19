@@ -59,10 +59,15 @@ export async function getUserWithProfile() {
       name: true,
       groupId: true,
       role: true,
+      isActive: true,
     },
   });
 
   if (!profile) return null;
+
+  const isAdmin = profile.role === "admin";
+  const hasAccess = profile.isActive || isAdmin;
+  if (!hasAccess) return null;
 
   return { user, profile };
 }

@@ -4,19 +4,17 @@
 import prisma from "@/lib/prisma";
 import { getCaseStudyById } from "@/lib/case-studies-server";
 import { compareAnswers } from "@/lib/evaluation";
-import { revalidatePath } from "next/cache";
-import { createClient } from "@/utils/supabase/server";
+import { getUserWithProfile } from "@/lib/helpers-server";
 import { PedimentoFormValues } from "@/types/pedimento";
 
 export async function evaluateAttemptAction(attemptId: string) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const result = await getUserWithProfile();
 
-  if (!user) {
+  if (!result) {
     throw new Error("No autorizado");
   }
+
+  const { user } = result;
 
   // 1. Obtener el intento de la base de datos para asegurar que los datos son correctos
   const attempt = await prisma.userAttempt.findUnique({

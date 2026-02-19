@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { AuthApiError } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 import { loginFormSchema, LoginFormValues } from "@/lib/validation";
+import prisma from "@/lib/prisma";
 
 export async function login(values: LoginFormValues): Promise<{
   success?: boolean;
@@ -14,7 +15,7 @@ export async function login(values: LoginFormValues): Promise<{
 
   const data = loginFormSchema.parse(values);
 
-  const { error: signInUserError } =
+  const { data: signInData, error: signInUserError } =
     await supabase.auth.signInWithPassword(data);
 
   if (signInUserError) {
@@ -34,6 +35,27 @@ export async function login(values: LoginFormValues): Promise<{
       error:
         "Correo o contraseña incorrectos. Por favor, verifica tus credenciales.",
     };
+  }
+
+  const user = signInData?.user;
+  if (!user) {
+    return {
+      success: false,
+      error: "Error al iniciar sesión. Intenta de nuevo.",
+    };
+  }
+
+  const profile = await prisma.profile.findUnique({
+    where: { id: user.id },
+    select: { isActive: true, role: true },
+  });
+
+  const isAdmin = profile?.role === "admin";
+  const hasAccess = profile && (profile.isActive || isAdmin);
+
+  if (!hasAccess) {
+    await supabase.auth.signOut();
+    redirect("/cuenta-inactiva?reason=inactiva");
   }
 
   revalidatePath("/dashboard");

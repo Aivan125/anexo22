@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import prisma from "@/lib/prisma";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -16,17 +17,17 @@ export async function updateSession(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value)
+            request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({
             request,
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   // Do not run code between createServerClient and
@@ -39,11 +40,11 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const publicPaths = ["/login", "/auth", "/error", "/"];
+  const publicPaths = ["/login", "/auth", "/error", "/", "/cuenta-inactiva"];
   const { pathname } = request.nextUrl;
 
   const isPublicPath = publicPaths.some((path) =>
-    path === "/" ? pathname === path : pathname.startsWith(path)
+    path === "/" ? pathname === path : pathname.startsWith(path),
   );
 
   if (!user && !isPublicPath) {
@@ -56,6 +57,28 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/anexo22";
     return NextResponse.redirect(url);
+  }
+
+  // Verificar si el usuario tiene acceso activo (excepto en rutas públicas)
+  if (user && !isPublicPath) {
+    const profile = await prisma.profile.findUnique({
+      where: { id: user.id },
+      select: { isActive: true, role: true },
+    });
+
+    const isAdmin = profile?.role === "admin";
+    const hasAccess = profile && (profile.isActive || isAdmin);
+
+    if (!hasAccess) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/cuenta-inactiva";
+      const redirectResponse = NextResponse.redirect(url);
+      for (const cookie of supabaseResponse.cookies.getAll()) {
+        const { name, value, ...options } = cookie;
+        redirectResponse.cookies.set(name, value, options);
+      }
+      return redirectResponse;
+    }
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.

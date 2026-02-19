@@ -20,6 +20,11 @@ const updateUserGroupSchema = z.object({
   groupId: z.string().nullable(),
 });
 
+const updateUserActiveSchema = z.object({
+  userId: z.string(),
+  isActive: z.boolean(),
+});
+
 type UpdateUserRoleResult =
   | { ok: true; message: string }
   | {
@@ -145,6 +150,81 @@ export async function updateUserGroup(
       ok: false,
       code: "unexpected",
       message: "Error al actualizar el grupo",
+    };
+  }
+}
+
+type UpdateUserActiveResult =
+  | { ok: true; message: string }
+  | {
+      ok: false;
+      code:
+        | "auth_required"
+        | "validation_error"
+        | "not_found"
+        | "self_deactivate"
+        | "unexpected";
+      message: string;
+    };
+
+export async function updateUserActive(
+  rawInput: unknown,
+): Promise<UpdateUserActiveResult> {
+  try {
+    const result = await requireAdmin();
+    if (!result) {
+      return {
+        ok: false,
+        code: "auth_required",
+        message: "No autorizado",
+      };
+    }
+
+    const input = updateUserActiveSchema.parse(rawInput);
+
+    if (result.profile.id === input.userId) {
+      return {
+        ok: false,
+        code: "self_deactivate",
+        message: "No puedes desactivarte a ti mismo",
+      };
+    }
+
+    const user = await prisma.profile.findUnique({
+      where: { id: input.userId },
+    });
+
+    if (!user) {
+      return {
+        ok: false,
+        code: "not_found",
+        message: "Usuario no encontrado",
+      };
+    }
+
+    await prisma.profile.update({
+      where: { id: input.userId },
+      data: { isActive: input.isActive },
+    });
+
+    revalidatePath("/admin/usuarios");
+    return {
+      ok: true,
+      message: input.isActive ? "Usuario activado" : "Usuario desactivado",
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        ok: false,
+        code: "validation_error",
+        message: "Datos inválidos",
+      };
+    }
+    console.error("[updateUserActive] Error:", error);
+    return {
+      ok: false,
+      code: "unexpected",
+      message: "Error al actualizar el estado del usuario",
     };
   }
 }
@@ -291,6 +371,7 @@ type ListUsersResult =
         name: string | null;
         role: string;
         groupId: string | null;
+        isActive: boolean;
         createdAt: Date;
       }>;
     }
@@ -308,6 +389,7 @@ export async function listUsers(): Promise<ListUsersResult> {
         name: true,
         role: true,
         groupId: true,
+        isActive: true,
         createdAt: true,
       },
       orderBy: {

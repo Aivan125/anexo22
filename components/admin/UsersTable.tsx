@@ -57,6 +57,7 @@ import {
   updateUserRole,
   updateUserGroup,
   updateUserName,
+  updateUserActive,
   deleteUser,
 } from "@/lib/actions/adminUsers";
 import {
@@ -65,6 +66,7 @@ import {
 } from "@/lib/validation";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import {
   UserPlus,
   Search,
@@ -82,6 +84,7 @@ interface User {
   name: string | null;
   role: string;
   groupId: string | null;
+  isActive: boolean;
   createdAt: Date;
 }
 
@@ -140,6 +143,19 @@ export function UsersTable({ users, groups }: UsersTableProps) {
     setUpdatingUserId(userId);
     startTransition(async () => {
       const result = await updateUserGroup({ userId, groupId: value });
+      setUpdatingUserId(null);
+      if (result.ok) {
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
+    });
+  };
+
+  const handleActiveChange = (userId: string, isActive: boolean) => {
+    setUpdatingUserId(userId);
+    startTransition(async () => {
+      const result = await updateUserActive({ userId, isActive });
       setUpdatingUserId(null);
       if (result.ok) {
         toast.success(result.message);
@@ -219,6 +235,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
               <TableHead className="px-4 text-left">Nombre</TableHead>
               <TableHead className="px-4 text-left">Rol</TableHead>
               <TableHead className="px-4 text-left">Grupo</TableHead>
+              <TableHead className="px-4 text-left">Estado</TableHead>
               <TableHead className="px-4 text-left tabular-nums">
                 Fecha de Registro
               </TableHead>
@@ -234,7 +251,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
             {users.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={7}
+                  colSpan={8}
                   className="text-center text-muted-foreground py-12"
                 >
                   <div className="flex flex-col items-center gap-4">
@@ -251,7 +268,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
             ) : filteredUsers.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={7}
+                  colSpan={8}
                   className="text-left text-muted-foreground py-12"
                 >
                   <p>
@@ -318,6 +335,16 @@ export function UsersTable({ users, groups }: UsersTableProps) {
                         ))}
                       </SelectContent>
                     </Select>
+                  </TableCell>
+                  <TableCell className="px-4 text-left">
+                    <Switch
+                      checked={user.isActive}
+                      onCheckedChange={(checked) =>
+                        handleActiveChange(user.id, checked)
+                      }
+                      disabled={isPending && updatingUserId === user.id}
+                      aria-label={`Estado de ${user.email ?? "usuario"}: ${user.isActive ? "Activo" : "Inactivo"}`}
+                    />
                   </TableCell>
                   <TableCell
                     className="px-4 text-left tabular-nums"
