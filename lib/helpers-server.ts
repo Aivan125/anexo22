@@ -1,5 +1,6 @@
 import "server-only";
 
+import { cache } from "react";
 import { createClient } from "@/utils/supabase/server";
 import fs from "fs";
 import path from "path";
@@ -44,7 +45,7 @@ export function getAllCaseStudies(): CaseStudy[] {
   }
 }
 
-export async function getUserWithProfile() {
+export const getUserWithProfile = cache(async () => {
   const supabase = await createClient();
   const {
     data: { user },
@@ -59,12 +60,26 @@ export async function getUserWithProfile() {
       name: true,
       groupId: true,
       role: true,
+      isActive: true,
     },
   });
 
   if (!profile) return null;
 
+  const isAdmin = profile.role === "admin";
+  const hasAccess = profile.isActive || isAdmin;
+  if (!hasAccess) return null;
+
   return { user, profile };
+});
+
+export async function requireActiveUser() {
+  const result = await getUserWithProfile();
+  if (!result) {
+    const { redirect } = await import("next/navigation");
+    redirect("/cuenta-inactiva");
+  }
+  return result;
 }
 
 export async function requireAdmin() {

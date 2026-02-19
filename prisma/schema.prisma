@@ -21,6 +21,7 @@ model Profile {
   name            String?
   accessExpiresAt DateTime?
   role            String    @default("user")
+  isActive        Boolean   @default(true)
 
   attempts UserAttempt[]
 

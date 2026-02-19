@@ -1,6 +1,6 @@
 import PedimentoWrapper from "@/components/PedimentoWrapper";
 import { getCaseStudyById } from "@/lib/case-studies-server";
-import { getUser } from "@/lib/helpers-server";
+import { getUserWithProfile } from "@/lib/helpers-server";
 import prisma from "@/lib/prisma";
 import { PedimentoFormValues } from "@/types/pedimento";
 import { notFound, redirect } from "next/navigation";
@@ -22,11 +22,11 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  const user = await getUser();
-
-  if (!user) {
-    redirect("/login");
+  const result = await getUserWithProfile();
+  if (!result) {
+    redirect("/cuenta-inactiva");
   }
+  const { user } = result;
 
   const caseStudy = await getCaseStudyById(caseId);
   if (!caseStudy) {

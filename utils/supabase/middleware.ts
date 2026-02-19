@@ -16,17 +16,17 @@ export async function updateSession(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value)
+            request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({
             request,
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   // Do not run code between createServerClient and
@@ -39,11 +39,11 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const publicPaths = ["/login", "/auth", "/error", "/"];
+  const publicPaths = ["/login", "/auth", "/error", "/", "/cuenta-inactiva"];
   const { pathname } = request.nextUrl;
 
   const isPublicPath = publicPaths.some((path) =>
-    path === "/" ? pathname === path : pathname.startsWith(path)
+    path === "/" ? pathname === path : pathname.startsWith(path),
   );
 
   if (!user && !isPublicPath) {
