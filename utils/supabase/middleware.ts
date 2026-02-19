@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import prisma from "@/lib/prisma";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -57,28 +56,6 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/anexo22";
     return NextResponse.redirect(url);
-  }
-
-  // Verificar si el usuario tiene acceso activo (excepto en rutas públicas)
-  if (user && !isPublicPath) {
-    const profile = await prisma.profile.findUnique({
-      where: { id: user.id },
-      select: { isActive: true, role: true },
-    });
-
-    const isAdmin = profile?.role === "admin";
-    const hasAccess = profile && (profile.isActive || isAdmin);
-
-    if (!hasAccess) {
-      const url = request.nextUrl.clone();
-      url.pathname = "/cuenta-inactiva";
-      const redirectResponse = NextResponse.redirect(url);
-      for (const cookie of supabaseResponse.cookies.getAll()) {
-        const { name, value, ...options } = cookie;
-        redirectResponse.cookies.set(name, value, options);
-      }
-      return redirectResponse;
-    }
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
