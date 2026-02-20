@@ -19,8 +19,8 @@ const CallToAction = ({
     <Link href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
       <Button
         className={cn(
-          "text-lg bg-green-600 hover:bg-green-700 text-white font-bold gap-3 flex items-center justify-center",
-          className
+          "text-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold gap-3 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+          className,
         )}
       >
         {text}
