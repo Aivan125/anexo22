@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Source_Sans_3, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const sourceSans = Source_Sans_3({
+  variable: "--font-source-sans",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -15,18 +22,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Simulador Anexo 22",
-    default: "Simulador de Pedimento Anexo 22",
+    template: "%s | ANMIN-CADISA",
+    default: "ANMIN-CADISA | Consultoría en Comercio Exterior y Aduanas",
   },
   description:
-    "Aprende a llenar el pedimento aduanal de México con casos prácticos. Una herramienta de ANMIN-CADISA para profesionales de comercio exterior.",
+    "Formación práctica para profesionales del comercio exterior. Simuladores de pedimento, clasificación arancelaria y capacitación en normativa aduanera mexicana.",
   keywords: [
-    "Anexo 22",
-    "Pedimento",
     "Comercio Exterior",
     "Aduanas México",
-    "Simulador Aduanero",
+    "Anexo 22",
+    "Pedimento",
+    "Clasificación Arancelaria",
+    "LIGIE",
     "Capacitación Aduanera",
+    "Consultoría Aduana",
   ],
 };
 
@@ -36,9 +45,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${fraunces.variable} ${sourceSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
         <a
           href="#main-content"

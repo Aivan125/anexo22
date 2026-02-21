@@ -69,17 +69,20 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/utils/supabase/client";
+import { cn } from "@/lib/utils";
 
 type DynamicAuthButtonProps = {
   TextWhenUser?: string;
   TextWhenNotUser?: string;
   userLink?: string;
+  buttonClassName?: string;
 };
 
 export default function DynamicAuthButton({
   TextWhenUser = "Mi Cuenta",
   TextWhenNotUser = "Iniciar Sesión",
   userLink = "/dashboard",
+  buttonClassName,
 }: DynamicAuthButtonProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -118,13 +121,13 @@ export default function DynamicAuthButton({
     return <Skeleton className="h-10 w-32 rounded-md" />;
   }
 
+  const defaultButtonClass =
+    "bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-md";
+
   // Si hay un usuario, muestra el botón de usuario
   if (user) {
     return (
-      <Button
-        asChild
-        className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-md"
-      >
+      <Button asChild className={cn(defaultButtonClass, buttonClassName)}>
         <Link href={userLink}>{TextWhenUser}</Link>
       </Button>
     );
@@ -132,10 +135,7 @@ export default function DynamicAuthButton({
 
   // Si no hay usuario, muestra el botón de iniciar sesión
   return (
-    <Button
-      asChild
-      className="bg-primary text-primary-foreground hover:bg-primary/90 w-full rounded-md"
-    >
+    <Button asChild className={cn(defaultButtonClass, buttonClassName)}>
       <Link href="/login">{TextWhenNotUser}</Link>
     </Button>
   );
