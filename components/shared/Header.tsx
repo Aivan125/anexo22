@@ -108,7 +108,7 @@ const Header = () => {
           </nav>
 
           {/* CTA Desktop */}
-          <div className="hidden sm:flex items-center">
+          <div className="hidden md:flex items-center">
             <DynamicClientButton
               TextWhenUser="Entrar"
               TextWhenNotUser="Iniciar Sesión"
