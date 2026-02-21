@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import { Users, Target, Coffee } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const BENEFITS = [
   {
@@ -71,12 +69,12 @@ export function CourseExperienceVideo() {
               aria-hidden
             />
 
-            {/* Mockup container - estilo teléfono vertical */}
+            {/* Mockup container - estilo teléfono vertical. El video 16:9 se mostrará con letterboxing (barras negras arriba/abajo) ya que object-fit no funciona en iframes. */}
             <div className="relative mx-auto w-full max-w-[320px] aspect-[9/16] rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-foreground/5">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${videoId}`}
                 title={videoTitle}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 loading="lazy"

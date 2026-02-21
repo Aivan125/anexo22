@@ -7,9 +7,17 @@ import Image from "next/image";
 import DynamicClientButton from "./DynamicClientButton";
 import { cn } from "@/lib/utils";
 
-const Header = () => {
+interface HeaderProps {
+  /** Si el hero tiene fondo oscuro. HeroSectionProposal = true, HeroSectionCurrent = false */
+  heroDark?: boolean;
+}
+
+const Header = ({ heroDark = true }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Estilo "sobre hero": texto claro (blanco) si hero es oscuro y no hemos hecho scroll
+  const overHeroLight = !isScrolled && heroDark;
 
   // Detectar scroll para cambiar el estilo del header
   useEffect(() => {
@@ -65,7 +73,7 @@ const Header = () => {
                 sizes="40px"
                 className={cn(
                   "object-contain transition-all duration-300",
-                  !isScrolled && "brightness-0 invert",
+                  overHeroLight && "brightness-0 invert",
                 )}
               />
             </div>
@@ -73,7 +81,7 @@ const Header = () => {
               <span
                 className={cn(
                   "font-extrabold text-lg tracking-tight leading-none",
-                  isScrolled ? "text-slate-900" : "text-white",
+                  overHeroLight ? "text-white" : "text-slate-900",
                 )}
               >
                 ANMIN
@@ -81,7 +89,7 @@ const Header = () => {
               <span
                 className={cn(
                   "font-bold text-sm tracking-widest leading-none",
-                  isScrolled ? "text-accent-foreground" : "text-primary",
+                  overHeroLight ? "text-primary" : "text-accent-foreground",
                 )}
               >
                 CADISA
@@ -97,9 +105,9 @@ const Header = () => {
                 onClick={() => scrollToSection(item.sectionId)}
                 className={cn(
                   "font-medium text-sm transition-colors",
-                  isScrolled
-                    ? "text-slate-600 hover:text-primary hover:underline underline-offset-4 decoration-2 decoration-primary/50"
-                    : "text-slate-300 hover:text-white",
+                  overHeroLight
+                    ? "text-slate-300 hover:text-white"
+                    : "text-slate-600 hover:text-primary hover:underline underline-offset-4 decoration-2 decoration-primary/50",
                 )}
               >
                 {item.label}
@@ -126,14 +134,14 @@ const Header = () => {
               <X
                 className={cn(
                   "h-6 w-6 transition-colors",
-                  isScrolled ? "text-slate-900" : "text-white",
+                  overHeroLight ? "text-white" : "text-slate-900",
                 )}
               />
             ) : (
               <Menu
                 className={cn(
                   "h-6 w-6 transition-colors",
-                  isScrolled ? "text-slate-900" : "text-white",
+                  overHeroLight ? "text-white" : "text-slate-900",
                 )}
               />
             )}

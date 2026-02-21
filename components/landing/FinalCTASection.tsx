@@ -29,7 +29,7 @@ export function FinalCTASection() {
           className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 text-white"
         >
           ¿Listo para{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-cyan-400">
             dominar
           </span>{" "}
           el comercio exterior?

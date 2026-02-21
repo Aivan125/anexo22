@@ -1,6 +1,6 @@
 import Header from "@/components/shared/Header";
 import { CourseExperienceVideo } from "@/components/shared/CourseExperienceVideo";
-import { HeroSection } from "@/components/landing/HeroSection";
+import { HeroSection, HERO_IS_DARK } from "@/components/landing/HeroSection";
 import { ServiciosSection } from "@/components/landing/ServiciosSection";
 import { SimuladoresSection } from "@/components/landing/SimuladoresSection";
 import { MetodologiaSection } from "@/components/landing/MetodologiaSection";
@@ -12,7 +12,7 @@ import { LandingFooter } from "@/components/landing/LandingFooter";
 export default function LandingPage() {
   return (
     <div className="min-h-screen mx-auto bg-background">
-      <Header />
+      <Header heroDark={HERO_IS_DARK} />
       <main id="main-content">
         <HeroSection />
         <ServiciosSection />

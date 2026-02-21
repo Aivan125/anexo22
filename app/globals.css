@@ -168,7 +168,10 @@
   --shadow-medium:
     0 4px 6px -1px oklch(0 0 0 / 0.4), 0 2px 4px -2px oklch(0 0 0 / 0.4);
   --shadow-elegant: 0 10px 30px -10px oklch(0.12 0.03 260 / 0.5);
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Color turquesa (dark mode) - alineado con primary */
   --turquoise: oklch(0.6 0.14 180);

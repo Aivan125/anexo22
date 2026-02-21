@@ -188,10 +188,13 @@ export default function LoginForm() {
       {/* Mitad Derecha: Imagen tratada */}
       <div className="hidden lg:flex relative w-1/2 items-end justify-center bg-slate-950 overflow-hidden">
         {/* Capa 1: Imagen */}
-        <img
+        <Image
           src="/puerto.jpg"
           alt="Vista aérea de contenedores de carga en puerto"
-          className="absolute inset-0 w-full h-full object-cover object-center grayscale-[20%]"
+          fill
+          priority
+          sizes="50vw"
+          className="object-cover object-center grayscale-[20%]"
         />
         {/* Capa 2: Overlay oscurecedor */}
         <div className="absolute inset-0 bg-slate-950/70 mix-blend-multiply" />
