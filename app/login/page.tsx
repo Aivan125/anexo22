@@ -7,7 +7,7 @@ const page = async () => {
   const user = await getUser();
 
   if (user) {
-    redirect("/anexo22");
+    redirect("/dashboard");
   }
 
   return <LoginForm />;

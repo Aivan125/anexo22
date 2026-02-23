@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 import { CaseStudy } from "@/types/pedimento";
 import prisma from "./prisma";
+import { COURSES } from "./constants/courses";
 
 export async function getUser() {
   const supabase = await createClient();
@@ -61,6 +62,7 @@ export const getUserWithProfile = cache(async () => {
       groupId: true,
       role: true,
       isActive: true,
+      enrolledCourseSlugs: true,
     },
   });
 
@@ -89,4 +91,18 @@ export async function requireAdmin() {
     redirect("/dashboard");
   }
   return result;
+}
+
+const VALID_SLUGS = new Set<string>(COURSES.map((c) => c.slug));
+
+export function hasCourseAccess(
+  profile: { role: string; enrolledCourseSlugs?: string[] },
+  routePrefix: string,
+): boolean {
+  if (profile.role === "admin") return true;
+  const slugs = profile.enrolledCourseSlugs ?? [];
+  const enrolledSet = new Set(slugs.filter((s) => VALID_SLUGS.has(s)));
+  const course = COURSES.find((c) => c.routePrefix === routePrefix);
+  if (!course) return false;
+  return enrolledSet.has(course.slug);
 }

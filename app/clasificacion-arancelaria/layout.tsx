@@ -1,14 +1,21 @@
+import { redirect } from "next/navigation";
 import { HeaderDashboardServer } from "@/components/shared/HeaderDashboardServer";
 import { OfflineBanner } from "@/components/shared/OfflineBanner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { requireActiveUser } from "@/lib/helpers-server";
+import { requireActiveUser, hasCourseAccess } from "@/lib/helpers-server";
 
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  await requireActiveUser();
+  const result = await requireActiveUser();
+  if (
+    !result ||
+    !hasCourseAccess(result.profile, "/clasificacion-arancelaria")
+  ) {
+    redirect("/dashboard");
+  }
   return (
     <div className="min-h-screen">
       <HeaderDashboardServer />

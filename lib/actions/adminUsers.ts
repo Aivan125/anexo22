@@ -5,7 +5,11 @@ import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import { requireAdmin } from "@/lib/helpers-server";
 import { createAdminClient } from "@/utils/supabase/admin";
-import { createUserSchema, updateUserNameSchema } from "@/lib/validation";
+import {
+  createUserSchema,
+  updateUserNameSchema,
+  updateUserCoursesSchema,
+} from "@/lib/validation";
 import { listGroups } from "@/lib/actions/adminGroups";
 
 export { listGroups };
@@ -362,6 +366,69 @@ export async function deleteUser(userId: string): Promise<DeleteUserResult> {
   }
 }
 
+type UpdateUserCoursesResult =
+  | { ok: true; message: string }
+  | {
+      ok: false;
+      code: "auth_required" | "validation_error" | "not_found" | "unexpected";
+      message: string;
+    };
+
+export async function updateUserCourses(
+  rawInput: unknown,
+): Promise<UpdateUserCoursesResult> {
+  try {
+    const result = await requireAdmin();
+    if (!result) {
+      return {
+        ok: false,
+        code: "auth_required",
+        message: "No autorizado",
+      };
+    }
+
+    const input = updateUserCoursesSchema.parse(rawInput);
+
+    const user = await prisma.profile.findUnique({
+      where: { id: input.userId },
+    });
+
+    if (!user) {
+      return {
+        ok: false,
+        code: "not_found",
+        message: "Usuario no encontrado",
+      };
+    }
+
+    await prisma.profile.update({
+      where: { id: input.userId },
+      data: { enrolledCourseSlugs: input.courseSlugs },
+    });
+
+    revalidatePath("/admin/usuarios");
+    return {
+      ok: true,
+      message: "Cursos actualizados",
+    };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const first = error.issues[0];
+      return {
+        ok: false,
+        code: "validation_error",
+        message: first?.message ?? "Datos inválidos",
+      };
+    }
+    console.error("[updateUserCourses] Error:", error);
+    return {
+      ok: false,
+      code: "unexpected",
+      message: "Error al actualizar los cursos",
+    };
+  }
+}
+
 type ListUsersResult =
   | {
       ok: true;
@@ -372,6 +439,7 @@ type ListUsersResult =
         role: string;
         groupId: string | null;
         isActive: boolean;
+        enrolledCourseSlugs: string[];
         createdAt: Date;
       }>;
     }
@@ -390,6 +458,7 @@ export async function listUsers(): Promise<ListUsersResult> {
         role: true,
         groupId: true,
         isActive: true,
+        enrolledCourseSlugs: true,
         createdAt: true,
       },
       orderBy: {
@@ -434,6 +503,7 @@ export async function createUser(rawInput: unknown): Promise<CreateUserResult> {
     const email = input.email.trim().toLowerCase();
     const name = input.name?.trim() || null;
     const groupId = input.groupId?.trim() || null;
+    const enrolledCourseSlugs = input.courseSlugs ?? [];
 
     // Verificar email único en Profile
     const existingProfile = await prisma.profile.findUnique({
@@ -494,6 +564,7 @@ export async function createUser(rawInput: unknown): Promise<CreateUserResult> {
           name,
           role: input.role,
           groupId: groupId || undefined,
+          enrolledCourseSlugs,
         },
       });
     } catch (profileError) {
