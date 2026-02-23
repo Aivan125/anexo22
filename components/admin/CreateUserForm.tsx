@@ -23,8 +23,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { createUser } from "@/lib/actions/adminUsers";
 import { createUserSchema, type CreateUserFormValues } from "@/lib/validation";
+import { COURSES } from "@/lib/constants/courses";
 
 const NO_GROUP_VALUE = "__none__";
 
@@ -44,6 +46,7 @@ export function CreateUserForm({ groups }: CreateUserFormProps) {
       password: "",
       role: "user",
       groupId: undefined,
+      courseSlugs: [],
     },
   });
 
@@ -159,6 +162,44 @@ export function CreateUserForm({ groups }: CreateUserFormProps) {
                   <SelectItem value="admin">Administrador</SelectItem>
                 </SelectContent>
               </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="courseSlugs"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cursos</FormLabel>
+              <div className="flex flex-col gap-3 rounded-md border p-4">
+                {COURSES.map((course) => (
+                  <div
+                    key={course.slug}
+                    className="flex items-center space-x-2"
+                  >
+                    <Checkbox
+                      id={`course-${course.slug}`}
+                      checked={field.value.includes(course.slug)}
+                      onCheckedChange={(checked) => {
+                        const newValue =
+                          checked === true
+                            ? [...field.value, course.slug]
+                            : field.value.filter((s) => s !== course.slug);
+                        field.onChange(newValue);
+                      }}
+                      disabled={isPending}
+                    />
+                    <label
+                      htmlFor={`course-${course.slug}`}
+                      className="text-sm font-normal cursor-pointer leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      {course.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
               <FormMessage />
             </FormItem>
           )}

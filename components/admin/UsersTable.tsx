@@ -60,6 +60,8 @@ import {
   updateUserActive,
   deleteUser,
 } from "@/lib/actions/adminUsers";
+import { UserCoursesDialog } from "@/components/admin/UserCoursesDialog";
+import { COURSES } from "@/lib/constants/courses";
 import {
   updateUserNameSchema,
   type UpdateUserNameFormValues,
@@ -74,6 +76,7 @@ import {
   MoreHorizontal,
   Pencil,
   Trash2,
+  BookOpen,
 } from "lucide-react";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { normalizeForSearch } from "@/lib/search-utils";
@@ -85,6 +88,7 @@ interface User {
   role: string;
   groupId: string | null;
   isActive: boolean;
+  enrolledCourseSlugs: string[];
   createdAt: Date;
 }
 
@@ -106,6 +110,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
   const [updatingUserId, setUpdatingUserId] = useState<string | null>(null);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [deletingUser, setDeletingUser] = useState<User | null>(null);
+  const [coursesUser, setCoursesUser] = useState<User | null>(null);
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearch = useDebouncedValue(searchInput, 300);
 
@@ -235,6 +240,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
               <TableHead className="px-4 text-left">Nombre</TableHead>
               <TableHead className="px-4 text-left">Rol</TableHead>
               <TableHead className="px-4 text-left">Grupo</TableHead>
+              <TableHead className="px-4 text-left">Cursos inscritos</TableHead>
               <TableHead className="px-4 text-left">Estado</TableHead>
               <TableHead className="px-4 text-left tabular-nums">
                 Fecha de Registro
@@ -251,7 +257,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
             {users.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={8}
+                  colSpan={9}
                   className="text-center text-muted-foreground py-12"
                 >
                   <div className="flex flex-col items-center gap-4">
@@ -268,7 +274,7 @@ export function UsersTable({ users, groups }: UsersTableProps) {
             ) : filteredUsers.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={8}
+                  colSpan={9}
                   className="text-left text-muted-foreground py-12"
                 >
                   <p>
@@ -337,6 +343,31 @@ export function UsersTable({ users, groups }: UsersTableProps) {
                     </Select>
                   </TableCell>
                   <TableCell className="px-4 text-left">
+                    <div className="flex flex-wrap gap-1">
+                      {(user.enrolledCourseSlugs ?? []).length > 0 ? (
+                        (user.enrolledCourseSlugs ?? []).map((slug) => {
+                          const course = COURSES.find((c) => c.slug === slug);
+                          const displayName = course?.name ?? slug;
+                          const variant =
+                            slug === "anexo22" ? "default" : "secondary";
+                          return (
+                            <Badge
+                              key={slug}
+                              variant={variant}
+                              className="text-xs"
+                            >
+                              {displayName}
+                            </Badge>
+                          );
+                        })
+                      ) : (
+                        <span className="text-muted-foreground text-sm">
+                          Sin cursos
+                        </span>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="px-4 text-left">
                     <Switch
                       checked={user.isActive}
                       onCheckedChange={(checked) =>
@@ -398,6 +429,13 @@ export function UsersTable({ users, groups }: UsersTableProps) {
                         >
                           <Pencil className="size-4" />
                           Editar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => setCoursesUser(user)}
+                          disabled={isPending && updatingUserId === user.id}
+                        >
+                          <BookOpen className="size-4" />
+                          Cursos
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           variant="destructive"
@@ -508,6 +546,21 @@ export function UsersTable({ users, groups }: UsersTableProps) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Dialog Cursos */}
+      {coursesUser ? (
+        <UserCoursesDialog
+          key={coursesUser.id}
+          open={!!coursesUser}
+          onOpenChange={(open) => !open && setCoursesUser(null)}
+          userId={coursesUser.id}
+          userEmail={coursesUser.email}
+          enrolledCourseSlugs={coursesUser.enrolledCourseSlugs ?? []}
+          onSuccess={() => setCoursesUser(null)}
+          isPending={isPending && updatingUserId === coursesUser.id}
+          setUpdatingUserId={setUpdatingUserId}
+        />
+      ) : null}
     </div>
   );
 }

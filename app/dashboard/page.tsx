@@ -1,5 +1,7 @@
+import { redirect } from "next/navigation";
 import { PortalCard } from "@/components/dashboard/portal-card";
 import type { Metadata } from "next";
+import { getUserWithProfile } from "@/lib/helpers-server";
 
 export const metadata: Metadata = {
   title: "Dashboard - Plataforma ANMIN-CADISA",
@@ -7,7 +9,58 @@ export const metadata: Metadata = {
     "Portal de acceso a las herramientas de formación y clasificación arancelaria",
 };
 
-export default function DashboardPage() {
+const ANEXO22_CARD = {
+  slug: "anexo22" as const,
+  title: "Curso Anexo 22",
+  description:
+    "Domina el llenado correcto de pedimentos aduanales con nuestra plataforma interactiva. Aprende paso a paso y evita errores costosos.",
+  features: [
+    "Guía paso a paso del proceso completo",
+    "Validación de campos en tiempo real",
+    "Prevención de multas y sanciones",
+    "Casos prácticos reales y actualizados",
+  ],
+  href: "/anexo22",
+  iconName: "FileText" as const,
+  gradientFrom: "#3b82f6",
+  gradientTo: "#6366f1",
+  glowColor: "#3b82f6",
+  delay: 100,
+};
+
+const CLASIFICACION_CARD = {
+  slug: "clasificacion-arancelaria" as const,
+  title: "Explorador LIGIE",
+  description:
+    "Navega y explora la Ley de Impuestos Generales de Importación y Exportación. Encuentra clasificaciones, notas legales y casos prácticos.",
+  features: [
+    "Buscador inteligente de clasificaciones",
+    "Notas legales y explicativas completas",
+    "Casos prácticos de clasificación real",
+    "Navegación jerárquica intuitiva",
+  ],
+  href: "/clasificacion-arancelaria",
+  iconName: "Search" as const,
+  gradientFrom: "oklch(0.63 0.13 180)",
+  gradientTo: "oklch(0.5 0.15 200)",
+  glowColor: "oklch(0.63 0.13 180)",
+  delay: 200,
+};
+
+const COURSE_CARDS = [ANEXO22_CARD, CLASIFICACION_CARD];
+
+export default async function DashboardPage() {
+  const result = await getUserWithProfile();
+  if (!result) {
+    redirect("/login");
+  }
+
+  const enrolledSet = new Set(result.profile.enrolledCourseSlugs ?? []);
+  const isAdmin = result.profile.role === "admin";
+  const enrolledCards = isAdmin
+    ? COURSE_CARDS
+    : COURSE_CARDS.filter((card) => enrolledSet.has(card.slug));
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Dark background with ambient gradients */}
@@ -46,47 +99,41 @@ export default function DashboardPage() {
             </p>
           </header>
 
-          {/* Portal Cards Grid */}
-          <section
-            aria-labelledby="portal-heading"
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
-          >
-            {/* Anexo 22 Card */}
-            <PortalCard
-              title="Curso Anexo 22"
-              description="Domina el llenado correcto de pedimentos aduanales con nuestra plataforma interactiva. Aprende paso a paso y evita errores costosos."
-              features={[
-                "Guía paso a paso del proceso completo",
-                "Validación de campos en tiempo real",
-                "Prevención de multas y sanciones",
-                "Casos prácticos reales y actualizados",
-              ]}
-              href="/anexo22"
-              iconName="FileText"
-              gradientFrom="#3b82f6"
-              gradientTo="#6366f1"
-              glowColor="#3b82f6"
-              delay={100}
-            />
-
-            {/* Clasificación Arancelaria Card */}
-            <PortalCard
-              title="Explorador LIGIE"
-              description="Navega y explora la Ley de Impuestos Generales de Importación y Exportación. Encuentra clasificaciones, notas legales y casos prácticos."
-              features={[
-                "Buscador inteligente de clasificaciones",
-                "Notas legales y explicativas completas",
-                "Casos prácticos de clasificación real",
-                "Navegación jerárquica intuitiva",
-              ]}
-              href="/clasificacion-arancelaria"
-              iconName="Search"
-              gradientFrom="oklch(0.63 0.13 180)"
-              gradientTo="oklch(0.5 0.15 200)"
-              glowColor="oklch(0.63 0.13 180)"
-              delay={200}
-            />
-          </section>
+          {/* Portal Cards Grid or No Courses Message */}
+          {enrolledCards.length > 0 ? (
+            <section
+              aria-labelledby="portal-heading"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+            >
+              {enrolledCards.map((card) => (
+                <PortalCard
+                  key={card.slug}
+                  title={card.title}
+                  description={card.description}
+                  features={card.features}
+                  href={card.href}
+                  iconName={card.iconName}
+                  gradientFrom={card.gradientFrom}
+                  gradientTo={card.gradientTo}
+                  glowColor={card.glowColor}
+                  delay={card.delay}
+                />
+              ))}
+            </section>
+          ) : (
+            <section
+              aria-labelledby="portal-heading"
+              className="text-center rounded-xl border border-white/10 bg-white/5 p-8 sm:p-12"
+            >
+              <p className="text-lg sm:text-xl text-white/80 mb-2">
+                No tienes cursos asignados.
+              </p>
+              <p className="text-base text-white/60">
+                Contacta al administrador para que te asigne acceso a los cursos
+                disponibles.
+              </p>
+            </section>
+          )}
         </div>
       </main>
     </div>

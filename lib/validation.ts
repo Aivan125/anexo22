@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { COURSE_SLUGS } from "@/lib/constants/courses";
 
 // Se definen y exportan los schemas individuales para reutilización
 export const partidaSchema = z.object({
@@ -88,6 +89,16 @@ export const createUserSchema = z.object({
     .min(8, "La contraseña debe tener al menos 8 caracteres"),
   role: z.enum(["user", "admin"]),
   groupId: z.string().optional(),
+  courseSlugs: z
+    .array(z.string())
+    .min(1, "Selecciona al menos un curso")
+    .refine(
+      (slugs) =>
+        slugs.every((s) =>
+          COURSE_SLUGS.includes(s as (typeof COURSE_SLUGS)[number]),
+        ),
+      { message: "Curso inválido" },
+    ),
 });
 
 export type CreateUserFormValues = z.infer<typeof createUserSchema>;
@@ -98,6 +109,24 @@ export const updateUserNameSchema = z.object({
   name: z.string().max(100).trim().optional(),
 });
 export type UpdateUserNameFormValues = z.infer<typeof updateUserNameSchema>;
+
+// Admin - Actualizar cursos del usuario
+export const updateUserCoursesSchema = z.object({
+  userId: z.string().min(1),
+  courseSlugs: z
+    .array(z.string())
+    .min(1, "Selecciona al menos un curso")
+    .refine(
+      (slugs) =>
+        slugs.every((s) =>
+          COURSE_SLUGS.includes(s as (typeof COURSE_SLUGS)[number]),
+        ),
+      { message: "Curso inválido" },
+    ),
+});
+export type UpdateUserCoursesFormValues = z.infer<
+  typeof updateUserCoursesSchema
+>;
 
 // Admin - Grupos
 export const createGroupSchema = z.object({
