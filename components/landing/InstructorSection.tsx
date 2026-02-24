@@ -44,7 +44,7 @@ export function InstructorSection() {
               />
               <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl">
                 <Image
-                  src="/foto-perfil.jpeg"
+                  src="/profile-picture/foto_profesional_transparente.png"
                   alt="Dr. Luis Alejandro Rodríguez Cruz"
                   fill
                   className="object-cover w-full h-full"
