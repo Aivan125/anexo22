@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 import { PortalCard } from "@/components/dashboard/portal-card";
+import { TestimonialManager } from "@/components/testimonials/TestimonialManager";
 import type { Metadata } from "next";
 import { getUserWithProfile } from "@/lib/helpers-server";
+import { getMyTestimonials } from "@/lib/actions/testimonialActions";
 
 export const metadata: Metadata = {
   title: "Dashboard - Plataforma ANMIN-CADISA",
@@ -61,6 +63,10 @@ export default async function DashboardPage() {
     ? COURSE_CARDS
     : COURSE_CARDS.filter((card) => enrolledSet.has(card.slug));
 
+  const testimonialsResult = await getMyTestimonials();
+  const testimonials = testimonialsResult.ok ? testimonialsResult.data : [];
+  const enrolledCourseSlugs = result.profile.enrolledCourseSlugs ?? [];
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Dark background with ambient gradients */}
@@ -103,35 +109,75 @@ export default async function DashboardPage() {
           {enrolledCards.length > 0 ? (
             <section
               aria-labelledby="portal-heading"
-              className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+              className="space-y-6 sm:space-y-8 lg:space-y-10"
             >
-              {enrolledCards.map((card) => (
-                <PortalCard
-                  key={card.slug}
-                  title={card.title}
-                  description={card.description}
-                  features={card.features}
-                  href={card.href}
-                  iconName={card.iconName}
-                  gradientFrom={card.gradientFrom}
-                  gradientTo={card.gradientTo}
-                  glowColor={card.glowColor}
-                  delay={card.delay}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
+                {enrolledCards.map((card) => (
+                  <PortalCard
+                    key={card.slug}
+                    title={card.title}
+                    description={card.description}
+                    features={card.features}
+                    href={card.href}
+                    iconName={card.iconName}
+                    gradientFrom={card.gradientFrom}
+                    gradientTo={card.gradientTo}
+                    glowColor={card.glowColor}
+                    delay={card.delay}
+                  />
+                ))}
+              </div>
+
+              {/* Tus reseñas card */}
+              <div
+                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 sm:p-8 transition-[border-color,box-shadow] duration-500 hover:border-white/20"
+                aria-labelledby="testimonios-heading"
+              >
+                <h2
+                  id="testimonios-heading"
+                  className="text-xl sm:text-2xl font-bold text-white mb-4"
+                >
+                  Tus reseñas
+                </h2>
+                <p className="text-sm text-white/60 mb-6">
+                  Comparte tu experiencia con los cursos. Tu reseña será
+                  revisada antes de publicarse.
+                </p>
+                <TestimonialManager
+                  testimonials={testimonials}
+                  enrolledCourseSlugs={enrolledCourseSlugs}
                 />
-              ))}
+              </div>
             </section>
           ) : (
             <section
               aria-labelledby="portal-heading"
-              className="text-center rounded-xl border border-white/10 bg-white/5 p-8 sm:p-12"
+              className="space-y-6 sm:space-y-8"
             >
-              <p className="text-lg sm:text-xl text-white/80 mb-2">
-                No tienes cursos asignados.
-              </p>
-              <p className="text-base text-white/60">
-                Contacta al administrador para que te asigne acceso a los cursos
-                disponibles.
-              </p>
+              <div className="text-center rounded-xl border border-white/10 bg-white/5 p-8 sm:p-12">
+                <p className="text-lg sm:text-xl text-white/80 mb-2">
+                  No tienes cursos asignados.
+                </p>
+                <p className="text-base text-white/60">
+                  Contacta al administrador para que te asigne acceso a los
+                  cursos disponibles.
+                </p>
+              </div>
+              <div
+                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 sm:p-8"
+                aria-labelledby="testimonios-heading"
+              >
+                <h2
+                  id="testimonios-heading"
+                  className="text-xl sm:text-2xl font-bold text-white mb-4"
+                >
+                  Tus reseñas
+                </h2>
+                <TestimonialManager
+                  testimonials={testimonials}
+                  enrolledCourseSlugs={enrolledCourseSlugs}
+                />
+              </div>
             </section>
           )}
         </div>

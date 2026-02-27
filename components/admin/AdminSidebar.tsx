@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Users, UserPlus, Settings, UsersRound, Video } from "lucide-react";
+import {
+  Users,
+  UserPlus,
+  Settings,
+  UsersRound,
+  Video,
+  MessageSquare,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -10,6 +17,7 @@ const navItems = [
   { href: "/admin/usuarios", label: "Usuarios", icon: Users },
   { href: "/admin/grupos", label: "Grupos", icon: UsersRound },
   { href: "/admin/videos", label: "Videos", icon: Video },
+  { href: "/admin/testimoniales", label: "Testimoniales", icon: MessageSquare },
   { href: "/admin/configuracion", label: "Configuración", icon: Settings },
 ] as const;
 

@@ -309,12 +309,41 @@
   animation: spin-40s-reverse 40s linear infinite;
 }
 
+/* Keyframes para TestimonialsSection - Infinite Marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 100s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 40s linear infinite;
+}
+
 /* Respetar prefers-reduced-motion para animaciones */
 @media (prefers-reduced-motion: reduce) {
   .animate-in,
   [class*="animate-in"],
   .animate-spin-60s,
-  .animate-spin-40s-reverse {
+  .animate-spin-40s-reverse,
+  .animate-marquee,
+  .animate-marquee-reverse {
     animation: none !important;
   }
 }

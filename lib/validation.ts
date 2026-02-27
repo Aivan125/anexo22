@@ -163,3 +163,21 @@ export const updateVideoSchema = createVideoSchema.extend({
 
 export type CreateVideoFormValues = z.infer<typeof createVideoSchema>;
 export type UpdateVideoFormValues = z.infer<typeof updateVideoSchema>;
+
+// Testimonial
+export const testimonialFormSchema = z.object({
+  courseSlug: z
+    .string()
+    .min(1, "Selecciona un curso")
+    .refine((s) => COURSE_SLUGS.includes(s as (typeof COURSE_SLUGS)[number]), {
+      message: "Curso inválido",
+    }),
+  text: z
+    .string()
+    .trim()
+    .min(20, "La reseña debe tener al menos 20 caracteres")
+    .max(150, "Máximo 150 caracteres"),
+  rating: z.number().min(1, "Selecciona una calificación").max(5),
+});
+
+export type TestimonialFormValues = z.infer<typeof testimonialFormSchema>;

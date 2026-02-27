@@ -1,8 +1,12 @@
 export const COURSES = [
-  { slug: "anexo22", name: "Anexo 22", routePrefix: "/anexo22" },
+  {
+    slug: "anexo22",
+    name: "Curso de Llenado de Pedimento del Anexo 22",
+    routePrefix: "/anexo22",
+  },
   {
     slug: "clasificacion-arancelaria",
-    name: "Clasificación Arancelaria",
+    name: "Curso de Clasificación Arancelaria",
     routePrefix: "/clasificacion-arancelaria",
   },
 ] as const;
