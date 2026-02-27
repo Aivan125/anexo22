@@ -174,9 +174,9 @@ export const testimonialFormSchema = z.object({
     }),
   text: z
     .string()
+    .trim()
     .min(20, "La reseña debe tener al menos 20 caracteres")
-    .max(150, "Máximo 150 caracteres")
-    .trim(),
+    .max(150, "Máximo 150 caracteres"),
   rating: z.number().min(1, "Selecciona una calificación").max(5),
 });
 

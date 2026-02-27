@@ -76,6 +76,7 @@ export function TestimonialManager({
       toast.success("Testimonio eliminado.");
     } else {
       toast.error(result.message);
+      throw new Error(result.message);
     }
   };
 
