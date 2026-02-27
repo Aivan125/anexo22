@@ -23,7 +23,8 @@ model Profile {
   role            String    @default("user")
   isActive        Boolean   @default(true)
 
-  attempts UserAttempt[]
+  attempts     UserAttempt[]
+  testimonials Testimonial[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -34,6 +35,23 @@ model Profile {
   enrolledCourseSlugs String[] @default([])
 
   @@index([groupId])
+}
+
+model Testimonial {
+  id         String @id @default(cuid())
+  text       String
+  rating     Int // 1-5
+  status     String @default("pending") // "pending" | "published"
+  courseSlug String // "anexo22" | "clasificacion-arancelaria"
+
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([profileId, courseSlug])
+  @@index([status, courseSlug])
 }
 
 model UserAttempt {
