@@ -150,6 +150,8 @@ export async function createTestimonial(
     });
 
     revalidatePath("/dashboard");
+    revalidatePath("/");
+    revalidatePath("/admin/testimoniales");
     return { ok: true, data: undefined };
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -312,6 +314,7 @@ export async function approveTestimonial(
       data: { status: "published" },
     });
 
+    revalidatePath("/dashboard");
     revalidatePath("/admin/testimoniales");
     revalidatePath("/");
     return { ok: true, data: undefined };
@@ -399,6 +402,7 @@ async function adminDeleteTestimonialById(
       where: { id },
     });
 
+    revalidatePath("/dashboard");
     revalidatePath("/admin/testimoniales");
     revalidatePath("/");
     return { ok: true, data: undefined };
