@@ -53,6 +53,7 @@ export function TestimonialManager({
         toast.success("Testimonio enviado. Será revisado antes de publicarse.");
       } else {
         toast.error(result.message);
+        throw new Error(result.message);
       }
     } finally {
       setIsSubmitting(false);
@@ -65,6 +66,7 @@ export function TestimonialManager({
       toast.success("Testimonio actualizado.");
     } else {
       toast.error(result.message);
+      throw new Error(result.message);
     }
   };
 

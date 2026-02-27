@@ -217,10 +217,13 @@ export async function updateTestimonial(
       data: {
         text: input.text,
         rating: input.rating,
+        status: "pending",
       },
     });
 
     revalidatePath("/dashboard");
+    revalidatePath("/");
+    revalidatePath("/admin/testimoniales");
     return { ok: true, data: undefined };
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -273,6 +276,8 @@ export async function deleteTestimonial(
     });
 
     revalidatePath("/dashboard");
+    revalidatePath("/");
+    revalidatePath("/admin/testimoniales");
     return { ok: true, data: undefined };
   } catch (error) {
     console.error("[deleteTestimonial] Error:", error);
@@ -371,8 +376,9 @@ export async function listAdminTestimonials(
   }
 }
 
-export async function rejectTestimonial(
+async function adminDeleteTestimonialById(
   id: string,
+  options: { logPrefix: string; errorMessage: string },
 ): Promise<TestimonialResult> {
   try {
     await requireAdmin();
@@ -397,46 +403,29 @@ export async function rejectTestimonial(
     revalidatePath("/");
     return { ok: true, data: undefined };
   } catch (error) {
-    console.error("[rejectTestimonial] Error:", error);
+    console.error(`[${options.logPrefix}] Error:`, error);
     return {
       ok: false,
       code: "unexpected",
-      message: "Error al rechazar el testimonio",
+      message: options.errorMessage,
     };
   }
+}
+
+export async function rejectTestimonial(
+  id: string,
+): Promise<TestimonialResult> {
+  return adminDeleteTestimonialById(id, {
+    logPrefix: "rejectTestimonial",
+    errorMessage: "Error al rechazar el testimonio",
+  });
 }
 
 export async function adminDeleteTestimonial(
   id: string,
 ): Promise<TestimonialResult> {
-  try {
-    await requireAdmin();
-
-    const existing = await prisma.testimonial.findUnique({
-      where: { id },
-    });
-
-    if (!existing) {
-      return {
-        ok: false,
-        code: "not_found",
-        message: "Testimonio no encontrado",
-      };
-    }
-
-    await prisma.testimonial.delete({
-      where: { id },
-    });
-
-    revalidatePath("/admin/testimoniales");
-    revalidatePath("/");
-    return { ok: true, data: undefined };
-  } catch (error) {
-    console.error("[adminDeleteTestimonial] Error:", error);
-    return {
-      ok: false,
-      code: "unexpected",
-      message: "Error al eliminar el testimonio",
-    };
-  }
+  return adminDeleteTestimonialById(id, {
+    logPrefix: "adminDeleteTestimonial",
+    errorMessage: "Error al eliminar el testimonio",
+  });
 }
