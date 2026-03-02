@@ -57,15 +57,15 @@
     ],
     "cuadroLiquidacion": [
       {
-        "concepto": "",
+        "concepto": "DTA",
         "fp": "0",
-        "importe": 0
+        "importe": 378
       }
     ],
     "totales": {
-      "efectivo": null,
-      "otros": null,
-      "total": null
+      "efectivo": 378,
+      "otros": 0,
+      "total": 378
     },
     "proveedorComprador": {
       "idFiscal": "DE-5566778899",
