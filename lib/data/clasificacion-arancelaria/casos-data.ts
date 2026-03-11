@@ -6,9 +6,9 @@ import type {
 } from "@/types/clasificacion-arancelaria";
 
 export const casosData: ModuloCasos = {
-  modulo: "casos_practicos_secciones_1_5",
+  modulo: "casos_practicos_secciones_2_11",
   descripcion_modulo:
-    "Módulo de casos prácticos empresariales para aplicar la clasificación arancelaria en las Secciones I a V de la LIGIE.",
+    "Módulo de casos prácticos empresariales para aplicar la clasificación arancelaria en las Secciones II a V y VII a XI de la LIGIE.",
   casos: [
     {
       id: "caso-2",
