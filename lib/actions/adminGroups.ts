@@ -164,7 +164,9 @@ export async function deleteGroup(id: string): Promise<DeleteGroupResult> {
     }
 
     const profilesCount = await prisma.profile.count({
-      where: { groupIds: { has: id } },
+      where: {
+        OR: [{ groupIds: { has: id } }, { groupId: id }],
+      },
     });
     if (profilesCount > 0) {
       return {
@@ -256,7 +258,9 @@ export async function listGroupsWithCounts(): Promise<ListGroupsWithCountsResult
         _count: {
           ...g._count,
           profiles: await prisma.profile.count({
-            where: { groupIds: { has: g.id } },
+            where: {
+              OR: [{ groupIds: { has: g.id } }, { groupId: g.id }],
+            },
           }),
         },
       })),
