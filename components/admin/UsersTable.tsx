@@ -55,7 +55,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   updateUserRole,
-  updateUserGroup,
+  updateUserGroups,
   updateUserName,
   updateUserActive,
   deleteUser,
@@ -80,6 +80,7 @@ import {
 } from "lucide-react";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { normalizeForSearch } from "@/lib/search-utils";
+import { GroupsMultiSelect } from "@/components/admin/GroupsMultiSelect";
 
 interface User {
   id: string;
@@ -87,6 +88,7 @@ interface User {
   name: string | null;
   role: string;
   groupId: string | null;
+  groupIds: string[];
   isActive: boolean;
   enrolledCourseSlugs: string[];
   createdAt: Date;
@@ -94,7 +96,7 @@ interface User {
 
 interface UsersTableProps {
   users: User[];
-  groups: Array<{ id: string; name: string }>;
+  groups: Array<{ id: string; name: string; courseSlug: string | null }>;
 }
 
 const dateFormatter = new Intl.DateTimeFormat("es-MX", {
@@ -103,11 +105,12 @@ const dateFormatter = new Intl.DateTimeFormat("es-MX", {
   day: "numeric",
 });
 
-const NO_GROUP_VALUE = "__none__";
-
 export function UsersTable({ users, groups }: UsersTableProps) {
   const [isPending, startTransition] = useTransition();
   const [updatingUserId, setUpdatingUserId] = useState<string | null>(null);
+  const [optimisticGroupIds, setOptimisticGroupIds] = useState<
+    Record<string, string[]>
+  >({});
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [deletingUser, setDeletingUser] = useState<User | null>(null);
   const [coursesUser, setCoursesUser] = useState<User | null>(null);
@@ -143,12 +146,17 @@ export function UsersTable({ users, groups }: UsersTableProps) {
     });
   };
 
-  const handleGroupChange = (userId: string, groupId: string | null) => {
-    const value = groupId === NO_GROUP_VALUE ? null : groupId;
+  const handleGroupsChange = (userId: string, groupIds: string[]) => {
+    setOptimisticGroupIds((prev) => ({ ...prev, [userId]: groupIds }));
     setUpdatingUserId(userId);
     startTransition(async () => {
-      const result = await updateUserGroup({ userId, groupId: value });
+      const result = await updateUserGroups({ userId, groupIds });
       setUpdatingUserId(null);
+      setOptimisticGroupIds((prev) => {
+        const next = { ...prev };
+        delete next[userId];
+        return next;
+      });
       if (result.ok) {
         toast.success(result.message);
       } else {
@@ -313,34 +321,24 @@ export function UsersTable({ users, groups }: UsersTableProps) {
                       {user.role}
                     </Badge>
                   </TableCell>
-                  <TableCell className="px-4 text-left">
-                    <Select
-                      value={user.groupId ?? NO_GROUP_VALUE}
-                      onValueChange={(v) =>
-                        handleGroupChange(
-                          user.id,
-                          v === NO_GROUP_VALUE ? null : v,
-                        )
-                      }
-                      disabled={isPending && updatingUserId === user.id}
-                    >
-                      <SelectTrigger
-                        className="w-[140px]"
-                        aria-label={`Grupo de ${user.email ?? "usuario"}`}
-                      >
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={NO_GROUP_VALUE}>
-                          Sin grupo
-                        </SelectItem>
-                        {groups.map((g) => (
-                          <SelectItem key={g.id} value={g.id}>
-                            {g.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                  <TableCell className="px-4 text-left overflow-hidden min-w-0 max-w-[260px]">
+                    <div className="min-w-0">
+                      <GroupsMultiSelect
+                        groups={groups}
+                        value={
+                          optimisticGroupIds[user.id] ??
+                          (user.groupIds?.length
+                            ? user.groupIds
+                            : user.groupId
+                              ? [user.groupId]
+                              : []) ??
+                          []
+                        }
+                        onChange={(v) => handleGroupsChange(user.id, v)}
+                        disabled={isPending && updatingUserId === user.id}
+                        aria-label={`Grupos de ${user.email ?? "usuario"}`}
+                      />
+                    </div>
                   </TableCell>
                   <TableCell className="px-4 text-left">
                     <div className="flex flex-wrap gap-1">

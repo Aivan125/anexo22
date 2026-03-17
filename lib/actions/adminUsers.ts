@@ -9,6 +9,7 @@ import {
   createUserSchema,
   updateUserNameSchema,
   updateUserCoursesSchema,
+  updateUserGroupsSchema,
 } from "@/lib/validation";
 import { listGroups } from "@/lib/actions/adminGroups";
 
@@ -17,11 +18,6 @@ export { listGroups };
 const updateUserRoleSchema = z.object({
   userId: z.string(),
   role: z.enum(["user", "admin"]),
-});
-
-const updateUserGroupSchema = z.object({
-  userId: z.string(),
-  groupId: z.string().nullable(),
 });
 
 const updateUserActiveSchema = z.object({
@@ -95,7 +91,7 @@ export async function updateUserRole(
   }
 }
 
-type UpdateUserGroupResult =
+type UpdateUserGroupsResult =
   | { ok: true; message: string }
   | {
       ok: false;
@@ -103,9 +99,9 @@ type UpdateUserGroupResult =
       message: string;
     };
 
-export async function updateUserGroup(
+export async function updateUserGroups(
   rawInput: unknown,
-): Promise<UpdateUserGroupResult> {
+): Promise<UpdateUserGroupsResult> {
   try {
     const result = await requireAdmin();
     if (!result) {
@@ -116,8 +112,8 @@ export async function updateUserGroup(
       };
     }
 
-    const input = updateUserGroupSchema.parse(rawInput);
-    const groupId = input.groupId?.trim() || null;
+    const input = updateUserGroupsSchema.parse(rawInput);
+    const groupIds = (input.groupIds ?? []).filter((id) => id?.trim());
 
     const user = await prisma.profile.findUnique({
       where: { id: input.userId },
@@ -133,13 +129,15 @@ export async function updateUserGroup(
 
     await prisma.profile.update({
       where: { id: input.userId },
-      data: { groupId },
+      data: { groupIds, groupId: null },
     });
 
     revalidatePath("/admin/usuarios");
+    revalidatePath("/anexo22");
+    revalidatePath("/clasificacion-arancelaria");
     return {
       ok: true,
-      message: "Grupo actualizado",
+      message: "Grupos actualizados",
     };
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -149,11 +147,11 @@ export async function updateUserGroup(
         message: "Datos inválidos",
       };
     }
-    console.error("[updateUserGroup] Error:", error);
+    console.error("[updateUserGroups] Error:", error);
     return {
       ok: false,
       code: "unexpected",
-      message: "Error al actualizar el grupo",
+      message: "Error al actualizar los grupos",
     };
   }
 }
@@ -438,6 +436,7 @@ type ListUsersResult =
         name: string | null;
         role: string;
         groupId: string | null;
+        groupIds: string[];
         isActive: boolean;
         enrolledCourseSlugs: string[];
         createdAt: Date;
@@ -457,6 +456,7 @@ export async function listUsers(): Promise<ListUsersResult> {
         name: true,
         role: true,
         groupId: true,
+        groupIds: true,
         isActive: true,
         enrolledCourseSlugs: true,
         createdAt: true,
@@ -502,7 +502,7 @@ export async function createUser(rawInput: unknown): Promise<CreateUserResult> {
     const input = createUserSchema.parse(rawInput);
     const email = input.email.trim().toLowerCase();
     const name = input.name?.trim() || null;
-    const groupId = input.groupId?.trim() || null;
+    const groupIds = (input.groupIds ?? []).filter((id) => id?.trim());
     const enrolledCourseSlugs = input.courseSlugs ?? [];
 
     // Verificar email único en Profile
@@ -563,7 +563,7 @@ export async function createUser(rawInput: unknown): Promise<CreateUserResult> {
           email,
           name,
           role: input.role,
-          groupId: groupId || undefined,
+          groupIds,
           enrolledCourseSlugs,
         },
       });

@@ -34,7 +34,7 @@ export async function createGroup(
     }
 
     await prisma.group.create({
-      data: { name },
+      data: { name, courseSlug: input.courseSlug ?? undefined },
     });
 
     revalidatePath("/admin/grupos");
@@ -104,7 +104,10 @@ export async function updateGroup(
 
     await prisma.group.update({
       where: { id: input.id },
-      data: { name },
+      data: {
+        name,
+        courseSlug: input.courseSlug,
+      },
     });
 
     revalidatePath("/admin/grupos");
@@ -148,9 +151,7 @@ export async function deleteGroup(id: string): Promise<DeleteGroupResult> {
 
     const group = await prisma.group.findUnique({
       where: { id },
-      include: {
-        _count: { select: { profiles: true, videos: true } },
-      },
+      include: { _count: { select: { videos: true } } },
     });
 
     if (!group) {
@@ -161,7 +162,12 @@ export async function deleteGroup(id: string): Promise<DeleteGroupResult> {
       };
     }
 
-    if (group._count.profiles > 0) {
+    const profilesCount = await prisma.profile.count({
+      where: {
+        OR: [{ groupIds: { has: id } }, { groupId: id }],
+      },
+    });
+    if (profilesCount > 0) {
       return {
         ok: false,
         code: "has_profiles",
@@ -198,14 +204,17 @@ export async function deleteGroup(id: string): Promise<DeleteGroupResult> {
 }
 
 type ListGroupsResult =
-  | { ok: true; data: Array<{ id: string; name: string }> }
+  | {
+      ok: true;
+      data: Array<{ id: string; name: string; courseSlug: string | null }>;
+    }
   | { ok: false; code: "auth_required" | "unexpected"; message: string };
 
 export async function listGroups(): Promise<ListGroupsResult> {
   try {
     await requireAdmin();
     const groups = await prisma.group.findMany({
-      select: { id: true, name: true },
+      select: { id: true, name: true, courseSlug: true },
       orderBy: { name: "asc" },
     });
     return { ok: true, data: groups };
@@ -224,6 +233,7 @@ type ListGroupsWithCountsResult =
       data: Array<{
         id: string;
         name: string;
+        courseSlug: string | null;
         _count: { profiles: number; videos: number };
       }>;
     }
@@ -236,11 +246,25 @@ export async function listGroupsWithCounts(): Promise<ListGroupsWithCountsResult
       select: {
         id: true,
         name: true,
-        _count: { select: { profiles: true, videos: true } },
+        courseSlug: true,
+        _count: { select: { videos: true } },
       },
       orderBy: { name: "asc" },
     });
-    return { ok: true, data: groups };
+    const groupsWithCounts = await Promise.all(
+      groups.map(async (g) => ({
+        ...g,
+        _count: {
+          ...g._count,
+          profiles: await prisma.profile.count({
+            where: {
+              OR: [{ groupIds: { has: g.id } }, { groupId: g.id }],
+            },
+          }),
+        },
+      })),
+    );
+    return { ok: true, data: groupsWithCounts };
   } catch {
     return {
       ok: false,

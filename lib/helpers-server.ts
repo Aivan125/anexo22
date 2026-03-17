@@ -6,7 +6,55 @@ import fs from "fs";
 import path from "path";
 import { CaseStudy } from "@/types/pedimento";
 import prisma from "./prisma";
+import { Prisma } from "@/lib/generated/prisma";
 import { COURSES } from "./constants/courses";
+
+const videoQueryArgs = {
+  select: {
+    id: true,
+    title: true,
+    description: true,
+    youtubeId: true,
+  },
+  orderBy: { createdAt: "desc" },
+} satisfies Prisma.VideoFindManyArgs;
+
+export type PermittedVideo = Prisma.VideoGetPayload<typeof videoQueryArgs>;
+
+export const getPermittedVideos = cache(
+  async (profileId: string, courseSlug: string): Promise<PermittedVideo[]> => {
+    const profile = await prisma.profile.findUnique({
+      where: { id: profileId },
+      select: { groupIds: true, groupId: true },
+    });
+    if (!profile) return [];
+    const ids = profile.groupIds?.length
+      ? profile.groupIds
+      : profile.groupId
+        ? [profile.groupId]
+        : [];
+    if (ids.length === 0) return [];
+    // Legacy groups (courseSlug: null) only appear on anexo22, not on other courses
+    const courseFilter =
+      courseSlug === "anexo22"
+        ? [{ courseSlug: "anexo22" as const }, { courseSlug: null }]
+        : [{ courseSlug }];
+
+    const groups = await prisma.group.findMany({
+      where: {
+        id: { in: ids },
+        OR: courseFilter,
+      },
+      select: { id: true },
+    });
+    const groupIds = groups.map((g) => g.id);
+    if (groupIds.length === 0) return [];
+    return prisma.video.findMany({
+      ...videoQueryArgs,
+      where: { groupId: { in: groupIds } },
+    });
+  },
+);
 
 export async function getUser() {
   const supabase = await createClient();
@@ -60,6 +108,7 @@ export const getUserWithProfile = cache(async () => {
       email: true,
       name: true,
       groupId: true,
+      groupIds: true,
       role: true,
       isActive: true,
       enrolledCourseSlugs: true,

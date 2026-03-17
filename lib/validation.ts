@@ -88,7 +88,7 @@ export const createUserSchema = z.object({
     .trim()
     .min(8, "La contraseña debe tener al menos 8 caracteres"),
   role: z.enum(["user", "admin"]),
-  groupId: z.string().optional(),
+  groupIds: z.array(z.string()).optional(),
   courseSlugs: z
     .array(z.string())
     .min(1, "Selecciona al menos un curso")
@@ -100,6 +100,13 @@ export const createUserSchema = z.object({
       { message: "Curso inválido" },
     ),
 });
+
+// Admin - Actualizar grupos del usuario
+export const updateUserGroupsSchema = z.object({
+  userId: z.string().min(1),
+  groupIds: z.array(z.string()),
+});
+export type UpdateUserGroupsFormValues = z.infer<typeof updateUserGroupsSchema>;
 
 export type CreateUserFormValues = z.infer<typeof createUserSchema>;
 
@@ -129,12 +136,32 @@ export type UpdateUserCoursesFormValues = z.infer<
 >;
 
 // Admin - Grupos
+const courseSlugEnum = z.enum(["anexo22", "clasificacion-arancelaria"]);
+const courseSlugOrNone = z
+  .union([courseSlugEnum, z.literal("__none__")])
+  .optional()
+  .transform((v) =>
+    v && v !== "__none__"
+      ? (v as "anexo22" | "clasificacion-arancelaria")
+      : undefined,
+  );
+const courseSlugOrNoneNullable = z
+  .union([courseSlugEnum, z.literal("__none__")])
+  .nullable()
+  .optional()
+  .transform((v) =>
+    v && v !== "__none__"
+      ? (v as "anexo22" | "clasificacion-arancelaria")
+      : null,
+  );
+
 export const createGroupSchema = z.object({
   name: z
     .string()
     .min(1, "El nombre es requerido")
     .max(100, "Máximo 100 caracteres")
     .trim(),
+  courseSlug: courseSlugOrNone,
 });
 
 export const updateGroupSchema = z.object({
@@ -144,10 +171,11 @@ export const updateGroupSchema = z.object({
     .min(1, "El nombre es requerido")
     .max(100, "Máximo 100 caracteres")
     .trim(),
+  courseSlug: courseSlugOrNoneNullable,
 });
 
-export type CreateGroupFormValues = z.infer<typeof createGroupSchema>;
-export type UpdateGroupFormValues = z.infer<typeof updateGroupSchema>;
+export type CreateGroupFormValues = z.input<typeof createGroupSchema>;
+export type UpdateGroupFormValues = z.input<typeof updateGroupSchema>;
 
 // Admin - Videos
 export const createVideoSchema = z.object({
