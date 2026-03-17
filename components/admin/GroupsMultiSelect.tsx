@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Popover,
@@ -47,6 +47,10 @@ export function GroupsMultiSelect({
   "aria-label": ariaLabel,
 }: GroupsMultiSelectProps) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (disabled) setOpen(false);
+  }, [disabled]);
 
   const toggleGroup = (groupId: string) => {
     if (value.includes(groupId)) {
@@ -109,11 +113,16 @@ export function GroupsMultiSelect({
               {groups.map((group) => (
                 <label
                   key={group.id}
-                  className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded-md p-2"
+                  className={`flex items-center gap-2 text-sm rounded-md p-2 ${
+                    disabled
+                      ? "cursor-not-allowed opacity-50"
+                      : "cursor-pointer hover:bg-muted/50"
+                  }`}
                 >
                   <Checkbox
                     checked={value.includes(group.id)}
-                    onCheckedChange={() => toggleGroup(group.id)}
+                    onCheckedChange={() => !disabled && toggleGroup(group.id)}
+                    disabled={disabled}
                   />
                   <span>{getGroupLabel(group)}</span>
                 </label>

@@ -108,6 +108,9 @@ const dateFormatter = new Intl.DateTimeFormat("es-MX", {
 export function UsersTable({ users, groups }: UsersTableProps) {
   const [isPending, startTransition] = useTransition();
   const [updatingUserId, setUpdatingUserId] = useState<string | null>(null);
+  const [optimisticGroupIds, setOptimisticGroupIds] = useState<
+    Record<string, string[]>
+  >({});
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [deletingUser, setDeletingUser] = useState<User | null>(null);
   const [coursesUser, setCoursesUser] = useState<User | null>(null);
@@ -144,10 +147,16 @@ export function UsersTable({ users, groups }: UsersTableProps) {
   };
 
   const handleGroupsChange = (userId: string, groupIds: string[]) => {
+    setOptimisticGroupIds((prev) => ({ ...prev, [userId]: groupIds }));
     setUpdatingUserId(userId);
     startTransition(async () => {
       const result = await updateUserGroups({ userId, groupIds });
       setUpdatingUserId(null);
+      setOptimisticGroupIds((prev) => {
+        const next = { ...prev };
+        delete next[userId];
+        return next;
+      });
       if (result.ok) {
         toast.success(result.message);
       } else {
@@ -317,11 +326,13 @@ export function UsersTable({ users, groups }: UsersTableProps) {
                       <GroupsMultiSelect
                         groups={groups}
                         value={
+                          optimisticGroupIds[user.id] ??
                           (user.groupIds?.length
                             ? user.groupIds
                             : user.groupId
                               ? [user.groupId]
-                              : []) ?? []
+                              : []) ??
+                          []
                         }
                         onChange={(v) => handleGroupsChange(user.id, v)}
                         disabled={isPending && updatingUserId === user.id}
