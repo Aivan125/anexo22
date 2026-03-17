@@ -316,7 +316,13 @@ export function UsersTable({ users, groups }: UsersTableProps) {
                     <div className="min-w-0">
                       <GroupsMultiSelect
                         groups={groups}
-                        value={user.groupIds ?? []}
+                        value={
+                          (user.groupIds?.length
+                            ? user.groupIds
+                            : user.groupId
+                              ? [user.groupId]
+                              : []) ?? []
+                        }
                         onChange={(v) => handleGroupsChange(user.id, v)}
                         disabled={isPending && updatingUserId === user.id}
                         aria-label={`Grupos de ${user.email ?? "usuario"}`}

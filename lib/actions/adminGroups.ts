@@ -106,8 +106,7 @@ export async function updateGroup(
       where: { id: input.id },
       data: {
         name,
-        courseSlug:
-          input.courseSlug !== undefined ? input.courseSlug : undefined,
+        courseSlug: input.courseSlug,
       },
     });
 

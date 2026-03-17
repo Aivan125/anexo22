@@ -129,7 +129,7 @@ export async function updateUserGroups(
 
     await prisma.profile.update({
       where: { id: input.userId },
-      data: { groupIds },
+      data: { groupIds, groupId: null },
     });
 
     revalidatePath("/admin/usuarios");
