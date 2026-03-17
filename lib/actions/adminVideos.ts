@@ -47,6 +47,7 @@ export async function createVideo(
 
     revalidatePath("/admin/videos");
     revalidatePath("/anexo22");
+    revalidatePath("/clasificacion-arancelaria");
     return { ok: true, message: "Video creado correctamente" };
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -123,6 +124,7 @@ export async function updateVideo(
 
     revalidatePath("/admin/videos");
     revalidatePath("/anexo22");
+    revalidatePath("/clasificacion-arancelaria");
     return { ok: true, message: "Video actualizado correctamente" };
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -172,6 +174,7 @@ export async function deleteVideo(id: string): Promise<DeleteVideoResult> {
 
     revalidatePath("/admin/videos");
     revalidatePath("/anexo22");
+    revalidatePath("/clasificacion-arancelaria");
     return { ok: true, message: "Video eliminado correctamente" };
   } catch (error) {
     console.error("[deleteVideo] Error:", error);

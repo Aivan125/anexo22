@@ -8,29 +8,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { getAllCaseStudies, getUserWithProfile } from "@/lib/helpers-server";
+import {
+  getAllCaseStudies,
+  getPermittedVideos,
+  getUserWithProfile,
+} from "@/lib/helpers-server";
 import { ArrowRight, FileText, Package, Shield } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import type React from "react";
 import { CourseMaterial } from "@/components/shared/CourseMaterial";
 import { ClassVideos } from "@/components/shared/ClassVideos";
-import prisma from "@/lib/prisma";
-import { Prisma } from "@/lib/generated/prisma";
-
-// 1. Definimos la consulta y la validamos con 'satisfies'
-const videoQueryArgs = {
-  select: {
-    id: true,
-    title: true,
-    description: true,
-    youtubeId: true,
-  },
-  orderBy: { createdAt: "desc" },
-} satisfies Prisma.VideoFindManyArgs;
-
-// 2. Derivamos el tipo exacto del resultado de la consulta usando GetPayload
-type PermittedVideo = Prisma.VideoGetPayload<typeof videoQueryArgs>;
 
 export default async function Anexo22Page() {
   const userWithProfile = await getUserWithProfile();
@@ -39,16 +26,10 @@ export default async function Anexo22Page() {
   }
 
   const caseStudies = getAllCaseStudies();
-
-  let permittedVideos: PermittedVideo[] = [];
-  if (userWithProfile.profile.groupId) {
-    permittedVideos = await prisma.video.findMany({
-      ...videoQueryArgs,
-      where: {
-        groupId: userWithProfile.profile.groupId,
-      },
-    });
-  }
+  const permittedVideos = await getPermittedVideos(
+    userWithProfile.user.id,
+    "anexo22",
+  );
 
   return (
     <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen">

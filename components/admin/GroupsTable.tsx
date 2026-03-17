@@ -38,6 +38,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -53,10 +60,18 @@ import {
   type CreateGroupFormValues,
   type UpdateGroupFormValues,
 } from "@/lib/validation";
+import { COURSES } from "@/lib/constants/courses";
+
+const NONE_COURSE = "__none__";
+const COURSE_SLUG_OPTIONS = [
+  { value: NONE_COURSE, label: "Sin asignar" },
+  ...COURSES.map((c) => ({ value: c.slug, label: c.name })),
+];
 
 interface GroupWithCounts {
   id: string;
   name: string;
+  courseSlug: string | null;
   _count: { profiles: number; videos: number };
 }
 
@@ -76,12 +91,12 @@ export function GroupsTable({ groups }: GroupsTableProps) {
 
   const createForm = useForm<CreateGroupFormValues>({
     resolver: zodResolver(createGroupSchema),
-    defaultValues: { name: "" },
+    defaultValues: { name: "", courseSlug: undefined },
   });
 
   const editForm = useForm<UpdateGroupFormValues>({
     resolver: zodResolver(updateGroupSchema),
-    defaultValues: { id: "", name: "" },
+    defaultValues: { id: "", name: "", courseSlug: null },
   });
 
   const handleCreateSubmit = (data: CreateGroupFormValues) => {
@@ -90,7 +105,7 @@ export function GroupsTable({ groups }: GroupsTableProps) {
       if (result.ok) {
         toast.success(result.message);
         setCreateOpen(false);
-        createForm.reset({ name: "" });
+        createForm.reset({ name: "", courseSlug: undefined });
       } else {
         toast.error(result.message);
         if (result.code === "name_taken") {
@@ -102,7 +117,16 @@ export function GroupsTable({ groups }: GroupsTableProps) {
 
   const handleEditOpen = (group: GroupWithCounts) => {
     setEditingGroup(group);
-    editForm.reset({ id: group.id, name: group.name });
+    const courseSlugValue: UpdateGroupFormValues["courseSlug"] =
+      group.courseSlug === "anexo22" ||
+      group.courseSlug === "clasificacion-arancelaria"
+        ? group.courseSlug
+        : NONE_COURSE;
+    editForm.reset({
+      id: group.id,
+      name: group.name,
+      courseSlug: courseSlugValue,
+    });
   };
 
   const handleEditSubmit = (data: UpdateGroupFormValues) => {
@@ -170,6 +194,34 @@ export function GroupsTable({ groups }: GroupsTableProps) {
                 </FormItem>
               )}
             />
+            <FormField
+              control={createForm.control}
+              name="courseSlug"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="create-courseSlug">Curso</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value ?? NONE_COURSE}
+                    disabled={isPending}
+                  >
+                    <FormControl>
+                      <SelectTrigger id="create-courseSlug">
+                        <SelectValue placeholder="Sin asignar…" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {COURSE_SLUG_OPTIONS.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <DialogFooter>
               <Button
                 type="button"
@@ -200,6 +252,7 @@ export function GroupsTable({ groups }: GroupsTableProps) {
           <TableHeader>
             <TableRow>
               <TableHead className="px-4 text-left">Nombre</TableHead>
+              <TableHead className="px-4 text-left">Curso</TableHead>
               <TableHead className="px-4 text-center tabular-nums">
                 Usuarios
               </TableHead>
@@ -213,7 +266,7 @@ export function GroupsTable({ groups }: GroupsTableProps) {
             {groups.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={4}
+                  colSpan={5}
                   className="text-center text-muted-foreground py-12"
                 >
                   <div className="flex flex-col items-center gap-4">
@@ -228,6 +281,12 @@ export function GroupsTable({ groups }: GroupsTableProps) {
                 <TableRow key={group.id} className="hover:bg-blue-100/50">
                   <TableCell className="px-4 text-left font-medium">
                     {group.name}
+                  </TableCell>
+                  <TableCell className="px-4 text-left text-muted-foreground">
+                    {group.courseSlug
+                      ? (COURSES.find((c) => c.slug === group.courseSlug)
+                          ?.name ?? group.courseSlug)
+                      : "—"}
                   </TableCell>
                   <TableCell className="px-4 text-center tabular-nums">
                     {group._count.profiles}
@@ -297,6 +356,36 @@ export function GroupsTable({ groups }: GroupsTableProps) {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={editForm.control}
+                  name="courseSlug"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor="edit-courseSlug">Curso</FormLabel>
+                      <Select
+                        onValueChange={(v) =>
+                          field.onChange(v === NONE_COURSE ? null : v)
+                        }
+                        value={field.value ?? NONE_COURSE}
+                        disabled={isPending}
+                      >
+                        <FormControl>
+                          <SelectTrigger id="edit-courseSlug">
+                            <SelectValue placeholder="Sin asignar…" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {COURSE_SLUG_OPTIONS.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value}>
+                              {opt.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}

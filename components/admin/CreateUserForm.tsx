@@ -27,11 +27,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { createUser } from "@/lib/actions/adminUsers";
 import { createUserSchema, type CreateUserFormValues } from "@/lib/validation";
 import { COURSES } from "@/lib/constants/courses";
-
-const NO_GROUP_VALUE = "__none__";
+import { GroupsMultiSelect } from "@/components/admin/GroupsMultiSelect";
 
 interface CreateUserFormProps {
-  groups: Array<{ id: string; name: string }>;
+  groups: Array<{ id: string; name: string; courseSlug: string | null }>;
 }
 
 export function CreateUserForm({ groups }: CreateUserFormProps) {
@@ -45,17 +44,16 @@ export function CreateUserForm({ groups }: CreateUserFormProps) {
       name: "",
       password: "",
       role: "user",
-      groupId: undefined,
+      groupIds: [],
       courseSlugs: [],
     },
   });
 
   const onSubmit = (data: CreateUserFormValues) => {
-    const groupId =
-      data.groupId && data.groupId !== NO_GROUP_VALUE
-        ? data.groupId.trim()
-        : undefined;
-    const payload = { ...data, groupId };
+    const payload = {
+      ...data,
+      groupIds: (data.groupIds ?? []).filter((id) => id?.trim()),
+    };
     startTransition(async () => {
       const result = await createUser(payload);
       if (result.ok) {
@@ -207,32 +205,20 @@ export function CreateUserForm({ groups }: CreateUserFormProps) {
 
         <FormField
           control={form.control}
-          name="groupId"
+          name="groupIds"
           render={({ field }) => (
             <FormItem>
-              <FormLabel htmlFor="groupId">Grupo (opcional)</FormLabel>
+              <FormLabel>Grupos (opcional)</FormLabel>
               {groups.length > 0 ? (
-                <Select
-                  onValueChange={(v) =>
-                    field.onChange(v === NO_GROUP_VALUE ? undefined : v)
-                  }
-                  value={field.value ?? NO_GROUP_VALUE}
-                  disabled={isPending}
-                >
-                  <FormControl>
-                    <SelectTrigger id="groupId">
-                      <SelectValue placeholder="Sin grupo…" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value={NO_GROUP_VALUE}>Sin grupo</SelectItem>
-                    {groups.map((g) => (
-                      <SelectItem key={g.id} value={g.id}>
-                        {g.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <FormControl>
+                  <GroupsMultiSelect
+                    groups={groups}
+                    value={field.value ?? []}
+                    onChange={field.onChange}
+                    disabled={isPending}
+                    placeholder="Seleccionar grupos…"
+                  />
+                </FormControl>
               ) : (
                 <div className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">
                   No hay grupos.{" "}

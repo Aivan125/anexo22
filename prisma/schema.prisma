@@ -29,8 +29,9 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  groupId String?
-  group   Group?  @relation(fields: [groupId], references: [id])
+  groupId  String?
+  group    Group?   @relation(fields: [groupId], references: [id])
+  groupIds String[] @default([])
 
   enrolledCourseSlugs String[] @default([])
 
@@ -88,8 +89,9 @@ model Video {
 
 // --- NUEVO MODELO ---
 model Group {
-  id   String @id @default(cuid())
-  name String @unique
+  id         String  @id @default(cuid())
+  name       String  @unique
+  courseSlug String? // "anexo22" | "clasificacion-arancelaria"
 
   // Relaciones
   profiles Profile[]
