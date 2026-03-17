@@ -34,10 +34,16 @@ export const getPermittedVideos = cache(
         ? [profile.groupId]
         : [];
     if (ids.length === 0) return [];
+    // Legacy groups (courseSlug: null) only appear on anexo22, not on other courses
+    const courseFilter =
+      courseSlug === "anexo22"
+        ? [{ courseSlug: "anexo22" as const }, { courseSlug: null }]
+        : [{ courseSlug }];
+
     const groups = await prisma.group.findMany({
       where: {
         id: { in: ids },
-        OR: [{ courseSlug }, { courseSlug: null }],
+        OR: courseFilter,
       },
       select: { id: true },
     });
