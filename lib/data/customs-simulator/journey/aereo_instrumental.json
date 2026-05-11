@@ -1,0 +1,85 @@
+{
+  "caseKey": "aereo_instrumental",
+  "expediente": [
+    {
+      "id": "journey-aer-001",
+      "title": "Arribo al AICM y manejo de carga aérea",
+      "scenario": "El vuelo de carga aterriza en la plataforma; el almacenista coordina descarga hacia recinto fiscal.",
+      "iconName": "Plane",
+      "options": [
+        {
+          "label": "Retirar la carga directamente al almacén del cliente sin aviso al recinto",
+          "correct": false
+        },
+        {
+          "label": "Confirmar arribo, AWB y cadena de custodia hacia el almacén fiscal autorizado",
+          "correct": true
+        },
+        {
+          "label": "Declarar la carga como equipaje acompañado para agilizar",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-aer-002",
+      "title": "AWB — consistencia con factura y embalaje",
+      "scenario": "La guía aérea indica dos bultos; la factura lista tres maletas con numeración distinta.",
+      "iconName": "FileText",
+      "options": [
+        {
+          "label": "Usar la factura como única referencia y omitir bultos en AWB",
+          "correct": false
+        },
+        {
+          "label": "Conciliar bultos, pesos y referencias seriadas con el transportista antes de cerrar el expediente",
+          "correct": true
+        },
+        {
+          "label": "Modificar el AWB sin intervención de la aerolínea",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-aer-003",
+      "title": "Regulación sanitaria y etiquetado",
+      "scenario": "COFEPRIS solicita comprobar lote y etiquetado multilenguaje según registro vigente.",
+      "iconName": "Stamp",
+      "options": [
+        {
+          "label": "Presentar registro de un modelo distinto por ser de la misma familia de producto",
+          "correct": false
+        },
+        {
+          "label": "Alinear rotulación, serie y registro sanitario con la mercancía física exhibida",
+          "correct": true
+        },
+        {
+          "label": "Declarar exención sanitaria por tratarse de equipo usado",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-aer-004",
+      "title": "Semáforo y revisión documental",
+      "scenario": "El semáforo muestra alerta por discrepancia entre documentos digitales y escaneos.",
+      "iconName": "AlertTriangle",
+      "options": [
+        {
+          "label": "Presentar el pedimento con la versión impresa no legible",
+          "correct": false
+        },
+        {
+          "label": "Subsanar archivos y metadatos para que el expediente digital sea homogéneo",
+          "correct": true
+        },
+        {
+          "label": "Ignorar la alerta si el agente aduanal ya validó verbalmente",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

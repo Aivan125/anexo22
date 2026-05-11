@@ -26,6 +26,8 @@ model Profile {
   attempts     UserAttempt[]
   testimonials Testimonial[]
 
+  customsSimulatorProgress CustomsSimulatorProgress[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -38,12 +40,38 @@ model Profile {
   @@index([groupId])
 }
 
+model CustomsSimulatorProgress {
+  id              String    @id @default(cuid())
+  profileId       String
+  profile         Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  /// caseKey coincide con JSON + segmento URL
+  caseKey         String
+  /// Pipeline §6.4: expediente, analisis, …
+  currentStepSlug String
+  /// Respuestas agregadas (claves planas por id de pregunta/campo)
+  answers         Json      @default("{}")
+  /// Ids de eventos Journey resueltos (MVP: array JSON)
+  journeyResolved Json      @default("[]")
+  /// Etapas completadas orden contiguo desde expediente
+  completedStages Json      @default("[]")
+  scorePercent    Int?
+  evaluatedAt     DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([profileId, caseKey])
+  @@index([profileId])
+  @@index([caseKey])
+}
+
 model Testimonial {
   id         String @id @default(cuid())
   text       String
   rating     Int // 1-5
   status     String @default("pending") // "pending" | "published"
-  courseSlug String // "anexo22" | "clasificacion-arancelaria"
+  /// Slug de curso: `anexo22` | `clasificacion-arancelaria` | `simulador-aduanero` (ver COURSES)
+  courseSlug String
 
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String

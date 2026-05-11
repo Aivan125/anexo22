@@ -1,6 +1,9 @@
+import type { CourseSlug } from "@/lib/constants/courses";
+
 export type TestimonialStatus = "pending" | "published";
 
-export type TestimonialCourseSlug = "anexo22" | "clasificacion-arancelaria";
+/** Alineado a [COURSES](lib/constants/courses.ts) — incluye `simulador-aduanero` §12.7. */
+export type TestimonialCourseSlug = CourseSlug;
 
 export interface TestimonialDisplay {
   id: string;

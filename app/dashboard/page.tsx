@@ -49,7 +49,30 @@ const CLASIFICACION_CARD = {
   delay: 200,
 };
 
-const COURSE_CARDS = [ANEXO22_CARD, CLASIFICACION_CARD];
+const SIMULADOR_ADUANERO_CARD = {
+  slug: "simulador-aduanero" as const,
+  title: "Simulador aduanero",
+  description:
+    "Practica expedientes ficticios con cuestionarios, pedimento conceptual, contribuciones y controversia. Casos marítimos, terrestres y aéreos guiados paso a paso.",
+  features: [
+    "Casos prácticos por modalidad de transporte",
+    "Expediente y narrativa coherentes con cada escenario",
+    "Fases lineales con seguimiento claro del avance",
+    "Cierre con resultado y resumen del aprendizaje",
+  ],
+  href: "/simulador-aduanero",
+  iconName: "Ship" as const,
+  gradientFrom: "oklch(0.58 0.12 250)",
+  gradientTo: "oklch(0.48 0.14 270)",
+  glowColor: "oklch(0.58 0.12 250)",
+  delay: 300,
+};
+
+const COURSE_CARDS = [
+  ANEXO22_CARD,
+  CLASIFICACION_CARD,
+  SIMULADOR_ADUANERO_CARD,
+];
 
 export default async function DashboardPage() {
   const result = await getUserWithProfile();

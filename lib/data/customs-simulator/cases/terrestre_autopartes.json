@@ -1,0 +1,577 @@
+{
+  "key": "terrestre_autopartes",
+  "label": "Caso terrestre — Importación de autopartes (Laredo, TX → Nuevo Laredo)",
+  "shortLabel": "Terrestre · Autopartes",
+  "mode": "Terrestre",
+  "isExample": false,
+  "route": {
+    "from": "Laredo, TX",
+    "to": "Nuevo Laredo"
+  },
+  "case": {
+    "id": "CASO-002",
+    "title": "Importación definitiva de refacciones automotrices",
+    "context": "Noreste Autopartes, S.A. de C.V. importará definitivamente lotes de frenos y embragues desde Estados Unidos, cruzando por la aduana de Nuevo Laredo en transporte terrestre.",
+    "expedienteNarrativeParagraphs": [
+      "Noreste Autopartes, S.A. de C.V. celebró el contrato con Lone Star Automotive Supply LLC para abastecer su red de talleres con pastillas, discos y kits de embrague bajo Incoterm DAP Nuevo Laredo: el precio facturado integra flete terrestre transfronterizo y el importador asume en territorio nacional la correcta valoración y el cumplimiento normativo.",
+      "La carga transita de Laredo, Texas, hacia Nuevo Laredo con documentación USMCA; el expediente debe exhibir coherencia entre la factura comercial, el manifest de carga y la descripción arancelaria de las piezas metálicas antes de emitir el pedimento definitivo.",
+      "La operación se documenta con valor comercial en USD, tipo de cambio aplicable y segregación de incrementables, de modo que el valor en aduana refleje el precio pagado más los gastos hasta el lugar de importación conforme a la metodología de valor de transacción."
+    ],
+    "expedienteAccentTerms": [
+      "Noreste Autopartes, S.A. de C.V.",
+      "Lone Star Automotive Supply LLC",
+      "DAP Nuevo Laredo",
+      "Laredo, TX",
+      "Nuevo Laredo",
+      "USMCA",
+      "Importación definitiva"
+    ],
+    "importer": {
+      "name": "Noreste Autopartes, S.A. de C.V.",
+      "rfc": "NOA240215AB2",
+      "city": "Monterrey, Nuevo León"
+    },
+    "supplier": {
+      "name": "Lone Star Automotive Supply LLC",
+      "countryExport": "Estados Unidos",
+      "countryOrigin": "Estados Unidos"
+    },
+    "goods": {
+      "description": "Conjunto de pastillas y discos de freno para vehículos ligeros (kit ensamblado)",
+      "quantity": 2800,
+      "unitValueUsd": 17.32,
+      "invoiceValueUsd": 48500
+    },
+    "terms": {
+      "incoterm": "DAP Nuevo Laredo",
+      "freightUsd": 2150,
+      "insuranceUsd": 290,
+      "packingUsd": 130,
+      "exchangeRate": 17.4,
+      "transportMode": "Terrestre",
+      "customsOffice": "Nuevo Laredo",
+      "regimeExpected": "Importación definitiva"
+    },
+    "tariff": {
+      "tariffCode": "8708.30.01",
+      "igiRate": 0.1,
+      "ivaRate": 0.16,
+      "dtaRate": 0.008
+    },
+    "risk": {
+      "type": "Riesgo documental y de cumplimiento USMCA",
+      "title": "Descripción comercial vs. subpartida arancelaria",
+      "description": "En el reconocimiento se advierte que la factura agrupa componentes bajo una descripción genérica “brake kit” mientras el pedimento declara una subpartida específica de discos de freno con distinto grado de elaboración; el analista documenta posible subvaloración de la obligación arancelaria y posible error en el criterio de origen preferencial.",
+      "impact": "La divergencia puede invalidar el tratamiento USMCA y obligar a reclasificar o a corregir el valor en aduana, afectando el cálculo de IGI y la cadena de trazabilidad del proveedor."
+    },
+    "infraction": {
+      "legalBasis": "Artículo 184, fracción III de la Ley Aduanera",
+      "description": "Presentar el pedimento con datos inexactos o falsos, u omitir alguno de ellos, cuando se altere la información estadística, el cumplimiento de regulaciones y restricciones no arancelarias o la determinación correcta de las contribuciones.",
+      "detectedBy": "Reconocimiento aduanero (semáforo rojo) en la aduana de Nuevo Laredo."
+    },
+    "sanction": {
+      "legalBasis": "Artículo 185, fracción II de la Ley Aduanera",
+      "fineRange": "Multa del 70% al 100% del beneficio indebido o de las contribuciones omitidas",
+      "estimatedFine": "Entre 62,203.26 y 88,861.80 MXN (referencia sobre IGI preliminar)",
+      "additional": [
+        "Rectificación de pedimento y posibles recargos.",
+        "Revisión de certificados de origen y trazabilidad de la mercancía.",
+        "Medidas de comprobación en operaciones subsecuentes."
+      ]
+    }
+  },
+  "analysisQuestions": [
+    {
+      "id": "q1",
+      "text": "¿Qué tipo de operación se está realizando?",
+      "options": [
+        "Exportación definitiva",
+        "Importación definitiva",
+        "Retorno virtual",
+        "Tránsito interno"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q2",
+      "text": "¿Cuál es el régimen aduanero aplicable?",
+      "options": [
+        "Temporal para elaboración",
+        "Importación definitiva",
+        "Depósito fiscal",
+        "Recinto fiscalizado estratégico"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q3",
+      "text": "¿Cuál es el país de origen de la mercancía?",
+      "options": [
+        "México",
+        "Estados Unidos",
+        "China",
+        "Alemania",
+        "Vietnam"
+      ],
+      "correctAnswer": "Estados Unidos",
+      "points": 3
+    },
+    {
+      "id": "q4",
+      "text": "¿Cuál es el medio de transporte de arribo?",
+      "options": [
+        "Aéreo",
+        "Ferroviario",
+        "Marítimo",
+        "Terrestre",
+        "Fluvial"
+      ],
+      "correctAnswer": "Terrestre",
+      "points": 3
+    },
+    {
+      "id": "q5",
+      "text": "¿Qué Incoterm se pactó en la operación?",
+      "options": [
+        "CIF",
+        "EXW",
+        "DDP",
+        "DAP Nuevo Laredo"
+      ],
+      "correctAnswer": "DAP Nuevo Laredo",
+      "points": 3
+    }
+  ],
+  "decisionQuestions": [
+    {
+      "id": "q6",
+      "text": "Selecciona el método de valoración aplicable",
+      "options": [
+        "Valor de transacción",
+        "Valor de mercancías idénticas",
+        "Valor de mercancías similares",
+        "Método deductivo"
+      ],
+      "correctAnswer": "Valor de transacción",
+      "points": 5
+    },
+    {
+      "id": "q7",
+      "text": "Selecciona los conceptos incrementables",
+      "options": [
+        "Flete internacional",
+        "Seguro internacional",
+        "Embalaje",
+        "Todos los anteriores",
+        "Ninguno"
+      ],
+      "correctAnswer": "Todos los anteriores",
+      "points": 5
+    },
+    {
+      "id": "q8",
+      "text": "La base del valor en aduana debe construirse a partir de:",
+      "options": [
+        "Solo valor factura",
+        "Valor factura + incrementables",
+        "Valor factura + IVA",
+        "Valor factura + DTA"
+      ],
+      "correctAnswer": "Valor factura + incrementables",
+      "points": 5
+    }
+  ],
+  "controversyQuestions": [
+    {
+      "id": "c1",
+      "text": "¿Qué tipo de riesgo representa la discrepancia documental descrita en el caso?",
+      "options": [
+        "Riesgo operativo",
+        "Riesgo documental y de cumplimiento USMCA",
+        "Riesgo cambiario",
+        "Riesgo logístico"
+      ],
+      "correctAnswer": "Riesgo documental y de cumplimiento USMCA",
+      "points": 5
+    },
+    {
+      "id": "c2",
+      "text": "¿En qué momento del despacho se detecta la irregularidad descrita en el caso?",
+      "options": [
+        "Revisión previa del importador",
+        "Reconocimiento aduanero (semáforo rojo)",
+        "Auditoría posterior del SAT",
+        "Embarque en origen"
+      ],
+      "correctAnswer": "Reconocimiento aduanero (semáforo rojo)",
+      "points": 4
+    },
+    {
+      "id": "c3",
+      "text": "¿Cuál es la infracción cometida según la Ley Aduanera?",
+      "options": [
+        "Art. 176 fracc. I — Importar sin pedimento",
+        "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+        "Art. 178 fracc. IV — Mercancía prohibida",
+        "Art. 183-A — Mercancía pasa a propiedad del fisco"
+      ],
+      "correctAnswer": "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+      "points": 6
+    },
+    {
+      "id": "c4",
+      "text": "¿Cuál es la sanción aplicable conforme al Art. 185 fracc. II de la Ley Aduanera?",
+      "options": [
+        "Multa fija de $5,000 MXN",
+        "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+        "Cancelación inmediata del RFC",
+        "Pena privativa de la libertad obligatoria"
+      ],
+      "correctAnswer": "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+      "points": 6
+    },
+    {
+      "id": "c5",
+      "text": "Además de la multa económica, ¿qué consecuencia adicional puede enfrentar el importador?",
+      "options": [
+        "Devolución automática del IVA",
+        "Suspensión temporal del padrón de importadores en caso de reincidencia",
+        "Exención de DTA en futuras operaciones",
+        "Reducción del IGI al 0%"
+      ],
+      "correctAnswer": "Suspensión temporal del padrón de importadores en caso de reincidencia",
+      "points": 4
+    }
+  ],
+  "pedimentoFields": [
+    {
+      "id": "operationType",
+      "label": "Tipo de operación",
+      "type": "select",
+      "expected": "Importación",
+      "points": 4,
+      "selectOptions": [
+        "Importación",
+        "Exportación",
+        "Tránsito"
+      ]
+    },
+    {
+      "id": "pedimentoKey",
+      "label": "Clave de pedimento",
+      "type": "select",
+      "expected": "A1",
+      "points": 4,
+      "selectOptions": [
+        "A1",
+        "A3",
+        "BP",
+        "C1",
+        "F4"
+      ]
+    },
+    {
+      "id": "regime",
+      "label": "Régimen",
+      "type": "select",
+      "expected": "Definitivo",
+      "points": 4,
+      "selectOptions": [
+        "Definitivo",
+        "Temporal",
+        "Depósito fiscal",
+        "Tránsito",
+        "Recinto fiscalizado"
+      ]
+    },
+    {
+      "id": "customsOffice",
+      "label": "Aduana",
+      "type": "select",
+      "expected": "Nuevo Laredo",
+      "points": 4,
+      "selectOptions": [
+        "Nuevo Laredo",
+        "Manzanillo",
+        "Veracruz",
+        "Altamira",
+        "Ciudad de México"
+      ]
+    },
+    {
+      "id": "transportMode",
+      "label": "Medio de transporte",
+      "type": "select",
+      "expected": "Terrestre",
+      "points": 4,
+      "selectOptions": [
+        "Marítimo",
+        "Aéreo",
+        "Terrestre",
+        "Ferroviario",
+        "Fluvial"
+      ]
+    },
+    {
+      "id": "invoiceValueUsd",
+      "label": "Valor factura USD",
+      "type": "select",
+      "expected": "48500",
+      "points": 4,
+      "selectOptions": [
+        "48500",
+        "12000",
+        "42000",
+        "89500"
+      ]
+    },
+    {
+      "id": "freightUsd",
+      "label": "Flete USD",
+      "type": "select",
+      "expected": "2150",
+      "points": 4,
+      "selectOptions": [
+        "2150",
+        "1200",
+        "1150",
+        "6500"
+      ]
+    },
+    {
+      "id": "insuranceUsd",
+      "label": "Seguro USD",
+      "type": "select",
+      "expected": "290",
+      "points": 4,
+      "selectOptions": [
+        "290",
+        "150",
+        "240",
+        "740"
+      ]
+    },
+    {
+      "id": "packingUsd",
+      "label": "Embalaje USD",
+      "type": "select",
+      "expected": "130",
+      "points": 4,
+      "selectOptions": [
+        "130",
+        "100",
+        "110",
+        "260"
+      ]
+    },
+    {
+      "id": "exchangeRate",
+      "label": "Tipo de cambio",
+      "type": "select",
+      "expected": "17.4",
+      "points": 4,
+      "selectOptions": [
+        "17.4",
+        "17.2",
+        "18.0",
+        "17.25"
+      ]
+    },
+    {
+      "id": "customsValueMxn",
+      "label": "Valor en aduana MXN",
+      "type": "select",
+      "expected": "888618",
+      "points": 10,
+      "selectOptions": [
+        "888618",
+        "231340",
+        "792000",
+        "1656000"
+      ]
+    },
+    {
+      "id": "tariffCode",
+      "label": "Fracción arancelaria",
+      "type": "select",
+      "expected": "8708.30.01",
+      "points": 6,
+      "selectOptions": [
+        "8708.30.01",
+        "8471.30.01",
+        "9018.90.06",
+        "5208.52.02"
+      ]
+    },
+    {
+      "id": "goodsDescription",
+      "label": "Descripción",
+      "type": "select",
+      "expected": "Conjunto de pastillas y discos de freno para vehículos ligeros (kit ensamblado)",
+      "points": 4,
+      "selectOptions": [
+        "Conjunto de pastillas y discos de freno para vehículos ligeros (kit ensamblado)",
+        "Mercancía genérica declarada incompleta",
+        "Piezas metálicas sin especificación"
+      ]
+    },
+    {
+      "id": "quantity",
+      "label": "Cantidad",
+      "type": "select",
+      "expected": "2800",
+      "points": 4,
+      "selectOptions": [
+        "2800",
+        "100",
+        "24",
+        "18500"
+      ]
+    },
+    {
+      "id": "originCountry",
+      "label": "País de origen",
+      "type": "select",
+      "expected": "Estados Unidos",
+      "points": 4,
+      "selectOptions": [
+        "Estados Unidos",
+        "China",
+        "México",
+        "Brasil",
+        "Canadá"
+      ]
+    }
+  ],
+  "taxFields": [
+    {
+      "id": "igi",
+      "label": "IGI",
+      "type": "select",
+      "expected": "88861.8",
+      "points": 8,
+      "selectOptions": [
+        "88861.8",
+        "34701.00",
+        "118800.00",
+        "364320.00"
+      ],
+      "formula": {
+        "title": "IGI — Impuesto General de Importación",
+        "expression": "IGI = Valor en Aduana × Tasa arancelaria",
+        "explanation": "Se aplica la tasa de la fracción arancelaria al valor en aduana en MXN.",
+        "example": "888,618.00 × tasa aplicable"
+      }
+    },
+    {
+      "id": "dta",
+      "label": "DTA",
+      "type": "select",
+      "expected": "7108.94",
+      "points": 6,
+      "selectOptions": [
+        "7108.94",
+        "1850.72",
+        "6336.00",
+        "13248.00"
+      ],
+      "formula": {
+        "title": "DTA — Derecho de Trámite Aduanero",
+        "expression": "DTA = Valor en Aduana × 0.008",
+        "explanation": "8 al millar sobre el valor en aduana (importación definitiva A1).",
+        "example": "888,618.00 × 0.008"
+      }
+    },
+    {
+      "id": "ivaBase",
+      "label": "Base IVA",
+      "type": "select",
+      "expected": "984588.74",
+      "points": 8,
+      "selectOptions": [
+        "984588.74",
+        "267891.72",
+        "917136.00",
+        "2033568.00"
+      ],
+      "formula": {
+        "title": "Base gravable del IVA",
+        "expression": "Base IVA = Valor en Aduana + IGI + DTA",
+        "explanation": "Base integrada conforme obligaciones en importación definitiva.",
+        "example": "Suma de valor en aduana, IGI y DTA"
+      }
+    },
+    {
+      "id": "iva",
+      "label": "IVA",
+      "type": "select",
+      "expected": "157534.2",
+      "points": 8,
+      "selectOptions": [
+        "157534.2",
+        "42862.68",
+        "146741.76",
+        "325370.88"
+      ],
+      "formula": {
+        "title": "IVA — Impuesto al Valor Agregado",
+        "expression": "IVA = Base IVA × 16%",
+        "explanation": "Tasa general 16% sobre la base integrada.",
+        "example": "984588.74 × 16%"
+      }
+    },
+    {
+      "id": "totalTaxes",
+      "label": "Total contribuciones",
+      "type": "select",
+      "expected": "253504.94",
+      "points": 8,
+      "selectOptions": [
+        "253504.94",
+        "79414.40",
+        "271877.76",
+        "703938.88"
+      ],
+      "formula": {
+        "title": "Total de contribuciones a pagar",
+        "expression": "Total = IGI + DTA + IVA",
+        "explanation": "Suma de contribuciones causadas.",
+        "example": "IGI + DTA + IVA"
+      }
+    }
+  ],
+  "validationRules": [
+    {
+      "ifField": "regime",
+      "notEquals": "Definitivo",
+      "message": "Error crítico: El régimen seleccionado no corresponde a una operación de importación definitiva.",
+      "severity": "high"
+    },
+    {
+      "ifField": "customsValueMxn",
+      "notInToleranceOf": 888618,
+      "message": "Observación: El valor en aduana no fue integrado correctamente. Revisa incrementables y tipo de cambio.",
+      "severity": "high"
+    },
+    {
+      "ifField": "tariffCode",
+      "notEquals": "8708.30.01",
+      "message": "Alerta: La fracción arancelaria capturada es inconsistente con la mercancía declarada.",
+      "severity": "medium"
+    },
+    {
+      "ifField": "igi",
+      "notInToleranceOf": 88861.8,
+      "message": "Error de cálculo: El IGI no coincide con la base gravable declarada.",
+      "severity": "high"
+    },
+    {
+      "ifField": "iva",
+      "notInToleranceOf": 157534.2,
+      "message": "Error de integración fiscal: La base del IVA debe considerar valor en aduana, IGI y DTA.",
+      "severity": "high"
+    }
+  ]
+}

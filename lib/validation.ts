@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { COURSE_SLUGS } from "@/lib/constants/courses";
+import { COURSE_SLUGS, type CourseSlug } from "@/lib/constants/courses";
 
 // Se definen y exportan los schemas individuales para reutilización
 export const partidaSchema = z.object({
@@ -136,23 +136,21 @@ export type UpdateUserCoursesFormValues = z.infer<
 >;
 
 // Admin - Grupos
-const courseSlugEnum = z.enum(["anexo22", "clasificacion-arancelaria"]);
+const courseSlugEnum = z.enum(
+  COURSE_SLUGS as [CourseSlug, ...CourseSlug[]],
+);
 const courseSlugOrNone = z
   .union([courseSlugEnum, z.literal("__none__")])
   .optional()
   .transform((v) =>
-    v && v !== "__none__"
-      ? (v as "anexo22" | "clasificacion-arancelaria")
-      : undefined,
+    v && v !== "__none__" ? (v as CourseSlug) : undefined,
   );
 const courseSlugOrNoneNullable = z
   .union([courseSlugEnum, z.literal("__none__")])
   .nullable()
   .optional()
   .transform((v) =>
-    v && v !== "__none__"
-      ? (v as "anexo22" | "clasificacion-arancelaria")
-      : null,
+    v && v !== "__none__" ? (v as CourseSlug) : null,
   );
 
 export const createGroupSchema = z.object({

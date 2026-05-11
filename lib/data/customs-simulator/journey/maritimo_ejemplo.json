@@ -1,0 +1,85 @@
+{
+  "caseKey": "maritimo_ejemplo",
+  "expediente": [
+    {
+      "id": "journey-mtz-001",
+      "title": "Arribo y asignación de cita",
+      "scenario": "El buque con contenedor FCL arriba a Manzanillo. El agente aduanal debe coordinar la descarga y la ventana de reconocimiento con la naviera.",
+      "iconName": "Ship",
+      "options": [
+        {
+          "label": "Solicitar cita de reconocimiento sin revisar el estado del BL en el sistema portuario",
+          "correct": false
+        },
+        {
+          "label": "Verificar arribo efectivo, número de contenedor y consistencia documental antes de agendar reconocimiento",
+          "correct": true
+        },
+        {
+          "label": "Declarar el arribo como 'no operativo' para ganar tiempo",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-mtz-002",
+      "title": "Coherencia factura — conocimiento de embarque",
+      "scenario": "La factura indica Shenzhen (China) como origen; el BL menciona transbordo y un puerto intermedio. Hay que alinear el expediente antes de cursar mercancías.",
+      "iconName": "FileText",
+      "options": [
+        {
+          "label": "Tomar sólo la factura como fuente del país de origen y omitir observaciones del BL",
+          "correct": false
+        },
+        {
+          "label": "Cotejar país de origen, puertos declarados y leyendas del BL; documentar cualquier discrepancia para subsanación",
+          "correct": true
+        },
+        {
+          "label": "Sustituir el BL por una copia no certificada del proveedor",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-mtz-003",
+      "title": "Certificado de origen y tratados",
+      "scenario": "El certificado menciona Hong Kong pero la mercancía y la factura apuntan a China continental.",
+      "iconName": "Stamp",
+      "options": [
+        {
+          "label": "Ignorar el certificado si el valor declarado coincide con la factura",
+          "correct": false
+        },
+        {
+          "label": "Exigir al importador aclaración o documento rectificado antes de declarar tratados preferenciales",
+          "correct": true
+        },
+        {
+          "label": "Registrar el tratado aplicable con base en Hong Kong sin validación aduanera",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-mtz-004",
+      "title": "Asignación de semáforo y riesgos",
+      "scenario": "El sistema marca posible inconsistencia documental previa al pedimento.",
+      "iconName": "AlertTriangle",
+      "options": [
+        {
+          "label": "Declarar igual si el tiempo de estadía está por vencerse",
+          "correct": false
+        },
+        {
+          "label": "Preparar respuesta ante posible revisión física/documental según nivel de alerta emitido por la autoridad",
+          "correct": true
+        },
+        {
+          "label": "Abrir nueva operación paralela sin cerrar inconsistencias previas",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "caseKey": "maritimo_textiles",
+  "expediente": [
+    {
+      "id": "journey-mtx-001",
+      "title": "Arribo de contenedor a Veracruz",
+      "scenario": "El buque atraca y se asigna ventana para descarga y reconocimiento de contenedor textiles.",
+      "iconName": "Ship",
+      "options": [
+        {
+          "label": "Iniciar el pedimento antes de tener el conocimiento electrónico",
+          "correct": false
+        },
+        {
+          "label": "Validar conocimiento electrónico, sello intacto y cita ante el recinto antes de programa de muestreo",
+          "correct": true
+        },
+        {
+          "label": "Solicitar traslado a bodega particular sin revisar peso bruto declarado",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-mtx-002",
+      "title": "Packing list vs. marca de volumen fibra/peso",
+      "scenario": "El packing lista mezclas de bobinas sin detallar proporción de fibras sintéticas en cada rollo.",
+      "iconName": "FileText",
+      "options": [
+        {
+          "label": "Declara ‘100% algodón’ porque la factura así lo indica",
+          "correct": false
+        },
+        {
+          "label": "Exigir desglose por rollo o certificado de composición coherente con la fracción textil",
+          "correct": true
+        },
+        {
+          "label": "Omitir el detalle por tratarse de mercancía de bajo valor",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-mtx-003",
+      "title": "Origen y tratados preferenciales",
+      "scenario": "El certificado de origen menciona ‘ASEAN’ genérico sin anexar desglose de transformación regional.",
+      "iconName": "Stamp",
+      "options": [
+        {
+          "label": "Registrar preferencia arancelaria automáticamente",
+          "correct": false
+        },
+        {
+          "label": "Verificar criterio de origen y anexos probatorios antes de aplicar preferencia",
+          "correct": true
+        },
+        {
+          "label": "Ignorar el certificado y aplicar arancel MFN sin análisis",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-mtx-004",
+      "title": "Muestreo en reconocimiento",
+      "scenario": "El analista propone muestreo por posible mezcla fibra no declarada.",
+      "iconName": "AlertTriangle",
+      "options": [
+        {
+          "label": "Rechazar el muestreo para no retrasar la descarga",
+          "correct": false
+        },
+        {
+          "label": "Coordinar muestreo representativo y custodia de evidencia para reclasificación si aplica",
+          "correct": true
+        },
+        {
+          "label": "Sustituir por fotografías del proveedor",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

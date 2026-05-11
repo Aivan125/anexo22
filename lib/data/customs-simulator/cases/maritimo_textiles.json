@@ -1,0 +1,576 @@
+{
+  "key": "maritimo_textiles",
+  "label": "Caso marítimo — Importación de textiles (Ho Chi Minh → Veracruz)",
+  "shortLabel": "Marítimo · Textiles",
+  "mode": "Marítimo",
+  "isExample": false,
+  "route": {
+    "from": "Ho Chi Minh",
+    "to": "Veracruz"
+  },
+  "case": {
+    "id": "CASO-004",
+    "title": "Importación definitiva de tela de algodón teñida",
+    "context": "Textiles del Golfo adquiere rollos de tela de algodón en Vietnam con embarque marítimo hacia la aduana de Veracruz para abastecer plantas de confección.",
+    "expedienteNarrativeParagraphs": [
+      "Textiles del Golfo, S.A. de C.V. compra a Saigon Textile Export JSC rollos de tela de algodón teñida bajo FOB Ho Chi Minh; el precio FOB deja al importador la contratación del flete internacional y el seguro hasta Veracruz.",
+      "El buque consolida contenedores en el Sudeste Asiático; el expediente integra factura, packing list y conocimiento de embarque con la composición fibra / peso por metro lineal exigida por la fracción textil.",
+      "Antes del pedimento, el importador prepara la determinación del valor en aduana sumando incrementables y tipo de cambio oficial aplicable, y documenta el cumplimiento de regulaciones no arancelarias para productos textiles."
+    ],
+    "expedienteAccentTerms": [
+      "Textiles del Golfo, S.A. de C.V.",
+      "Saigon Textile Export JSC",
+      "FOB Ho Chi Minh",
+      "Ho Chi Minh",
+      "Veracruz",
+      "Vietnam"
+    ],
+    "importer": {
+      "name": "Textiles del Golfo, S.A. de C.V.",
+      "rfc": "TGO220119XY4",
+      "city": "Puebla, Puebla"
+    },
+    "supplier": {
+      "name": "Saigon Textile Export JSC",
+      "countryExport": "Vietnam",
+      "countryOrigin": "Vietnam"
+    },
+    "goods": {
+      "description": "Tela de algodón teñida, ancho 1.6 m, para confección industrial",
+      "quantity": 18500,
+      "unitValueUsd": 4.84,
+      "invoiceValueUsd": 89500
+    },
+    "terms": {
+      "incoterm": "FOB Ho Chi Minh",
+      "freightUsd": 5800,
+      "insuranceUsd": 740,
+      "packingUsd": 260,
+      "exchangeRate": 17.25,
+      "transportMode": "Marítimo",
+      "customsOffice": "Veracruz",
+      "regimeExpected": "Importación definitiva"
+    },
+    "tariff": {
+      "tariffCode": "5208.52.01",
+      "igiRate": 0.22,
+      "ivaRate": 0.16,
+      "dtaRate": 0.008
+    },
+    "risk": {
+      "type": "Riesgo arancelario y de descripción",
+      "title": "Composición textil declarada vs. muestra física",
+      "description": "El muestreo en reconocimiento sugiere mayor contenido de fibras sintéticas mezcladas no declaradas en el pedimento preliminar, lo que podría implicar otra fracción arancelaria y un IGI distinto al calculado con base en algodón puro.",
+      "impact": "La reclasificación potencial incrementa el arancel y el IVA, y puede generar diferencias de contribuciones con actualizaciones y recargos."
+    },
+    "infraction": {
+      "legalBasis": "Artículo 184, fracción III de la Ley Aduanera",
+      "description": "Presentar el pedimento con datos inexactos o falsos, u omitir alguno de ellos, cuando se altere la información estadística, el cumplimiento de regulaciones y restricciones no arancelarias o la determinación correcta de las contribuciones.",
+      "detectedBy": "Reconocimiento aduanero (semáforo rojo) en la aduana de Veracruz."
+    },
+    "sanction": {
+      "legalBasis": "Artículo 185, fracción II de la Ley Aduanera",
+      "fineRange": "Multa del 70% al 100% del beneficio indebido o de las contribuciones omitidas",
+      "estimatedFine": "Entre 255,820.95 y 365,458.50 MXN (referencia sobre IGI preliminar)",
+      "additional": [
+        "Pago de contribuciones omitidas con recargos.",
+        "Análisis de muestras y posible destrucción de mercancía en controversia.",
+        "Seguimiento documental en importaciones posteriores del mismo proveedor."
+      ]
+    }
+  },
+  "analysisQuestions": [
+    {
+      "id": "q1",
+      "text": "¿Qué tipo de operación se está realizando?",
+      "options": [
+        "Exportación definitiva",
+        "Importación definitiva",
+        "Retorno virtual",
+        "Tránsito interno"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q2",
+      "text": "¿Cuál es el régimen aduanero aplicable?",
+      "options": [
+        "Temporal para elaboración",
+        "Importación definitiva",
+        "Depósito fiscal",
+        "Recinto fiscalizado estratégico"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q3",
+      "text": "¿Cuál es el país de origen de la mercancía?",
+      "options": [
+        "México",
+        "Estados Unidos",
+        "China",
+        "Alemania",
+        "Vietnam"
+      ],
+      "correctAnswer": "Vietnam",
+      "points": 3
+    },
+    {
+      "id": "q4",
+      "text": "¿Cuál es el medio de transporte de arribo?",
+      "options": [
+        "Aéreo",
+        "Ferroviario",
+        "Marítimo",
+        "Terrestre",
+        "Fluvial"
+      ],
+      "correctAnswer": "Marítimo",
+      "points": 3
+    },
+    {
+      "id": "q5",
+      "text": "¿Qué Incoterm se pactó en la operación?",
+      "options": [
+        "CIF",
+        "EXW",
+        "DDP",
+        "FOB Ho Chi Minh"
+      ],
+      "correctAnswer": "FOB Ho Chi Minh",
+      "points": 3
+    }
+  ],
+  "decisionQuestions": [
+    {
+      "id": "q6",
+      "text": "Selecciona el método de valoración aplicable",
+      "options": [
+        "Valor de transacción",
+        "Valor de mercancías idénticas",
+        "Valor de mercancías similares",
+        "Método deductivo"
+      ],
+      "correctAnswer": "Valor de transacción",
+      "points": 5
+    },
+    {
+      "id": "q7",
+      "text": "Selecciona los conceptos incrementables",
+      "options": [
+        "Flete internacional",
+        "Seguro internacional",
+        "Embalaje",
+        "Todos los anteriores",
+        "Ninguno"
+      ],
+      "correctAnswer": "Todos los anteriores",
+      "points": 5
+    },
+    {
+      "id": "q8",
+      "text": "La base del valor en aduana debe construirse a partir de:",
+      "options": [
+        "Solo valor factura",
+        "Valor factura + incrementables",
+        "Valor factura + IVA",
+        "Valor factura + DTA"
+      ],
+      "correctAnswer": "Valor factura + incrementables",
+      "points": 5
+    }
+  ],
+  "controversyQuestions": [
+    {
+      "id": "c1",
+      "text": "¿Qué tipo de riesgo representa la discrepancia documental descrita en el caso?",
+      "options": [
+        "Riesgo operativo",
+        "Riesgo arancelario y de descripción",
+        "Riesgo cambiario",
+        "Riesgo logístico"
+      ],
+      "correctAnswer": "Riesgo arancelario y de descripción",
+      "points": 5
+    },
+    {
+      "id": "c2",
+      "text": "¿En qué momento del despacho se detecta la irregularidad descrita en el caso?",
+      "options": [
+        "Revisión previa del importador",
+        "Reconocimiento aduanero (semáforo rojo)",
+        "Auditoría posterior del SAT",
+        "Embarque en origen"
+      ],
+      "correctAnswer": "Reconocimiento aduanero (semáforo rojo)",
+      "points": 4
+    },
+    {
+      "id": "c3",
+      "text": "¿Cuál es la infracción cometida según la Ley Aduanera?",
+      "options": [
+        "Art. 176 fracc. I — Importar sin pedimento",
+        "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+        "Art. 178 fracc. IV — Mercancía prohibida",
+        "Art. 183-A — Mercancía pasa a propiedad del fisco"
+      ],
+      "correctAnswer": "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+      "points": 6
+    },
+    {
+      "id": "c4",
+      "text": "¿Cuál es la sanción aplicable conforme al Art. 185 fracc. II de la Ley Aduanera?",
+      "options": [
+        "Multa fija de $5,000 MXN",
+        "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+        "Cancelación inmediata del RFC",
+        "Pena privativa de la libertad obligatoria"
+      ],
+      "correctAnswer": "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+      "points": 6
+    },
+    {
+      "id": "c5",
+      "text": "Además de la multa económica, ¿qué consecuencia adicional puede enfrentar el importador?",
+      "options": [
+        "Devolución automática del IVA",
+        "Suspensión temporal del padrón de importadores en caso de reincidencia",
+        "Exención de DTA en futuras operaciones",
+        "Reducción del IGI al 0%"
+      ],
+      "correctAnswer": "Suspensión temporal del padrón de importadores en caso de reincidencia",
+      "points": 4
+    }
+  ],
+  "pedimentoFields": [
+    {
+      "id": "operationType",
+      "label": "Tipo de operación",
+      "type": "select",
+      "expected": "Importación",
+      "points": 4,
+      "selectOptions": [
+        "Importación",
+        "Exportación",
+        "Tránsito"
+      ]
+    },
+    {
+      "id": "pedimentoKey",
+      "label": "Clave de pedimento",
+      "type": "select",
+      "expected": "A1",
+      "points": 4,
+      "selectOptions": [
+        "A1",
+        "A3",
+        "BP",
+        "C1",
+        "F4"
+      ]
+    },
+    {
+      "id": "regime",
+      "label": "Régimen",
+      "type": "select",
+      "expected": "Definitivo",
+      "points": 4,
+      "selectOptions": [
+        "Definitivo",
+        "Temporal",
+        "Depósito fiscal",
+        "Tránsito",
+        "Recinto fiscalizado"
+      ]
+    },
+    {
+      "id": "customsOffice",
+      "label": "Aduana",
+      "type": "select",
+      "expected": "Veracruz",
+      "points": 4,
+      "selectOptions": [
+        "Veracruz",
+        "Manzanillo",
+        "Altamira",
+        "Ciudad de México",
+        "Nuevo Laredo"
+      ]
+    },
+    {
+      "id": "transportMode",
+      "label": "Medio de transporte",
+      "type": "select",
+      "expected": "Marítimo",
+      "points": 4,
+      "selectOptions": [
+        "Marítimo",
+        "Aéreo",
+        "Terrestre",
+        "Ferroviario",
+        "Fluvial"
+      ]
+    },
+    {
+      "id": "invoiceValueUsd",
+      "label": "Valor factura USD",
+      "type": "select",
+      "expected": "89500",
+      "points": 4,
+      "selectOptions": [
+        "89500",
+        "12000",
+        "42000",
+        "89500"
+      ]
+    },
+    {
+      "id": "freightUsd",
+      "label": "Flete USD",
+      "type": "select",
+      "expected": "5800",
+      "points": 4,
+      "selectOptions": [
+        "5800",
+        "1200",
+        "1150",
+        "6500"
+      ]
+    },
+    {
+      "id": "insuranceUsd",
+      "label": "Seguro USD",
+      "type": "select",
+      "expected": "740",
+      "points": 4,
+      "selectOptions": [
+        "740",
+        "150",
+        "240",
+        "740"
+      ]
+    },
+    {
+      "id": "packingUsd",
+      "label": "Embalaje USD",
+      "type": "select",
+      "expected": "260",
+      "points": 4,
+      "selectOptions": [
+        "260",
+        "100",
+        "110",
+        "260"
+      ]
+    },
+    {
+      "id": "exchangeRate",
+      "label": "Tipo de cambio",
+      "type": "select",
+      "expected": "17.25",
+      "points": 4,
+      "selectOptions": [
+        "17.25",
+        "17.2",
+        "18.0",
+        "17.25"
+      ]
+    },
+    {
+      "id": "customsValueMxn",
+      "label": "Valor en aduana MXN",
+      "type": "select",
+      "expected": "1661175",
+      "points": 10,
+      "selectOptions": [
+        "1661175",
+        "231340",
+        "792000",
+        "1656000"
+      ]
+    },
+    {
+      "id": "tariffCode",
+      "label": "Fracción arancelaria",
+      "type": "select",
+      "expected": "5208.52.01",
+      "points": 6,
+      "selectOptions": [
+        "5208.52.01",
+        "8471.30.01",
+        "9018.90.06",
+        "5208.52.02"
+      ]
+    },
+    {
+      "id": "goodsDescription",
+      "label": "Descripción",
+      "type": "select",
+      "expected": "Tela de algodón teñida, ancho 1.6 m, para confección industrial",
+      "points": 4,
+      "selectOptions": [
+        "Tela de algodón teñida, ancho 1.6 m, para confección industrial",
+        "Mercancía genérica declarada incompleta",
+        "Piezas metálicas sin especificación"
+      ]
+    },
+    {
+      "id": "quantity",
+      "label": "Cantidad",
+      "type": "select",
+      "expected": "18500",
+      "points": 4,
+      "selectOptions": [
+        "18500",
+        "100",
+        "24",
+        "18500"
+      ]
+    },
+    {
+      "id": "originCountry",
+      "label": "País de origen",
+      "type": "select",
+      "expected": "Vietnam",
+      "points": 4,
+      "selectOptions": [
+        "Vietnam",
+        "China",
+        "México",
+        "Brasil",
+        "Canadá"
+      ]
+    }
+  ],
+  "taxFields": [
+    {
+      "id": "igi",
+      "label": "IGI",
+      "type": "select",
+      "expected": "365458.5",
+      "points": 8,
+      "selectOptions": [
+        "365458.5",
+        "34701.00",
+        "118800.00",
+        "364320.00"
+      ],
+      "formula": {
+        "title": "IGI — Impuesto General de Importación",
+        "expression": "IGI = Valor en Aduana × Tasa arancelaria",
+        "explanation": "Se aplica la tasa de la fracción arancelaria al valor en aduana en MXN.",
+        "example": "1,661,175.00 × tasa aplicable"
+      }
+    },
+    {
+      "id": "dta",
+      "label": "DTA",
+      "type": "select",
+      "expected": "13289.4",
+      "points": 6,
+      "selectOptions": [
+        "13289.4",
+        "1850.72",
+        "6336.00",
+        "13248.00"
+      ],
+      "formula": {
+        "title": "DTA — Derecho de Trámite Aduanero",
+        "expression": "DTA = Valor en Aduana × 0.008",
+        "explanation": "8 al millar sobre el valor en aduana (importación definitiva A1).",
+        "example": "1,661,175.00 × 0.008"
+      }
+    },
+    {
+      "id": "ivaBase",
+      "label": "Base IVA",
+      "type": "select",
+      "expected": "2039922.9",
+      "points": 8,
+      "selectOptions": [
+        "2039922.9",
+        "267891.72",
+        "917136.00",
+        "2033568.00"
+      ],
+      "formula": {
+        "title": "Base gravable del IVA",
+        "expression": "Base IVA = Valor en Aduana + IGI + DTA",
+        "explanation": "Base integrada conforme obligaciones en importación definitiva.",
+        "example": "Suma de valor en aduana, IGI y DTA"
+      }
+    },
+    {
+      "id": "iva",
+      "label": "IVA",
+      "type": "select",
+      "expected": "326387.66",
+      "points": 8,
+      "selectOptions": [
+        "326387.66",
+        "42862.68",
+        "146741.76",
+        "325370.88"
+      ],
+      "formula": {
+        "title": "IVA — Impuesto al Valor Agregado",
+        "expression": "IVA = Base IVA × 16%",
+        "explanation": "Tasa general 16% sobre la base integrada.",
+        "example": "2039922.9 × 16%"
+      }
+    },
+    {
+      "id": "totalTaxes",
+      "label": "Total contribuciones",
+      "type": "select",
+      "expected": "705135.56",
+      "points": 8,
+      "selectOptions": [
+        "705135.56",
+        "79414.40",
+        "271877.76",
+        "703938.88"
+      ],
+      "formula": {
+        "title": "Total de contribuciones a pagar",
+        "expression": "Total = IGI + DTA + IVA",
+        "explanation": "Suma de contribuciones causadas.",
+        "example": "IGI + DTA + IVA"
+      }
+    }
+  ],
+  "validationRules": [
+    {
+      "ifField": "regime",
+      "notEquals": "Definitivo",
+      "message": "Error crítico: El régimen seleccionado no corresponde a una operación de importación definitiva.",
+      "severity": "high"
+    },
+    {
+      "ifField": "customsValueMxn",
+      "notInToleranceOf": 1661175,
+      "message": "Observación: El valor en aduana no fue integrado correctamente. Revisa incrementables y tipo de cambio.",
+      "severity": "high"
+    },
+    {
+      "ifField": "tariffCode",
+      "notEquals": "5208.52.01",
+      "message": "Alerta: La fracción arancelaria capturada es inconsistente con la mercancía declarada.",
+      "severity": "medium"
+    },
+    {
+      "ifField": "igi",
+      "notInToleranceOf": 365458.5,
+      "message": "Error de cálculo: El IGI no coincide con la base gravable declarada.",
+      "severity": "high"
+    },
+    {
+      "ifField": "iva",
+      "notInToleranceOf": 326387.66,
+      "message": "Error de integración fiscal: La base del IVA debe considerar valor en aduana, IGI y DTA.",
+      "severity": "high"
+    }
+  ]
+}

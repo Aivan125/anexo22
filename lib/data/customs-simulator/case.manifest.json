@@ -1,0 +1,21 @@
+{
+  "contentSchemaVersion": 1,
+  "cases": [
+    {
+      "caseKey": "maritimo_ejemplo",
+      "published": true
+    },
+    {
+      "caseKey": "terrestre_autopartes",
+      "published": true
+    },
+    {
+      "caseKey": "aereo_instrumental",
+      "published": true
+    },
+    {
+      "caseKey": "maritimo_textiles",
+      "published": true
+    }
+  ]
+}

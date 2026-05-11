@@ -1,0 +1,576 @@
+{
+  "key": "aereo_instrumental",
+  "label": "Caso aéreo — Importación de instrumental médico (Frankfurt → AICM, Ciudad de México)",
+  "shortLabel": "Aéreo · Instrumental médico",
+  "mode": "Aéreo",
+  "isExample": false,
+  "route": {
+    "from": "Frankfurt",
+    "to": "AICM (Ciudad de México)"
+  },
+  "case": {
+    "id": "CASO-003",
+    "title": "Importación definitiva de equipo de ultrasonido portátil",
+    "context": "MediCorona Distribuidora importará equipo de diagnóstico por ultrasonido desde Alemania mediante carga aérea con llegada al AICM, para distribución hospitalaria nacional.",
+    "expedienteNarrativeParagraphs": [
+      "MediCorona Distribuidora, S.A. de C.V. adquiere sistemas compactos de ultrasonido Frankfurt MedTech Instruments GmbH bajo CIP Aeropuerto Ciudad de México: el proveedor proporciona conocimiento de embarque multimodal hasta el primer punto de entrada y el importador debe alinear registros sanitarios previos al pedimento.",
+      "La mercancía aterriza en el AICM con cadena fría documental habitual; los sellos electrónicos y la guía aérea deben cuadrar con la factura, el embalaje y la identificación del lote ante COFEPRIS.",
+      "El expediente concentra pruebas de conformidad técnica, contratos de soporte técnico y la determinación provisional del valor en aduana a partir del precio de transacción y los cargos relacionados hasta el lugar de nacionalización."
+    ],
+    "expedienteAccentTerms": [
+      "MediCorona Distribuidora, S.A. de C.V.",
+      "Frankfurt MedTech Instruments GmbH",
+      "CIP Aeropuerto Ciudad de México",
+      "AICM",
+      "Alemania",
+      "COFEPRIS"
+    ],
+    "importer": {
+      "name": "MediCorona Distribuidora, S.A. de C.V.",
+      "rfc": "MCD230811NT4",
+      "city": "Guadalajara, Jalisco"
+    },
+    "supplier": {
+      "name": "Frankfurt MedTech Instruments GmbH",
+      "countryExport": "Alemania",
+      "countryOrigin": "Alemania"
+    },
+    "goods": {
+      "description": "Equipo médico digital portátil de ultrasonido con transductor multifrecuencia",
+      "quantity": 24,
+      "unitValueUsd": 1750,
+      "invoiceValueUsd": 42000
+    },
+    "terms": {
+      "incoterm": "CIP Aeropuerto Ciudad de México",
+      "freightUsd": 1150,
+      "insuranceUsd": 240,
+      "packingUsd": 110,
+      "exchangeRate": 18,
+      "transportMode": "Aéreo",
+      "customsOffice": "Ciudad de México",
+      "regimeExpected": "Importación definitiva"
+    },
+    "tariff": {
+      "tariffCode": "9018.12.01",
+      "igiRate": 0.15,
+      "ivaRate": 0.16,
+      "dtaRate": 0.008
+    },
+    "risk": {
+      "type": "Riesgo regulatorio y documental",
+      "title": "Registro sanitario vs. modelo del equipo",
+      "description": "El reconocimiento detecta que el número de registro sanitario corresponde a una versión de firmware distinta a la consignada en la factura y en la rotulación del equipo; ello genera duda sobre la procedencia del desaduanamiento y la correcta descripción en el pedimento.",
+      "impact": "La autoridad puede exigir aclaración del fabricante, retener la mercancía en recinto fiscal y reprogramar el despacho hasta homologar la documentación sanitaria con la mercancía física."
+    },
+    "infraction": {
+      "legalBasis": "Artículo 184, fracción III de la Ley Aduanera",
+      "description": "Presentar el pedimento con datos inexactos o falsos, u omitir alguno de ellos, cuando se altere la información estadística, el cumplimiento de regulaciones y restricciones no arancelarias o la determinación correcta de las contribuciones.",
+      "detectedBy": "Reconocimiento aduanero (semáforo rojo) en la aduana de Ciudad de México."
+    },
+    "sanction": {
+      "legalBasis": "Artículo 185, fracción II de la Ley Aduanera",
+      "fineRange": "Multa del 70% al 100% del beneficio indebido o de las contribuciones omitidas",
+      "estimatedFine": "Entre 82,215.00 y 117,450.00 MXN (referencia sobre IGI preliminar)",
+      "additional": [
+        "Posible inmovilización en almacén fiscal hasta regularizar permisos.",
+        "Notificación a autoridad sanitaria competente.",
+        "Actualizaciones y recargos en caso de corrección extemporánea."
+      ]
+    }
+  },
+  "analysisQuestions": [
+    {
+      "id": "q1",
+      "text": "¿Qué tipo de operación se está realizando?",
+      "options": [
+        "Exportación definitiva",
+        "Importación definitiva",
+        "Retorno virtual",
+        "Tránsito interno"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q2",
+      "text": "¿Cuál es el régimen aduanero aplicable?",
+      "options": [
+        "Temporal para elaboración",
+        "Importación definitiva",
+        "Depósito fiscal",
+        "Recinto fiscalizado estratégico"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q3",
+      "text": "¿Cuál es el país de origen de la mercancía?",
+      "options": [
+        "México",
+        "Estados Unidos",
+        "China",
+        "Alemania",
+        "Vietnam"
+      ],
+      "correctAnswer": "Alemania",
+      "points": 3
+    },
+    {
+      "id": "q4",
+      "text": "¿Cuál es el medio de transporte de arribo?",
+      "options": [
+        "Aéreo",
+        "Ferroviario",
+        "Marítimo",
+        "Terrestre",
+        "Fluvial"
+      ],
+      "correctAnswer": "Aéreo",
+      "points": 3
+    },
+    {
+      "id": "q5",
+      "text": "¿Qué Incoterm se pactó en la operación?",
+      "options": [
+        "CIF",
+        "EXW",
+        "DDP",
+        "CIP Aeropuerto Ciudad de México"
+      ],
+      "correctAnswer": "CIP Aeropuerto Ciudad de México",
+      "points": 3
+    }
+  ],
+  "decisionQuestions": [
+    {
+      "id": "q6",
+      "text": "Selecciona el método de valoración aplicable",
+      "options": [
+        "Valor de transacción",
+        "Valor de mercancías idénticas",
+        "Valor de mercancías similares",
+        "Método deductivo"
+      ],
+      "correctAnswer": "Valor de transacción",
+      "points": 5
+    },
+    {
+      "id": "q7",
+      "text": "Selecciona los conceptos incrementables",
+      "options": [
+        "Flete internacional",
+        "Seguro internacional",
+        "Embalaje",
+        "Todos los anteriores",
+        "Ninguno"
+      ],
+      "correctAnswer": "Todos los anteriores",
+      "points": 5
+    },
+    {
+      "id": "q8",
+      "text": "La base del valor en aduana debe construirse a partir de:",
+      "options": [
+        "Solo valor factura",
+        "Valor factura + incrementables",
+        "Valor factura + IVA",
+        "Valor factura + DTA"
+      ],
+      "correctAnswer": "Valor factura + incrementables",
+      "points": 5
+    }
+  ],
+  "controversyQuestions": [
+    {
+      "id": "c1",
+      "text": "¿Qué tipo de riesgo representa la discrepancia documental descrita en el caso?",
+      "options": [
+        "Riesgo operativo",
+        "Riesgo regulatorio y documental",
+        "Riesgo cambiario",
+        "Riesgo logístico"
+      ],
+      "correctAnswer": "Riesgo regulatorio y documental",
+      "points": 5
+    },
+    {
+      "id": "c2",
+      "text": "¿En qué momento del despacho se detecta la irregularidad descrita en el caso?",
+      "options": [
+        "Revisión previa del importador",
+        "Reconocimiento aduanero (semáforo rojo)",
+        "Auditoría posterior del SAT",
+        "Embarque en origen"
+      ],
+      "correctAnswer": "Reconocimiento aduanero (semáforo rojo)",
+      "points": 4
+    },
+    {
+      "id": "c3",
+      "text": "¿Cuál es la infracción cometida según la Ley Aduanera?",
+      "options": [
+        "Art. 176 fracc. I — Importar sin pedimento",
+        "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+        "Art. 178 fracc. IV — Mercancía prohibida",
+        "Art. 183-A — Mercancía pasa a propiedad del fisco"
+      ],
+      "correctAnswer": "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+      "points": 6
+    },
+    {
+      "id": "c4",
+      "text": "¿Cuál es la sanción aplicable conforme al Art. 185 fracc. II de la Ley Aduanera?",
+      "options": [
+        "Multa fija de $5,000 MXN",
+        "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+        "Cancelación inmediata del RFC",
+        "Pena privativa de la libertad obligatoria"
+      ],
+      "correctAnswer": "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+      "points": 6
+    },
+    {
+      "id": "c5",
+      "text": "Además de la multa económica, ¿qué consecuencia adicional puede enfrentar el importador?",
+      "options": [
+        "Devolución automática del IVA",
+        "Suspensión temporal del padrón de importadores en caso de reincidencia",
+        "Exención de DTA en futuras operaciones",
+        "Reducción del IGI al 0%"
+      ],
+      "correctAnswer": "Suspensión temporal del padrón de importadores en caso de reincidencia",
+      "points": 4
+    }
+  ],
+  "pedimentoFields": [
+    {
+      "id": "operationType",
+      "label": "Tipo de operación",
+      "type": "select",
+      "expected": "Importación",
+      "points": 4,
+      "selectOptions": [
+        "Importación",
+        "Exportación",
+        "Tránsito"
+      ]
+    },
+    {
+      "id": "pedimentoKey",
+      "label": "Clave de pedimento",
+      "type": "select",
+      "expected": "A1",
+      "points": 4,
+      "selectOptions": [
+        "A1",
+        "A3",
+        "BP",
+        "C1",
+        "F4"
+      ]
+    },
+    {
+      "id": "regime",
+      "label": "Régimen",
+      "type": "select",
+      "expected": "Definitivo",
+      "points": 4,
+      "selectOptions": [
+        "Definitivo",
+        "Temporal",
+        "Depósito fiscal",
+        "Tránsito",
+        "Recinto fiscalizado"
+      ]
+    },
+    {
+      "id": "customsOffice",
+      "label": "Aduana",
+      "type": "select",
+      "expected": "Ciudad de México",
+      "points": 4,
+      "selectOptions": [
+        "Ciudad de México",
+        "Manzanillo",
+        "Veracruz",
+        "Altamira",
+        "Nuevo Laredo"
+      ]
+    },
+    {
+      "id": "transportMode",
+      "label": "Medio de transporte",
+      "type": "select",
+      "expected": "Aéreo",
+      "points": 4,
+      "selectOptions": [
+        "Marítimo",
+        "Aéreo",
+        "Terrestre",
+        "Ferroviario",
+        "Fluvial"
+      ]
+    },
+    {
+      "id": "invoiceValueUsd",
+      "label": "Valor factura USD",
+      "type": "select",
+      "expected": "42000",
+      "points": 4,
+      "selectOptions": [
+        "42000",
+        "12000",
+        "42000",
+        "89500"
+      ]
+    },
+    {
+      "id": "freightUsd",
+      "label": "Flete USD",
+      "type": "select",
+      "expected": "1150",
+      "points": 4,
+      "selectOptions": [
+        "1150",
+        "1200",
+        "1150",
+        "6500"
+      ]
+    },
+    {
+      "id": "insuranceUsd",
+      "label": "Seguro USD",
+      "type": "select",
+      "expected": "240",
+      "points": 4,
+      "selectOptions": [
+        "240",
+        "150",
+        "240",
+        "740"
+      ]
+    },
+    {
+      "id": "packingUsd",
+      "label": "Embalaje USD",
+      "type": "select",
+      "expected": "110",
+      "points": 4,
+      "selectOptions": [
+        "110",
+        "100",
+        "110",
+        "260"
+      ]
+    },
+    {
+      "id": "exchangeRate",
+      "label": "Tipo de cambio",
+      "type": "select",
+      "expected": "18",
+      "points": 4,
+      "selectOptions": [
+        "18",
+        "17.2",
+        "18.0",
+        "17.25"
+      ]
+    },
+    {
+      "id": "customsValueMxn",
+      "label": "Valor en aduana MXN",
+      "type": "select",
+      "expected": "783000",
+      "points": 10,
+      "selectOptions": [
+        "783000",
+        "231340",
+        "792000",
+        "1656000"
+      ]
+    },
+    {
+      "id": "tariffCode",
+      "label": "Fracción arancelaria",
+      "type": "select",
+      "expected": "9018.12.01",
+      "points": 6,
+      "selectOptions": [
+        "9018.12.01",
+        "8471.30.01",
+        "9018.90.06",
+        "5208.52.02"
+      ]
+    },
+    {
+      "id": "goodsDescription",
+      "label": "Descripción",
+      "type": "select",
+      "expected": "Equipo médico digital portátil de ultrasonido con transductor multifrecuencia",
+      "points": 4,
+      "selectOptions": [
+        "Equipo médico digital portátil de ultrasonido con transductor multifrecuencia",
+        "Mercancía genérica declarada incompleta",
+        "Piezas metálicas sin especificación"
+      ]
+    },
+    {
+      "id": "quantity",
+      "label": "Cantidad",
+      "type": "select",
+      "expected": "24",
+      "points": 4,
+      "selectOptions": [
+        "24",
+        "100",
+        "24",
+        "18500"
+      ]
+    },
+    {
+      "id": "originCountry",
+      "label": "País de origen",
+      "type": "select",
+      "expected": "Alemania",
+      "points": 4,
+      "selectOptions": [
+        "Alemania",
+        "China",
+        "México",
+        "Brasil",
+        "Canadá"
+      ]
+    }
+  ],
+  "taxFields": [
+    {
+      "id": "igi",
+      "label": "IGI",
+      "type": "select",
+      "expected": "117450",
+      "points": 8,
+      "selectOptions": [
+        "117450",
+        "34701.00",
+        "118800.00",
+        "364320.00"
+      ],
+      "formula": {
+        "title": "IGI — Impuesto General de Importación",
+        "expression": "IGI = Valor en Aduana × Tasa arancelaria",
+        "explanation": "Se aplica la tasa de la fracción arancelaria al valor en aduana en MXN.",
+        "example": "783,000.00 × tasa aplicable"
+      }
+    },
+    {
+      "id": "dta",
+      "label": "DTA",
+      "type": "select",
+      "expected": "6264",
+      "points": 6,
+      "selectOptions": [
+        "6264",
+        "1850.72",
+        "6336.00",
+        "13248.00"
+      ],
+      "formula": {
+        "title": "DTA — Derecho de Trámite Aduanero",
+        "expression": "DTA = Valor en Aduana × 0.008",
+        "explanation": "8 al millar sobre el valor en aduana (importación definitiva A1).",
+        "example": "783,000.00 × 0.008"
+      }
+    },
+    {
+      "id": "ivaBase",
+      "label": "Base IVA",
+      "type": "select",
+      "expected": "906714",
+      "points": 8,
+      "selectOptions": [
+        "906714",
+        "267891.72",
+        "917136.00",
+        "2033568.00"
+      ],
+      "formula": {
+        "title": "Base gravable del IVA",
+        "expression": "Base IVA = Valor en Aduana + IGI + DTA",
+        "explanation": "Base integrada conforme obligaciones en importación definitiva.",
+        "example": "Suma de valor en aduana, IGI y DTA"
+      }
+    },
+    {
+      "id": "iva",
+      "label": "IVA",
+      "type": "select",
+      "expected": "145074.24",
+      "points": 8,
+      "selectOptions": [
+        "145074.24",
+        "42862.68",
+        "146741.76",
+        "325370.88"
+      ],
+      "formula": {
+        "title": "IVA — Impuesto al Valor Agregado",
+        "expression": "IVA = Base IVA × 16%",
+        "explanation": "Tasa general 16% sobre la base integrada.",
+        "example": "906714 × 16%"
+      }
+    },
+    {
+      "id": "totalTaxes",
+      "label": "Total contribuciones",
+      "type": "select",
+      "expected": "268788.24",
+      "points": 8,
+      "selectOptions": [
+        "268788.24",
+        "79414.40",
+        "271877.76",
+        "703938.88"
+      ],
+      "formula": {
+        "title": "Total de contribuciones a pagar",
+        "expression": "Total = IGI + DTA + IVA",
+        "explanation": "Suma de contribuciones causadas.",
+        "example": "IGI + DTA + IVA"
+      }
+    }
+  ],
+  "validationRules": [
+    {
+      "ifField": "regime",
+      "notEquals": "Definitivo",
+      "message": "Error crítico: El régimen seleccionado no corresponde a una operación de importación definitiva.",
+      "severity": "high"
+    },
+    {
+      "ifField": "customsValueMxn",
+      "notInToleranceOf": 783000,
+      "message": "Observación: El valor en aduana no fue integrado correctamente. Revisa incrementables y tipo de cambio.",
+      "severity": "high"
+    },
+    {
+      "ifField": "tariffCode",
+      "notEquals": "9018.12.01",
+      "message": "Alerta: La fracción arancelaria capturada es inconsistente con la mercancía declarada.",
+      "severity": "medium"
+    },
+    {
+      "ifField": "igi",
+      "notInToleranceOf": 117450,
+      "message": "Error de cálculo: El IGI no coincide con la base gravable declarada.",
+      "severity": "high"
+    },
+    {
+      "ifField": "iva",
+      "notInToleranceOf": 145074.24,
+      "message": "Error de integración fiscal: La base del IVA debe considerar valor en aduana, IGI y DTA.",
+      "severity": "high"
+    }
+  ]
+}
