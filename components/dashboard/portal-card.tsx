@@ -3,6 +3,7 @@
 import {
   FileText,
   Search,
+  Ship,
   ArrowRight,
   Check,
   type LucideIcon,
@@ -14,6 +15,7 @@ import { cn } from "@/lib/utils";
 const iconMap: Record<string, LucideIcon> = {
   FileText,
   Search,
+  Ship,
 };
 
 interface PortalCardProps {

@@ -1,0 +1,85 @@
+{
+  "caseKey": "terrestre_autopartes",
+  "expediente": [
+    {
+      "id": "journey-trs-001",
+      "title": "Arribo en puente internacional y ventanilla",
+      "scenario": "El trailer con mercancía llega a Nuevo Laredo. El agente aduanal debe coordinar inspección no intrusiva y ventanilla digital previa al cruce.",
+      "iconName": "Truck",
+      "options": [
+        {
+          "label": "Cruzar la frontera sin validar el e-manifest y el sellado electrónico",
+          "correct": false
+        },
+        {
+          "label": "Verificar e-manifest, consistencia de sellos y cita de reconocimiento antes de solicitar despacho provisional",
+          "correct": true
+        },
+        {
+          "label": "Declinar el tratado aplicable porque el proveedor radica fuera del TLCAN",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-trs-002",
+      "title": "Factura vs. conocimiento terrestre (CRT/e-Carta porte)",
+      "scenario": "La factura indica contenido estándar; el CRT detalla pallets adicionales con refacciones no descritas en la primera página.",
+      "iconName": "FileText",
+      "options": [
+        {
+          "label": "Tomar sólo la factura primera página como descripción suficiente",
+          "correct": false
+        },
+        {
+          "label": "Cotejar factura, CRT y packing list; subsanar divergencias antes del pedimento",
+          "correct": true
+        },
+        {
+          "label": "Reemplazar el CRT por un documento interno del transportista",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-trs-003",
+      "title": "USMCA — reglas de origen y trazabilidad",
+      "scenario": "La certificación de origen presume transformación suficiente, pero parte de los discos muestra grabado ‘non-NAFTA content’.",
+      "iconName": "Stamp",
+      "options": [
+        {
+          "label": "Aceptar origen tratado porque el valor total es mayoritario en NA",
+          "correct": false
+        },
+        {
+          "label": "Documentar contenido no originario segregado antes de declarar tratamiento preferencial",
+          "correct": true
+        },
+        {
+          "label": "Declarar NAFTA aplicable porque el país exportador es EE. UU.",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "journey-trs-004",
+      "title": "Semáforo documental previo",
+      "scenario": "El sistema marca riesgo documental medio por inconsistencia descriptiva en la subpartida.",
+      "iconName": "AlertTriangle",
+      "options": [
+        {
+          "label": "Avanzar el pedimento para evitar demoras en patio fiscal",
+          "correct": false
+        },
+        {
+          "label": "Preparar aclaración técnica y evidencia de reclasificación antes de solicitar libre tránsito",
+          "correct": true
+        },
+        {
+          "label": "Solicitar liberación bajo garantía sin exhibir documentos adicionales",
+          "correct": false
+        }
+      ]
+    }
+  ]
+}

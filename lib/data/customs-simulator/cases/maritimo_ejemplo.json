@@ -1,0 +1,581 @@
+{
+  "key": "maritimo_ejemplo",
+  "label": "Caso ejemplo — Importación marítima de tabletas (China → Manzanillo)",
+  "shortLabel": "Marítimo · Tabletas (Ejemplo)",
+  "mode": "Marítimo",
+  "isExample": true,
+  "route": {
+    "from": "Shanghai",
+    "to": "Manzanillo"
+  },
+  "case": {
+    "id": "CASO-001",
+    "title": "Importación definitiva de equipo electrónico",
+    "context": "La empresa ANMINCADISA Imports, S.A. de C.V. realizará la importación definitiva de tabletas electrónicas procedentes de China, con arribo marítimo a la aduana de Manzanillo.",
+    "expedienteNarrativeParagraphs": [
+      "La empresa ANMINCADISA Imports, S.A. de C.V. efectuará la importación definitiva de tabletas electrónicas mediante operación ordinaria contra Shenzhen Smart Devices Co., Ltd.: la mercancía se documenta ante la autoridad con factura consolidada por $12,000 USD y se orienta la valuación inicial al precio facturado, integrando cargos hasta frontera según pactos comerciales.",
+      "El contrato comercial pacta Incoterm FOB Shanghai con embarque en el puerto de Shanghai hasta Manzanillo; las obligaciones de exportación hasta el momento de colocación a bordo quedan a cargo del vendedor, mientras las contraprestaciones en territorio nacional y el saneamiento aduanero recaen sobre el importador ante la Administración.",
+      "El expediente concentra conocimiento marítimo, documentos sobre origen y la descripción física de la mercancía, de modo que posteriormente puedan subsanarse precisiones clasificatorias conforme las fracciones arancelarias de equipo automático antes de declarar tributos y cumplimiento de restricciones no arancelarias."
+    ],
+    "expedienteAccentTerms": [
+      "ANMINCADISA Imports, S.A. de C.V.",
+      "Shenzhen Smart Devices Co., Ltd.",
+      "tabletas electrónicas",
+      "$12,000 USD",
+      "Incoterm FOB Shanghai",
+      "FOB Shanghai",
+      "Shanghai",
+      "Manzanillo",
+      "importación definitiva"
+    ],
+    "importer": {
+      "name": "ANMINCADISA Imports, S.A. de C.V.",
+      "rfc": "ANI240101AB1",
+      "city": "Monterrey, Nuevo León"
+    },
+    "supplier": {
+      "name": "Shenzhen Smart Devices Co., Ltd.",
+      "countryExport": "China",
+      "countryOrigin": "China"
+    },
+    "goods": {
+      "description": "Tablet electrónica de 10 pulgadas para uso administrativo",
+      "quantity": 100,
+      "unitValueUsd": 120,
+      "invoiceValueUsd": 12000
+    },
+    "terms": {
+      "incoterm": "FOB Shanghai",
+      "freightUsd": 1200,
+      "insuranceUsd": 150,
+      "packingUsd": 100,
+      "exchangeRate": 17.2,
+      "transportMode": "Marítimo",
+      "customsOffice": "Manzanillo",
+      "regimeExpected": "Importación definitiva"
+    },
+    "tariff": {
+      "tariffCode": "8471.30.01",
+      "igiRate": 0.15,
+      "ivaRate": 0.16,
+      "dtaRate": 0.008
+    },
+    "risk": {
+      "type": "Riesgo documental y fiscal",
+      "title": "Discrepancia en el Certificado de Origen",
+      "description": "Durante la revisión documental previa al despacho, la autoridad aduanera detecta que el Certificado de Origen presentado por ANMINCADISA declara como país de origen 'Hong Kong', mientras que la factura comercial y el Bill of Lading indican 'China continental (Shenzhen)'. Adicionalmente, la descripción de la mercancía en el pedimento omite las características técnicas (pulgadas y uso) requeridas para validar la fracción arancelaria 8471.30.01.",
+      "impact": "La inconsistencia entre documentos invalida el certificado de origen y genera una declaración inexacta en el pedimento, lo que constituye una infracción a las obligaciones del importador."
+    },
+    "infraction": {
+      "legalBasis": "Artículo 184, fracción III de la Ley Aduanera",
+      "description": "Presentar el pedimento con datos inexactos o falsos, u omitir alguno de ellos, cuando se altere la información estadística, el cumplimiento de regulaciones y restricciones no arancelarias o la determinación correcta de las contribuciones.",
+      "detectedBy": "Reconocimiento aduanero (semáforo rojo) en la aduana de Manzanillo."
+    },
+    "sanction": {
+      "legalBasis": "Artículo 185, fracción II de la Ley Aduanera",
+      "fineRange": "Multa del 70% al 100% del beneficio indebido o de las contribuciones omitidas",
+      "estimatedFine": "Entre $24,290.70 y $34,701.00 MXN (calculado sobre el IGI de la operación)",
+      "additional": [
+        "Suspensión temporal del padrón de importadores si se reincide.",
+        "Pago de actualizaciones y recargos conforme al CFF.",
+        "Posible embargo precautorio de la mercancía hasta subsanar la inconsistencia."
+      ]
+    }
+  },
+  "analysisQuestions": [
+    {
+      "id": "q1",
+      "text": "¿Qué tipo de operación se está realizando?",
+      "options": [
+        "Exportación definitiva",
+        "Importación definitiva",
+        "Retorno virtual",
+        "Tránsito interno"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q2",
+      "text": "¿Cuál es el régimen aduanero aplicable?",
+      "options": [
+        "Temporal para elaboración",
+        "Importación definitiva",
+        "Depósito fiscal",
+        "Recinto fiscalizado estratégico"
+      ],
+      "correctAnswer": "Importación definitiva",
+      "points": 3
+    },
+    {
+      "id": "q3",
+      "text": "¿Cuál es el país de origen de la mercancía?",
+      "options": [
+        "México",
+        "Estados Unidos",
+        "China",
+        "Japón"
+      ],
+      "correctAnswer": "China",
+      "points": 3
+    },
+    {
+      "id": "q4",
+      "text": "¿Cuál es el medio de transporte de arribo?",
+      "options": [
+        "Aéreo",
+        "Ferroviario",
+        "Marítimo",
+        "Fluvial"
+      ],
+      "correctAnswer": "Marítimo",
+      "points": 3
+    },
+    {
+      "id": "q5",
+      "text": "¿Qué Incoterm se pactó en la operación?",
+      "options": [
+        "CIF",
+        "EXW",
+        "DDP",
+        "FOB"
+      ],
+      "correctAnswer": "FOB",
+      "points": 3
+    }
+  ],
+  "decisionQuestions": [
+    {
+      "id": "q6",
+      "text": "Selecciona el método de valoración aplicable",
+      "options": [
+        "Valor de transacción",
+        "Valor de mercancías idénticas",
+        "Valor de mercancías similares",
+        "Método deductivo"
+      ],
+      "correctAnswer": "Valor de transacción",
+      "points": 5
+    },
+    {
+      "id": "q7",
+      "text": "Selecciona los conceptos incrementables",
+      "options": [
+        "Flete internacional",
+        "Seguro internacional",
+        "Embalaje",
+        "Todos los anteriores",
+        "Ninguno"
+      ],
+      "correctAnswer": "Todos los anteriores",
+      "points": 5
+    },
+    {
+      "id": "q8",
+      "text": "La base del valor en aduana debe construirse a partir de:",
+      "options": [
+        "Solo valor factura",
+        "Valor factura + incrementables",
+        "Valor factura + IVA",
+        "Valor factura + DTA"
+      ],
+      "correctAnswer": "Valor factura + incrementables",
+      "points": 5
+    }
+  ],
+  "controversyQuestions": [
+    {
+      "id": "c1",
+      "text": "¿Qué tipo de riesgo representa la discrepancia entre el Certificado de Origen (Hong Kong) y la factura/BL (China continental)?",
+      "options": [
+        "Riesgo operativo",
+        "Riesgo documental y fiscal",
+        "Riesgo cambiario",
+        "Riesgo logístico"
+      ],
+      "correctAnswer": "Riesgo documental y fiscal",
+      "points": 5
+    },
+    {
+      "id": "c2",
+      "text": "¿En qué momento del despacho se detecta la irregularidad descrita en el caso?",
+      "options": [
+        "Revisión previa del importador",
+        "Reconocimiento aduanero (semáforo rojo)",
+        "Auditoría posterior del SAT",
+        "Embarque en origen"
+      ],
+      "correctAnswer": "Reconocimiento aduanero (semáforo rojo)",
+      "points": 4
+    },
+    {
+      "id": "c3",
+      "text": "¿Cuál es la infracción cometida según la Ley Aduanera?",
+      "options": [
+        "Art. 176 fracc. I — Importar sin pedimento",
+        "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+        "Art. 178 fracc. IV — Mercancía prohibida",
+        "Art. 183-A — Mercancía pasa a propiedad del fisco"
+      ],
+      "correctAnswer": "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
+      "points": 6
+    },
+    {
+      "id": "c4",
+      "text": "¿Cuál es la sanción aplicable conforme al Art. 185 fracc. II de la Ley Aduanera?",
+      "options": [
+        "Multa fija de $5,000 MXN",
+        "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+        "Cancelación inmediata del RFC",
+        "Pena privativa de la libertad obligatoria"
+      ],
+      "correctAnswer": "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
+      "points": 6
+    },
+    {
+      "id": "c5",
+      "text": "Además de la multa económica, ¿qué consecuencia adicional puede enfrentar el importador?",
+      "options": [
+        "Devolución automática del IVA",
+        "Suspensión temporal del padrón de importadores en caso de reincidencia",
+        "Exención de DTA en futuras operaciones",
+        "Reducción del IGI al 0%"
+      ],
+      "correctAnswer": "Suspensión temporal del padrón de importadores en caso de reincidencia",
+      "points": 4
+    }
+  ],
+  "pedimentoFields": [
+    {
+      "id": "operationType",
+      "label": "Tipo de operación",
+      "type": "select",
+      "expected": "Importación",
+      "points": 4,
+      "selectOptions": [
+        "Importación",
+        "Exportación",
+        "Tránsito"
+      ]
+    },
+    {
+      "id": "pedimentoKey",
+      "label": "Clave de pedimento",
+      "type": "select",
+      "expected": "A1",
+      "points": 4,
+      "selectOptions": [
+        "A1",
+        "A3",
+        "BP",
+        "C1",
+        "F4"
+      ]
+    },
+    {
+      "id": "regime",
+      "label": "Régimen",
+      "type": "select",
+      "expected": "Definitivo",
+      "points": 4,
+      "selectOptions": [
+        "Definitivo",
+        "Temporal",
+        "Depósito fiscal",
+        "Tránsito",
+        "Recinto fiscalizado"
+      ]
+    },
+    {
+      "id": "customsOffice",
+      "label": "Aduana",
+      "type": "select",
+      "expected": "Manzanillo",
+      "points": 4,
+      "selectOptions": [
+        "Manzanillo",
+        "Veracruz",
+        "Lázaro Cárdenas",
+        "Altamira",
+        "Nuevo Laredo"
+      ]
+    },
+    {
+      "id": "transportMode",
+      "label": "Medio de transporte",
+      "type": "select",
+      "expected": "Marítimo",
+      "points": 4,
+      "selectOptions": [
+        "Marítimo",
+        "Aéreo",
+        "Terrestre",
+        "Ferroviario",
+        "Fluvial"
+      ]
+    },
+    {
+      "id": "invoiceValueUsd",
+      "label": "Valor factura USD",
+      "type": "select",
+      "expected": "12000",
+      "points": 4,
+      "selectOptions": [
+        "10000",
+        "12000",
+        "13450",
+        "15000"
+      ]
+    },
+    {
+      "id": "freightUsd",
+      "label": "Flete USD",
+      "type": "select",
+      "expected": "1200",
+      "points": 4,
+      "selectOptions": [
+        "800",
+        "1000",
+        "1200",
+        "1500"
+      ]
+    },
+    {
+      "id": "insuranceUsd",
+      "label": "Seguro USD",
+      "type": "select",
+      "expected": "150",
+      "points": 4,
+      "selectOptions": [
+        "100",
+        "120",
+        "150",
+        "200"
+      ]
+    },
+    {
+      "id": "packingUsd",
+      "label": "Embalaje USD",
+      "type": "select",
+      "expected": "100",
+      "points": 4,
+      "selectOptions": [
+        "50",
+        "100",
+        "150",
+        "200"
+      ]
+    },
+    {
+      "id": "exchangeRate",
+      "label": "Tipo de cambio",
+      "type": "select",
+      "expected": "17.2",
+      "points": 4,
+      "selectOptions": [
+        "16.8",
+        "17.0",
+        "17.2",
+        "17.5",
+        "18.0"
+      ]
+    },
+    {
+      "id": "customsValueMxn",
+      "label": "Valor en aduana MXN",
+      "type": "select",
+      "expected": "231340",
+      "points": 10,
+      "selectOptions": [
+        "206400",
+        "228760",
+        "231340",
+        "233920",
+        "240000"
+      ]
+    },
+    {
+      "id": "tariffCode",
+      "label": "Fracción arancelaria",
+      "type": "select",
+      "expected": "8471.30.01",
+      "points": 6,
+      "selectOptions": [
+        "8471.30.01",
+        "8471.41.01",
+        "8517.12.02",
+        "8528.72.06"
+      ]
+    },
+    {
+      "id": "goodsDescription",
+      "label": "Descripción",
+      "type": "select",
+      "expected": "Tablet electrónica de 10 pulgadas para uso administrativo",
+      "points": 4,
+      "selectOptions": [
+        "Tablet electrónica de 10 pulgadas para uso administrativo",
+        "Computadora portátil de 14 pulgadas",
+        "Teléfono celular inteligente",
+        "Pantalla LED de 10 pulgadas"
+      ]
+    },
+    {
+      "id": "quantity",
+      "label": "Cantidad",
+      "type": "select",
+      "expected": "100",
+      "points": 4,
+      "selectOptions": [
+        "50",
+        "100",
+        "120",
+        "150",
+        "200"
+      ]
+    },
+    {
+      "id": "originCountry",
+      "label": "País de origen",
+      "type": "select",
+      "expected": "China",
+      "points": 4,
+      "selectOptions": [
+        "China",
+        "Japón",
+        "Corea del Sur",
+        "Estados Unidos",
+        "México"
+      ]
+    }
+  ],
+  "taxFields": [
+    {
+      "id": "igi",
+      "label": "IGI",
+      "type": "select",
+      "expected": "34701.00",
+      "points": 8,
+      "selectOptions": [
+        "31250.00",
+        "34701.00",
+        "37500.00",
+        "40180.00"
+      ],
+      "formula": {
+        "title": "IGI — Impuesto General de Importación",
+        "expression": "IGI = Valor en Aduana × Tasa arancelaria",
+        "explanation": "Se aplica la tasa de la fracción arancelaria (TIGIE) al valor en aduana en MXN.",
+        "example": "231,340.00 × 15% = 34,701.00 MXN"
+      }
+    },
+    {
+      "id": "dta",
+      "label": "DTA",
+      "type": "select",
+      "expected": "1850.72",
+      "points": 6,
+      "selectOptions": [
+        "1620.50",
+        "1850.72",
+        "2100.00",
+        "2310.40"
+      ],
+      "formula": {
+        "title": "DTA — Derecho de Trámite Aduanero",
+        "expression": "DTA = Valor en Aduana × 0.008 (8 al millar)",
+        "explanation": "Para importación definitiva con pedimento A1 se aplica el 8 al millar sobre el valor en aduana.",
+        "example": "231,340.00 × 0.008 = 1,850.72 MXN"
+      }
+    },
+    {
+      "id": "ivaBase",
+      "label": "Base IVA",
+      "type": "select",
+      "expected": "267891.72",
+      "points": 8,
+      "selectOptions": [
+        "231340.00",
+        "266041.00",
+        "267891.72",
+        "272500.00"
+      ],
+      "formula": {
+        "title": "Base gravable del IVA",
+        "expression": "Base IVA = Valor en Aduana + IGI + DTA",
+        "explanation": "El IVA en importación se calcula sobre la base que incluye el valor en aduana más todas las contribuciones causadas (Art. 27 LIVA).",
+        "example": "231,340.00 + 34,701.00 + 1,850.72 = 267,891.72 MXN"
+      }
+    },
+    {
+      "id": "iva",
+      "label": "IVA",
+      "type": "select",
+      "expected": "42862.68",
+      "points": 8,
+      "selectOptions": [
+        "37014.40",
+        "42862.68",
+        "44120.00",
+        "46582.10"
+      ],
+      "formula": {
+        "title": "IVA — Impuesto al Valor Agregado",
+        "expression": "IVA = Base IVA × 16%",
+        "explanation": "Se aplica la tasa general del 16% sobre la base gravable integrada.",
+        "example": "267,891.72 × 16% = 42,862.68 MXN"
+      }
+    },
+    {
+      "id": "totalTaxes",
+      "label": "Total contribuciones",
+      "type": "select",
+      "expected": "79414.40",
+      "points": 8,
+      "selectOptions": [
+        "72180.00",
+        "76551.40",
+        "79414.40",
+        "82900.00"
+      ],
+      "formula": {
+        "title": "Total de contribuciones a pagar",
+        "expression": "Total = IGI + DTA + IVA",
+        "explanation": "Suma de todas las contribuciones causadas por la operación de importación.",
+        "example": "34,701.00 + 1,850.72 + 42,862.68 = 79,414.40 MXN"
+      }
+    }
+  ],
+  "validationRules": [
+    {
+      "ifField": "regime",
+      "notEquals": "Definitivo",
+      "message": "Error crítico: El régimen seleccionado no corresponde a una operación de importación definitiva.",
+      "severity": "high"
+    },
+    {
+      "ifField": "customsValueMxn",
+      "notInToleranceOf": 231340,
+      "message": "Observación: El valor en aduana no fue integrado correctamente. Revisa incrementables y tipo de cambio.",
+      "severity": "high"
+    },
+    {
+      "ifField": "tariffCode",
+      "notEquals": "8471.30.01",
+      "message": "Alerta: La fracción arancelaria capturada es inconsistente con la mercancía declarada.",
+      "severity": "medium"
+    },
+    {
+      "ifField": "igi",
+      "notInToleranceOf": 34701,
+      "message": "Error de cálculo: El IGI no coincide con la base gravable declarada.",
+      "severity": "high"
+    },
+    {
+      "ifField": "iva",
+      "notInToleranceOf": 42862.68,
+      "message": "Error de integración fiscal: La base del IVA debe considerar valor en aduana, IGI y DTA.",
+      "severity": "high"
+    }
+  ]
+}

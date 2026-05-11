@@ -9,6 +9,11 @@ export const COURSES = [
     name: "Curso de Clasificación Arancelaria",
     routePrefix: "/clasificacion-arancelaria",
   },
+  {
+    slug: "simulador-aduanero",
+    name: "Simulador aduanero",
+    routePrefix: "/simulador-aduanero",
+  },
 ] as const;
 
 export type CourseSlug = (typeof COURSES)[number]["slug"];

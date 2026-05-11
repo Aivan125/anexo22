@@ -60,7 +60,7 @@ import {
   type CreateGroupFormValues,
   type UpdateGroupFormValues,
 } from "@/lib/validation";
-import { COURSES } from "@/lib/constants/courses";
+import { COURSES, type CourseSlug } from "@/lib/constants/courses";
 
 const NONE_COURSE = "__none__";
 const COURSE_SLUG_OPTIONS = [
@@ -118,9 +118,9 @@ export function GroupsTable({ groups }: GroupsTableProps) {
   const handleEditOpen = (group: GroupWithCounts) => {
     setEditingGroup(group);
     const courseSlugValue: UpdateGroupFormValues["courseSlug"] =
-      group.courseSlug === "anexo22" ||
-      group.courseSlug === "clasificacion-arancelaria"
-        ? group.courseSlug
+      group.courseSlug != null &&
+      COURSES.some((c) => c.slug === group.courseSlug)
+        ? (group.courseSlug as CourseSlug)
         : NONE_COURSE;
     editForm.reset({
       id: group.id,

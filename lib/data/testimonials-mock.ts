@@ -73,6 +73,15 @@ export const TESTIMONIALS_MOCK: TestimonialDisplay[] = [
     authorName: "Jorge Hernández",
     authorInitial: "J",
   },
+  {
+    id: "mock-sim",
+    text: "El simulador aduanero me permitió recorrer expediente, pedimento y controversia en un solo flujo. Ideal para practicar sin riesgo antes de un despacho real.",
+    rating: 5,
+    courseSlug: "simulador-aduanero",
+    courseName: "Simulador aduanero",
+    authorName: "Diana Ruiz",
+    authorInitial: "D",
+  },
 ];
 
 /** 9 ejemplos para complementar testimonios de la base de datos (1 DB + 9 mock = 10 total) */
@@ -151,10 +160,10 @@ export const SUPPLEMENT_MOCK: TestimonialDisplay[] = [
   },
   {
     id: "supp-9",
-    text: "Invertí en mi formación y valió cada peso. Hoy proceso mis pedimentos sin depender de terceros. La plataforma es clara y el soporte excelente.",
+    text: "Practicar con el Simulador aduanero me dio contexto de punta a punta: desde el arribo hasta el resumen. Muy útil para equipos de comercio exterior.",
     rating: 5,
-    courseSlug: "anexo22",
-    courseName: "Curso de Llenado de Pedimento del Anexo 22",
+    courseSlug: "simulador-aduanero",
+    courseName: "Simulador aduanero",
     authorName: "Sofía Mendoza",
     authorInitial: "S",
   },
