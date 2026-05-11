@@ -12,6 +12,10 @@ import {
   updateUserGroupsSchema,
 } from "@/lib/validation";
 import { listGroups } from "@/lib/actions/adminGroups";
+import {
+  courseSlugsFromGroupIds,
+  mergeEnrolledCourseSlugs,
+} from "@/lib/enrollment/from-groups";
 
 export { listGroups };
 
@@ -117,6 +121,7 @@ export async function updateUserGroups(
 
     const user = await prisma.profile.findUnique({
       where: { id: input.userId },
+      select: { id: true, enrolledCourseSlugs: true },
     });
 
     if (!user) {
@@ -127,14 +132,26 @@ export async function updateUserGroups(
       };
     }
 
+    const fromGroups = await courseSlugsFromGroupIds(groupIds);
+    const enrolledCourseSlugs = mergeEnrolledCourseSlugs(
+      user.enrolledCourseSlugs,
+      fromGroups,
+    );
+
     await prisma.profile.update({
       where: { id: input.userId },
-      data: { groupIds, groupId: null },
+      data: {
+        groupIds,
+        groupId: null,
+        enrolledCourseSlugs,
+      },
     });
 
     revalidatePath("/admin/usuarios");
+    revalidatePath("/dashboard");
     revalidatePath("/anexo22");
     revalidatePath("/clasificacion-arancelaria");
+    revalidatePath("/simulador-aduanero");
     return {
       ok: true,
       message: "Grupos actualizados",
@@ -389,6 +406,10 @@ export async function updateUserCourses(
 
     const user = await prisma.profile.findUnique({
       where: { id: input.userId },
+      select: {
+        groupIds: true,
+        groupId: true,
+      },
     });
 
     if (!user) {
@@ -399,12 +420,21 @@ export async function updateUserCourses(
       };
     }
 
+    const groupIdsResolved =
+      user.groupIds?.length ? user.groupIds : user.groupId ? [user.groupId] : [];
+    const fromGroups = await courseSlugsFromGroupIds(groupIdsResolved);
+    const enrolledCourseSlugs = mergeEnrolledCourseSlugs(
+      input.courseSlugs,
+      fromGroups,
+    );
+
     await prisma.profile.update({
       where: { id: input.userId },
-      data: { enrolledCourseSlugs: input.courseSlugs },
+      data: { enrolledCourseSlugs },
     });
 
     revalidatePath("/admin/usuarios");
+    revalidatePath("/dashboard");
     return {
       ok: true,
       message: "Cursos actualizados",
@@ -503,7 +533,11 @@ export async function createUser(rawInput: unknown): Promise<CreateUserResult> {
     const email = input.email.trim().toLowerCase();
     const name = input.name?.trim() || null;
     const groupIds = (input.groupIds ?? []).filter((id) => id?.trim());
-    const enrolledCourseSlugs = input.courseSlugs ?? [];
+    const fromGroups = await courseSlugsFromGroupIds(groupIds);
+    const enrolledCourseSlugs = mergeEnrolledCourseSlugs(
+      input.courseSlugs ?? [],
+      fromGroups,
+    );
 
     // Verificar email único en Profile
     const existingProfile = await prisma.profile.findUnique({

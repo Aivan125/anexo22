@@ -8,6 +8,10 @@ import { CaseStudy } from "@/types/pedimento";
 import prisma from "./prisma";
 import { Prisma } from "@/lib/generated/prisma";
 import { COURSES } from "./constants/courses";
+import {
+  courseSlugsFromGroupIds,
+  mergeEnrolledCourseSlugs,
+} from "./enrollment/from-groups";
 
 const videoQueryArgs = {
   select: {
@@ -94,6 +98,15 @@ export function getAllCaseStudies(): CaseStudy[] {
   }
 }
 
+function resolvedGroupIds(profile: {
+  groupId: string | null;
+  groupIds: string[];
+}): string[] {
+  if (profile.groupIds?.length) return profile.groupIds;
+  if (profile.groupId) return [profile.groupId];
+  return [];
+}
+
 export const getUserWithProfile = cache(async () => {
   const supabase = await createClient();
   const {
@@ -121,7 +134,21 @@ export const getUserWithProfile = cache(async () => {
   const hasAccess = profile.isActive || isAdmin;
   if (!hasAccess) return null;
 
-  return { user, profile };
+  const gid = resolvedGroupIds(profile);
+  const fromGroups =
+    gid.length > 0 ? await courseSlugsFromGroupIds(gid) : [];
+  const enrolledCourseSlugs = mergeEnrolledCourseSlugs(
+    profile.enrolledCourseSlugs,
+    fromGroups,
+  );
+
+  return {
+    user,
+    profile: {
+      ...profile,
+      enrolledCourseSlugs,
+    },
+  };
 });
 
 export async function requireActiveUser() {

@@ -130,7 +130,9 @@ export async function createTestimonial(
 
     const input = testimonialFormSchema.parse(rawInput);
 
-    const enrolledSet = new Set(result.profile.enrolledCourseSlugs ?? []);
+    const enrolledSet = new Set<string>(
+      result.profile.enrolledCourseSlugs ?? [],
+    );
     if (!enrolledSet.has(input.courseSlug)) {
       return {
         ok: false,
