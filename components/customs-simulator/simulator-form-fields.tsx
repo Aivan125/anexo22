@@ -99,11 +99,27 @@ export function SimulatorFormFieldsSection({
     });
   }
 
+  function buildAnswersSnapshot(): Record<string, string | number | boolean> {
+    const snapshot: Record<string, string | number | boolean> = {};
+    for (const f of fields) {
+      const raw = (values[f.id] ?? "").trim();
+      if (f.type === "number") {
+        const n = Number(String(values[f.id]).replace(",", "."));
+        snapshot[f.id] = Number.isFinite(n) ? n : raw;
+        continue;
+      }
+      snapshot[f.id] = raw;
+    }
+    return snapshot;
+  }
+
   function onFinalize() {
     startEnd(async () => {
+      const snapshot = buildAnswersSnapshot();
       const res = await markStageCompleteAction({
         caseKey,
         stepSlug: markCompleteSlug,
+        answersPatch: snapshot,
       });
       if (!res.ok) {
         toast.error(res.message);
@@ -135,7 +151,10 @@ export function SimulatorFormFieldsSection({
             </Label>
             {f.type === "select" && f.selectOptions?.length ? (
               <Select
-                value={values[f.id] ?? ""}
+                value={(() => {
+                  const v = (values[f.id] ?? "").trim();
+                  return v === "" ? undefined : v;
+                })()}
                 onValueChange={(v) => persistField(f.id, v)}
                 disabled={stageComplete}
               >

@@ -51,14 +51,25 @@ export default async function ResumenPage({ params }: Props) {
 
   const progress = await assertStepAccessible(session.profile.id, caseKey, "resumen");
 
+  const alumnoNombre =
+    session.profile.name?.trim() || session.profile.email || "Alumno";
+
   const completed = parsedCompletedStages(progress);
   const resumenMarkedComplete = completed.includes("resumen");
   const answers = answersAsPlainObject(progress.answers);
 
   return (
     <div className="space-y-10">
-      <header className="space-y-3">
+      <header className="space-y-5">
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">Resumen</h1>
+        <div className="max-w-xl rounded-xl border-2 border-primary/25 bg-primary/5 px-5 py-4 sm:px-6 sm:py-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            Nombre del alumno
+          </p>
+          <p className="mt-1.5 text-2xl sm:text-3xl font-bold tracking-tight text-foreground leading-tight">
+            {alumnoNombre}
+          </p>
+        </div>
         <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
           Recapitulación del caso <span className="font-medium">{bundle.case.title}</span>. El acceso
           exige haber ejecutado <span className="font-medium">Calificar</span> en Resultado (§6.10);

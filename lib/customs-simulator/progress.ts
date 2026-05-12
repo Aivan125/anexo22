@@ -85,6 +85,14 @@ async function getOrCreateProgressImpl(
 
 export const getOrCreateProgress = cache(getOrCreateProgressImpl);
 
+/** Lee/fila crea igual que `getOrCreateProgress`, pero sin memoización React. Tras `patchProgress` en la misma Server Action, `cache` devolvía la fila previa al merge y rompía la validación al cerrar pedimento/contribuciones. */
+export async function getSimulatorProgressFresh(
+  profileId: string,
+  caseKey: string,
+): Promise<CustomsProgressRow> {
+  return getOrCreateProgressImpl(profileId, caseKey);
+}
+
 export type ProgressPatchInput = {
   answersPatch?: Record<string, unknown>;
   /** Si se omite se conserva lo actual. Envío lista completa nueva (reemplazo). */

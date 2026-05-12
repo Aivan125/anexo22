@@ -12,7 +12,41 @@ function stringFromAnswer(raw: unknown): string {
   return typeof raw === "string" ? raw.trim() : String(raw ?? "").trim();
 }
 
-/** Valida captura pedimento/contribuciones servidor-side (sin exponer expected al cliente más allá de cerrar etapa). */
+function normalizeComparableString(value: string): string {
+  try {
+    return value.normalize("NFC").trim();
+  } catch {
+    return value.trim();
+  }
+}
+
+/**
+ * ¿El alumno dejó una captura no vacía y coherente con las opciones del caso?
+ * Cerrar pedimento/contribuciones no debe bloquearse por responder distinto del pedimento modelo:
+ * la corrección frente a `expected` sólo ocurre en `scoreSimulatorBundleAgainstAnswers` / Resultado.
+ */
+export function simulatorFormFieldCaptureComplete(
+  field: CaseBundle["pedimentoFields"][number] | CaseBundle["taxFields"][number],
+  raw: unknown,
+): boolean {
+  const v = answersValueForField(raw);
+  if (field.type === "select") {
+    if (v === undefined) return false;
+    const opts = field.selectOptions;
+    if (opts === undefined || opts.length === 0) return false;
+    const nv = normalizeComparableString(v);
+    return opts.some((o) => normalizeComparableString(o) === nv);
+  }
+  if (field.type === "text") {
+    return v !== undefined && v.trim() !== "";
+  }
+  if (field.type === "number") {
+    return numberFromAnswer(raw) !== null;
+  }
+  return false;
+}
+
+/** Comparación contra la respuesta correcta del caso (score y feedback en Resultado). */
 export function fieldMatchesExpected(
   field: CaseBundle["pedimentoFields"][number] | CaseBundle["taxFields"][number],
   raw: unknown,
@@ -20,13 +54,16 @@ export function fieldMatchesExpected(
   const v = answersValueForField(raw);
   if (v === undefined || v === "") return false;
   if (field.type === "select") {
-    return v === String(field.expected);
+    return normalizeComparableString(v) === normalizeComparableString(String(field.expected));
   }
   if (field.type === "text") {
+    const nv = normalizeComparableString(v);
     if (field.expectedContains) {
-      return v.toLowerCase().includes(field.expectedContains.toLowerCase());
+      return nv
+        .toLowerCase()
+        .includes(normalizeComparableString(field.expectedContains).toLowerCase());
     }
-    return v === String(field.expected);
+    return nv === normalizeComparableString(String(field.expected));
   }
   if (field.type === "number") {
     const n = numberFromAnswer(raw);
