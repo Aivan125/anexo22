@@ -12,13 +12,14 @@ import {
 } from "@/lib/data/customs-simulator/load";
 import type { JourneyEvent } from "@/lib/data/customs-simulator/schemas";
 import {
-  fieldMatchesExpected,
   scoreSimulatorBundleAgainstAnswers,
+  simulatorFormFieldCaptureComplete,
 } from "@/lib/customs-simulator/simulator-scoring";
 import {
   answersAsPlainObject,
   appendJourneyResolved,
   getOrCreateProgress,
+  getSimulatorProgressFresh,
   journeyResolvedAsArray,
   parsedCompletedStages,
   patchProgress,
@@ -186,7 +187,7 @@ export async function markStageComplete(
     }
 > {
   try {
-    const progress = await getOrCreateProgress(profileId, caseKey);
+    const progress = await getSimulatorProgressFresh(profileId, caseKey);
     const completed = parsedCompletedStages(progress);
     const expectedNext = SIMULATOR_STEP_SLUGS[completed.length];
     if (!expectedNext || expectedNext !== stepSlug) {
@@ -256,12 +257,11 @@ export async function markStageComplete(
 
     if (stepSlug === "pedimento") {
       for (const f of bundle.pedimentoFields) {
-        if (!fieldMatchesExpected(f, answers[f.id])) {
+        if (!simulatorFormFieldCaptureComplete(f, answers[f.id])) {
           return {
             ok: false,
             code: "pedimento_incomplete",
-            message:
-              "Revisa todos los campos del pedimento: valor inválido o incompleto.",
+            message: `Completa «${f.label}» con una opción o valor válido antes de cerrar.`,
           };
         }
       }
@@ -269,12 +269,11 @@ export async function markStageComplete(
 
     if (stepSlug === "contribuciones") {
       for (const f of bundle.taxFields) {
-        if (!fieldMatchesExpected(f, answers[f.id])) {
+        if (!simulatorFormFieldCaptureComplete(f, answers[f.id])) {
           return {
             ok: false,
             code: "contribuciones_incomplete",
-            message:
-              "Completa contribuciones con valores que cumplan los criterios del caso.",
+            message: `Completa «${f.label}» con una opción o valor válido antes de cerrar.`,
           };
         }
       }

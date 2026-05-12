@@ -26,10 +26,35 @@ const IMPLEMENTED_STEP_SLUGS = [
   "resumen",
 ] as const satisfies readonly MarkableSimulatorStepSlug[];
 
-const markStageCompleteSchema = z.object({
-  caseKey: z.string().trim().min(1).max(200),
-  stepSlug: z.enum(IMPLEMENTED_STEP_SLUGS),
-});
+const markStageCompleteSchema = z
+  .object({
+    caseKey: z.string().trim().min(1).max(200),
+    stepSlug: z.enum(IMPLEMENTED_STEP_SLUGS),
+    /** Unifica guardado + cierre en la misma acción para pedimento/contribuciones. */
+    answersPatch: z
+      .record(
+        z.string().max(200),
+        z.union([z.string(), z.number(), z.boolean()]),
+      )
+      .optional(),
+  })
+  .superRefine((data, ctx) => {
+    const keys =
+      data.answersPatch !== undefined ? Object.keys(data.answersPatch) : [];
+    if (!data.answersPatch || keys.length === 0) return;
+    if (data.stepSlug !== "pedimento" && data.stepSlug !== "contribuciones") {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "answersPatch sólo se usa al cerrar pedimento o contribuciones",
+      });
+    }
+    if (keys.length > 100) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "answersPatch debe tener máximo 100 claves",
+      });
+    }
+  });
 
 const stepSlugSchema = z.enum(
   SIMULATOR_STEP_SLUGS as unknown as readonly [
@@ -240,6 +265,26 @@ export async function markStageCompleteAction(
   }
 
   const { caseKey, stepSlug } = parsed.data;
+  try {
+    if (
+      parsed.data.answersPatch &&
+      Object.keys(parsed.data.answersPatch).length > 0 &&
+      (stepSlug === "pedimento" || stepSlug === "contribuciones")
+    ) {
+      await patchProgress(auth.profile.id, caseKey, {
+        answersPatch: parsed.data.answersPatch,
+        answerEditSourceStage: stepSlug as SimulatorStepSlug,
+      });
+    }
+  } catch (e) {
+    console.error("[markStageCompleteAction] pre-patch", e);
+    return {
+      ok: false,
+      code: "unexpected",
+      message: "No se pudo guardar las respuestas antes de cerrar la etapa",
+    };
+  }
+
   const outcome = await markStageComplete(auth.profile.id, caseKey, stepSlug);
 
   if (!outcome.ok) {
