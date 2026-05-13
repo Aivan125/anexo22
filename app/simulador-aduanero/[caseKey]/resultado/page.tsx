@@ -70,8 +70,7 @@ export default async function ResultadoPage({ params }: Props) {
         <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
           Calificación agregada del intento contra el caso (preguntas, pedimento y contribuciones).
           Tras confirmar podrás abrir{" "}
-          <span className="font-medium text-foreground">Resumen</span>. Si editas etapas anteriores
-          (§6.9), deberás volver a cerrarlas y a calificar.
+          <span className="font-medium text-foreground">Resumen</span>.
         </p>
       </header>
 
@@ -107,9 +106,8 @@ export default async function ResultadoPage({ params }: Props) {
       ) : (
         <div className="rounded-xl border bg-muted/30 px-6 py-6 space-y-4 max-w-xl">
           <p className="text-sm text-foreground leading-relaxed">
-            Al pulsar <strong className="font-semibold">Calificar intento</strong> el servidor
-            aplicará las reglas del caso sobre tus respuestas acumuladas, registrará el porcentaje y
-            te llevará al resumen.
+            Concluye tu análisis para generar los resultados finales. Procesaremos tus respuestas y
+            verás tu reporte de desempeño de inmediato.
           </p>
           <FinalizeResultButton caseKey={caseKey} />
         </div>
