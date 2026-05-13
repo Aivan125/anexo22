@@ -162,8 +162,8 @@ export function SimulatorFormFieldsSection({
                   <SelectValue placeholder="Elige una opción" />
                 </SelectTrigger>
                 <SelectContent>
-                  {f.selectOptions.map((opt) => (
-                    <SelectItem key={opt} value={opt}>
+                  {f.selectOptions.map((opt, i) => (
+                    <SelectItem key={`${f.id}-${i}`} value={opt}>
                       {opt}
                     </SelectItem>
                   ))}

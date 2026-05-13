@@ -70,12 +70,6 @@ export default async function ResumenPage({ params }: Props) {
             {alumnoNombre}
           </p>
         </div>
-        <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          Recapitulación del caso <span className="font-medium">{bundle.case.title}</span>. El acceso
-          exige haber ejecutado <span className="font-medium">Calificar</span> en Resultado (§6.10);
-          si retrocedes y cambias respuestas, la cola §6.9 anula la calificación hasta un nuevo intento
-          de cierre.
-        </p>
       </header>
 
       <div className="rounded-xl border bg-card px-6 py-6 space-y-3 text-sm text-muted-foreground">

@@ -15,6 +15,23 @@ function rnd2(n) {
   return Number(n.toFixed(2));
 }
 
+/** `expected` más relleno sin duplicados (evita React key duplicadas en SelectItem). */
+function uniqSelectFour(expected, pool) {
+  const e = String(expected);
+  const out = [e];
+  for (const x of pool) {
+    if (out.length >= 4) break;
+    const s = String(x);
+    if (!out.includes(s)) out.push(s);
+  }
+  if (out.length < 4) {
+    throw new Error(
+      `uniqSelectFour: menos de 4 opciones únicas para expected=${JSON.stringify(e)}`,
+    );
+  }
+  return out.slice(0, 4);
+}
+
 /** @typedef {typeof basePedimentoSkeleton} Bundle */
 
 const baseDecisionQuestions = [
@@ -201,7 +218,14 @@ function mkPedimento({
       type: "select",
       expected: inv,
       points: 4,
-      selectOptions: [inv, "12000", "42000", "89500"],
+      selectOptions: uniqSelectFour(inv, [
+        "12000",
+        "42000",
+        "89500",
+        "38050",
+        "67200",
+        "35200",
+      ]),
     },
     {
       id: "freightUsd",
@@ -209,7 +233,7 @@ function mkPedimento({
       type: "select",
       expected: fr,
       points: 4,
-      selectOptions: [fr, "1200", "1150", "6500"],
+      selectOptions: uniqSelectFour(fr, ["1200", "1150", "6500", "875", "2100"]),
     },
     {
       id: "insuranceUsd",
@@ -217,7 +241,7 @@ function mkPedimento({
       type: "select",
       expected: ins,
       points: 4,
-      selectOptions: [ins, "150", "240", "740"],
+      selectOptions: uniqSelectFour(ins, ["150", "240", "740", "315", "580"]),
     },
     {
       id: "packingUsd",
@@ -225,7 +249,7 @@ function mkPedimento({
       type: "select",
       expected: pk,
       points: 4,
-      selectOptions: [pk, "100", "110", "260"],
+      selectOptions: uniqSelectFour(pk, ["100", "110", "260", "155", "85"]),
     },
     {
       id: "exchangeRate",
@@ -233,7 +257,7 @@ function mkPedimento({
       type: "select",
       expected: xr,
       points: 4,
-      selectOptions: [xr, "17.2", "18.0", "17.25"],
+      selectOptions: uniqSelectFour(xr, ["17.2", "18.0", "17.25", "17.5", "16.9"]),
     },
     {
       id: "customsValueMxn",
@@ -274,12 +298,14 @@ function mkPedimento({
       type: "select",
       expected: String(quantity),
       points: 4,
-      selectOptions: [
-        String(quantity),
+      selectOptions: uniqSelectFour(String(quantity), [
         "100",
         "24",
         "18500",
-      ],
+        "12",
+        "48",
+        "9200",
+      ]),
     },
     {
       id: "originCountry",

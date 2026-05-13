@@ -25,10 +25,14 @@ export function SimulatorCalibratedSummary({
       <div className="rounded-xl border bg-card px-6 py-6 space-y-4">
         <h2 className="text-lg font-semibold text-foreground">Desglose del puntaje</h2>
         {typeof scorePercent === "number" ? (
-          <p className="text-sm text-muted-foreground">
-            Resultado global:{" "}
-            <span className="font-mono font-semibold text-foreground">{scorePercent}%</span>
-          </p>
+          <div className="rounded-lg border-2 border-primary/25 bg-primary/5 px-5 py-4 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              Resultado global
+            </p>
+            <p className="mt-2 text-3xl sm:text-4xl font-bold tabular-nums tracking-tight text-foreground leading-none">
+              {scorePercent}%
+            </p>
+          </div>
         ) : null}
         <ul className="space-y-2 text-sm">
           {sections.map((s) => (
