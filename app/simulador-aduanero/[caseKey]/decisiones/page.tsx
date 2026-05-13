@@ -70,11 +70,22 @@ export default async function DecisionesPage({ params }: Props) {
       <header className="space-y-3">
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">Decisiones</h1>
         <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          Criterios de clasificación y regímenes según el expediente. Las respuestas se guardan en{" "}
-          <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">
-            answers
-          </span>
-          ; al editar se aplica la invalidación en cola §6.9.
+          {bundle.isExample ? (
+            <>
+              Ejercicio de método de valoración e incrementables.{" "}
+              <span className="text-foreground font-medium">
+                Recibirás pistas inmediatas en cada opción marcada incorrecta.
+              </span>
+            </>
+          ) : (
+            <>
+              Criterios de clasificación y regímenes según el expediente. Las respuestas se guardan en{" "}
+              <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">
+                answers
+              </span>
+              ; al editar se aplica la invalidación en cola §6.9.
+            </>
+          )}
         </p>
       </header>
 
@@ -86,8 +97,14 @@ export default async function DecisionesPage({ params }: Props) {
         answerEditSourceStage="decisiones"
         markCompleteSlug="decisiones"
         heading="Cuestionario de decisiones"
-        lead="Elige una opción por pregunta. El cierre valida en servidor que todas las respuestas sean opciones válidas del caso."
+        lead={
+          bundle.isExample
+            ? "Comprueba tus criterios: en este caso ejemplo verás retroalimentación al elegir opción. Tus respuestas se guardan en servidor; cambios aquí pueden reabrir §6.9 etapas posteriores."
+            : "Elige una opción por pregunta. El cierre valida en servidor que todas las respuestas sean opciones válidas del caso."
+        }
         completeCta="Cerrar etapa de decisiones"
+        exampleMode={bundle.isExample}
+        exampleQuizSection="decision"
       />
     </div>
   );

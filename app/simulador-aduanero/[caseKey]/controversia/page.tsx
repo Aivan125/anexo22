@@ -67,8 +67,19 @@ export default async function ControversiaPage({ params }: Props) {
       <header className="space-y-3">
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">Controversia aduanera</h1>
         <p className="max-w-3xl text-sm sm:text-base text-muted-foreground leading-relaxed">
-          Durante el reconocimiento aduanero se detectó una irregularidad. Analiza el riesgo, la
-          infracción y la sanción, y responde las preguntas para evaluar tu criterio jurídico.
+          {bundle.isExample ? (
+            <>
+              Relaciona los hechos documentales del expediente en el formato académico.{" "}
+              <span className="text-foreground font-medium">
+                Cada opción muestra retroinmediata en este caso ejemplo.
+              </span>
+            </>
+          ) : (
+            <>
+              Durante el reconocimiento aduanero se detectó una irregularidad. Analiza el riesgo, la
+              infracción y la sanción, y responde las preguntas para evaluar tu criterio jurídico.
+            </>
+          )}
         </p>
       </header>
 
@@ -88,8 +99,14 @@ export default async function ControversiaPage({ params }: Props) {
         answerEditSourceStage="controversia"
         markCompleteSlug="controversia"
         heading="Evaluación de la controversia"
-        lead="Selecciona la opción que mejor refleje tu criterio. Las opciones válidas se verifican al cerrar la etapa; editar aquí puede invalidar etapas posteriores §6.9."
+        lead={
+          bundle.isExample
+            ? "Trabaja caso por caso contra la tarjeta de riesgos: recibirás pistas rápidas al elegir. El servidor sigue controlando opciones válidas y §6.9 ante ediciones posteriores."
+            : "Selecciona la opción que mejor refleje tu criterio. Las opciones válidas se verifican al cerrar la etapa; editar aquí puede invalidar etapas posteriores §6.9."
+        }
         completeCta="Cerrar etapa de controversia"
+        exampleMode={bundle.isExample}
+        exampleQuizSection="controversy"
       />
     </div>
   );

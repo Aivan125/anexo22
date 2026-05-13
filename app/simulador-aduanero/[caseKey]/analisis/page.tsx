@@ -72,12 +72,23 @@ export default async function AnalisisPage({ params }: Props) {
           Análisis del caso
         </h1>
         <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          Tus respuestas se guardan en{" "}
-          <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">
-            answers
-          </span>{" "}
-          por id de pregunta. Si editas después de avanzar, aplica la invalidación en cola §6.9.
-          Opciones válidas sólo servidor.
+          {bundle.isExample ? (
+            <>
+              Expediente ejemplo ANMINCADISA/tabletas para practicar análisis.{" "}
+              <span className="text-foreground font-medium">
+                En este modo demostrativo la interfaz muestra retroalimentación por pregunta.
+              </span>
+            </>
+          ) : (
+            <>
+              Tus respuestas se guardan en{" "}
+              <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">
+                answers
+              </span>{" "}
+              por id de pregunta. Si editas después de avanzar, aplica la invalidación en cola §6.9.
+              Opciones válidas sólo servidor.
+            </>
+          )}
         </p>
       </header>
 
@@ -86,6 +97,7 @@ export default async function AnalisisPage({ params }: Props) {
         questions={stubQuestions}
         initialAnswers={initialAnswers}
         analisisComplete={analisisComplete}
+        exampleMode={bundle.isExample}
       />
     </div>
   );
