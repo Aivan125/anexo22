@@ -93,7 +93,9 @@
         "Tránsito interno"
       ],
       "correctAnswer": "Importación definitiva",
-      "points": 3
+      "points": 3,
+      "exampleWrongHint": "Revisa la narrativa: ANMINCADISA introduce mercancía a territorio nacional de forma ordinaria para quedarse en el país.",
+      "exampleCorrectNote": "Sí: el caso documenta una importación definitiva de tabletas hacia México."
     },
     {
       "id": "q2",
@@ -105,7 +107,9 @@
         "Recinto fiscalizado estratégico"
       ],
       "correctAnswer": "Importación definitiva",
-      "points": 3
+      "points": 3,
+      "exampleWrongHint": "El régimen pedido debe alinearse con “importación definitiva” declarada en datos del caso y régimen esperado.",
+      "exampleCorrectNote": "Correcto: el régimen coincide con una importación para consumo/definitiva."
     },
     {
       "id": "q3",
@@ -117,7 +121,9 @@
         "Japón"
       ],
       "correctAnswer": "China",
-      "points": 3
+      "points": 3,
+      "exampleWrongHint": "Origen debe coincidir con proveedor Shenzhen y referencias continentales frente al certificado erróneo (Hong Kong).",
+      "exampleCorrectNote": "Bien: país de origen China según expediente."
     },
     {
       "id": "q4",
@@ -129,7 +135,9 @@
         "Fluvial"
       ],
       "correctAnswer": "Marítimo",
-      "points": 3
+      "points": 3,
+      "exampleWrongHint": "Lee el modo de transporte en los términos del caso (arribo marítimo a Manzanillo).",
+      "exampleCorrectNote": "Correcto: arribo vía marítimo."
     },
     {
       "id": "q5",
@@ -141,7 +149,9 @@
         "FOB"
       ],
       "correctAnswer": "FOB",
-      "points": 3
+      "points": 3,
+      "exampleWrongHint": "Contrato menciona negociación sobre costos hasta punto de embargue China; revisa texto “FOB Shanghai”.",
+      "exampleCorrectNote": "Exacto: el Incoterm pactado es FOB Shanghai."
     }
   ],
   "decisionQuestions": [
@@ -155,7 +165,9 @@
         "Método deductivo"
       ],
       "correctAnswer": "Valor de transacción",
-      "points": 5
+      "points": 5,
+      "exampleWrongHint": "Con factura válida entre partes relacionadas ordinarias suele iniciarse valoración por el valor de transacción (métodos 65–71 LEA).",
+      "exampleCorrectNote": "Acierto: se prioriza método de valor de transacción."
     },
     {
       "id": "q7",
@@ -168,7 +180,9 @@
         "Ninguno"
       ],
       "correctAnswer": "Todos los anteriores",
-      "points": 5
+      "points": 5,
+      "exampleWrongHint": "Frete, seguro y embalaje hasta frontera suelen cargarse cuando se integra valor factura hasta aduana (caso FOB + cargos hasta frontera).",
+      "exampleCorrectNote": "Correcto: en este escenario sí incrementan esos tres conceptos hasta frontera."
     },
     {
       "id": "q8",
@@ -180,7 +194,9 @@
         "Valor factura + DTA"
       ],
       "correctAnswer": "Valor factura + incrementables",
-      "points": 5
+      "points": 5,
+      "exampleWrongHint": "Valor en aduana no suma fiscal local al vuelo (IVA/DTA se calculan aparte tras base). Hay que partir de factura + incrementables hasta frontera.",
+      "exampleCorrectNote": "Perfecto: la base se arma con valor facturable más incrementables según método."
     }
   ],
   "controversyQuestions": [
@@ -194,7 +210,9 @@
         "Riesgo logístico"
       ],
       "correctAnswer": "Riesgo documental y fiscal",
-      "points": 5
+      "points": 5,
+      "exampleWrongHint": "La disputa sobre origen/certificado contra facturas afecta trato arancelario y cumplimiento, no sólo timing operativo.",
+      "exampleCorrectNote": "Tal cual el expediente clasifica esta alerta como riesgo documental y fiscal."
     },
     {
       "id": "c2",
@@ -206,7 +224,9 @@
         "Embarque en origen"
       ],
       "correctAnswer": "Reconocimiento aduanero (semáforo rojo)",
-      "points": 4
+      "points": 4,
+      "exampleWrongHint": "El texto del caso marca detección en reconocimiento con semáforo rojo, no sólo revisión voluntaria.",
+      "exampleCorrectNote": "Bien detectado el momento institucional (reconocimiento aduanero / semáforo rojo)."
     },
     {
       "id": "c3",
@@ -218,7 +238,9 @@
         "Art. 183-A — Mercancía pasa a propiedad del fisco"
       ],
       "correctAnswer": "Art. 184 fracc. III — Datos inexactos u omitidos en el pedimento",
-      "points": 6
+      "points": 6,
+      "exampleWrongHint": "Aquí prima pedimento incompleto o inexacto vinculado a tributos/regulaciones conforme tipo de inconsistencia declarada.",
+      "exampleCorrectNote": "Correcto: encaja con artículo 184 fracción III por datos inexactos u omitidos cuando incide en tributos."
     },
     {
       "id": "c4",
@@ -230,7 +252,9 @@
         "Pena privativa de la libertad obligatoria"
       ],
       "correctAnswer": "Multa del 70% al 100% del beneficio indebido o contribuciones omitidas",
-      "points": 6
+      "points": 6,
+      "exampleWrongHint": "Las multas Ley Aduanera suelen ser porcentajes sobre contribuciones omitidas/beneficio indebido más que penalidad fija de bajo valor.",
+      "exampleCorrectNote": "Acierta con el intervalo escalonado 70%-100%."
     },
     {
       "id": "c5",
@@ -242,7 +266,9 @@
         "Reducción del IGI al 0%"
       ],
       "correctAnswer": "Suspensión temporal del padrón de importadores en caso de reincidencia",
-      "points": 4
+      "points": 4,
+      "exampleWrongHint": "Revisa “consecuencias adicionales” del expediente ante reincidencias en padrón de importadores.",
+      "exampleCorrectNote": "Sí: aparece como riesgo de suspensión temporal del registro ante reincidencia."
     }
   ],
   "pedimentoFields": [
@@ -256,7 +282,9 @@
         "Importación",
         "Exportación",
         "Tránsito"
-      ]
+      ],
+      "exampleWrongHint": "La operación trae mercancía a México para consumo, no despacho temporal de exportación.",
+      "exampleCorrectNote": "Captura congruente con importación declarada."
     },
     {
       "id": "pedimentoKey",
@@ -270,7 +298,9 @@
         "BP",
         "C1",
         "F4"
-      ]
+      ],
+      "exampleWrongHint": "Operación ordinaria importación suele llevar declaración mediante claves de retorno público (A-series) según regla del caso modelo.",
+      "exampleCorrectNote": "Bien: A1 coincide con modelo del caso ejemplo."
     },
     {
       "id": "regime",
@@ -284,7 +314,9 @@
         "Depósito fiscal",
         "Tránsito",
         "Recinto fiscalizado"
-      ]
+      ],
+      "exampleWrongHint": "Contrastar con texto “Importación definitiva” en régimen esperado.",
+      "exampleCorrectNote": "Régimen definitivo coincide con la narrativa."
     },
     {
       "id": "customsOffice",
@@ -298,7 +330,9 @@
         "Lázaro Cárdenas",
         "Altamira",
         "Nuevo Laredo"
-      ]
+      ],
+      "exampleWrongHint": "Arribo documentado contra puerto atlántico mencionado (Manzanillo), no otros recintos listados.",
+      "exampleCorrectNote": "Aduana Manzanillo alineada con el BL/flete marítimo del caso."
     },
     {
       "id": "transportMode",
@@ -312,7 +346,9 @@
         "Terrestre",
         "Ferroviario",
         "Fluvial"
-      ]
+      ],
+      "exampleWrongHint": "Expediente reitera arribo marítimo tras embarque en Shanghai.",
+      "exampleCorrectNote": "Medio de transporte coherente con la ruta Shanghai–Manzanillo."
     },
     {
       "id": "invoiceValueUsd",
@@ -325,7 +361,9 @@
         "12000",
         "13450",
         "15000"
-      ]
+      ],
+      "exampleWrongHint": "Factura consolidada menciona $12,000 USD; evita otros montos tabla.",
+      "exampleCorrectNote": "Valor factura acorde al expediente ($12k)."
     },
     {
       "id": "freightUsd",
@@ -338,7 +376,9 @@
         "1000",
         "1200",
         "1500"
-      ]
+      ],
+      "exampleWrongHint": "Toma el flete internacional pactado dentro de los cargos conocidos hasta frontera (revisa importe en términos).",
+      "exampleCorrectNote": "Flete igual al declarado ($1,200)."
     },
     {
       "id": "insuranceUsd",
@@ -351,7 +391,9 @@
         "120",
         "150",
         "200"
-      ]
+      ],
+      "exampleWrongHint": "Seguros marítimos usan prima del caso antes de llegar frontera (ver tabla de cargos USD).",
+      "exampleCorrectNote": "Prima/coaseguro alineados con caso ($150)."
     },
     {
       "id": "packingUsd",
@@ -364,7 +406,9 @@
         "100",
         "150",
         "200"
-      ]
+      ],
+      "exampleWrongHint": "Empaque embutido debe coincidir con costo pactado antes de llegar México.",
+      "exampleCorrectNote": "Embalaje igual al ejemplo ($100)."
     },
     {
       "id": "exchangeRate",
@@ -378,7 +422,9 @@
         "17.2",
         "17.5",
         "18.0"
-      ]
+      ],
+      "exampleWrongHint": "Tipo de cambio aparece cerrado como 17.2 MXN por USD dentro de los datos económicos.",
+      "exampleCorrectNote": "TC correctamente capturado (17.2)."
     },
     {
       "id": "customsValueMxn",
@@ -392,7 +438,9 @@
         "231340",
         "233920",
         "240000"
-      ]
+      ],
+      "exampleWrongHint": "Integra valor en USD hasta frontera (factura+flete+seguro+embalaje) y multiplica por TC 17.2 cuidando redondeos de lista.",
+      "exampleCorrectNote": "Valor en aduana MXN coherente con la integración ejemplo (231340)."
     },
     {
       "id": "tariffCode",
@@ -405,7 +453,9 @@
         "8471.41.01",
         "8517.12.02",
         "8528.72.06"
-      ]
+      ],
+      "exampleWrongHint": "Tabletas funcionales clasifican en equipo automático tratado conforme ejemplo 8471.30.01, no pantallas aisladas u otros capitulos.",
+      "exampleCorrectNote": "Fracción cuadra con descripción física/tablet en expediente."
     },
     {
       "id": "goodsDescription",
@@ -418,7 +468,9 @@
         "Computadora portátil de 14 pulgadas",
         "Teléfono celular inteligente",
         "Pantalla LED de 10 pulgadas"
-      ]
+      ],
+      "exampleWrongHint": "Usa texto que capture pulgadas y uso administrativo, no otros dispositivos de la tabla.",
+      "exampleCorrectNote": "Descripción igual a la esperada por la autoridad en el ejemplo."
     },
     {
       "id": "quantity",
@@ -432,7 +484,9 @@
         "120",
         "150",
         "200"
-      ]
+      ],
+      "exampleWrongHint": "Contrato muestra volumen pactado por cien equipos antes de tributar.",
+      "exampleCorrectNote": "Cantidad igual a 100 unidades ejemplo."
     },
     {
       "id": "originCountry",
@@ -446,7 +500,9 @@
         "Corea del Sur",
         "Estados Unidos",
         "México"
-      ]
+      ],
+      "exampleWrongHint": "Origen físico económico debe reflejar China continental pese al error en certificado (Hong Kong).",
+      "exampleCorrectNote": "Origen país correcto conforme datos comerciales y BL."
     }
   ],
   "taxFields": [
@@ -467,7 +523,9 @@
         "expression": "IGI = Valor en Aduana × Tasa arancelaria",
         "explanation": "Se aplica la tasa de la fracción arancelaria (TIGIE) al valor en aduana en MXN.",
         "example": "231,340.00 × 15% = 34,701.00 MXN"
-      }
+      },
+      "exampleWrongHint": "Aplica tarifa visible en tarifa declarada sobre valor en aduana MXN (15% ejemplo). Ver tooltip de fórmula.",
+      "exampleCorrectNote": "IGI igual a base × 15%."
     },
     {
       "id": "dta",
@@ -486,7 +544,9 @@
         "expression": "DTA = Valor en Aduana × 0.008 (8 al millar)",
         "explanation": "Para importación definitiva con pedimento A1 se aplica el 8 al millar sobre el valor en aduana.",
         "example": "231,340.00 × 0.008 = 1,850.72 MXN"
-      }
+      },
+      "exampleWrongHint": "DTA de importación definitiva lleva factor 8 al millar sobre valor en aduana del caso ejemplo.",
+      "exampleCorrectNote": "DTA coincide con ejemplo (8‰)."
     },
     {
       "id": "ivaBase",
@@ -505,7 +565,9 @@
         "expression": "Base IVA = Valor en Aduana + IGI + DTA",
         "explanation": "El IVA en importación se calcula sobre la base que incluye el valor en aduana más todas las contribuciones causadas (Art. 27 LIVA).",
         "example": "231,340.00 + 34,701.00 + 1,850.72 = 267,891.72 MXN"
-      }
+      },
+      "exampleWrongHint": "Base debe sumar valor en aduana + contribuciones causadas antes del IVA (IGI + DTA) según LIVA en importaciones.",
+      "exampleCorrectNote": "Base integrada igual al ejemplo (231340 + IGI + DTA)."
     },
     {
       "id": "iva",
@@ -524,7 +586,9 @@
         "expression": "IVA = Base IVA × 16%",
         "explanation": "Se aplica la tasa general del 16% sobre la base gravable integrada.",
         "example": "267,891.72 × 16% = 42,862.68 MXN"
-      }
+      },
+      "exampleWrongHint": "IVA ordinario usa 16% sobre la base que ya incluye IGI + DTA (no sólo valor en aduana).",
+      "exampleCorrectNote": "IVA igual al ejemplo con tasa vigente declarada."
     },
     {
       "id": "totalTaxes",
@@ -543,7 +607,9 @@
         "expression": "Total = IGI + DTA + IVA",
         "explanation": "Suma de todas las contribuciones causadas por la operación de importación.",
         "example": "34,701.00 + 1,850.72 + 42,862.68 = 79,414.40 MXN"
-      }
+      },
+      "exampleWrongHint": "Suma IGI + DTA + IVA calculados antes con los mismos redondeos de la tabla.",
+      "exampleCorrectNote": "Total cuadra con resultado consolidado ejemplo."
     }
   ],
   "validationRules": [

@@ -64,7 +64,18 @@ export default async function ContribucionesPage({ params }: Props) {
       <header className="space-y-3">
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">Contribuciones</h1>
         <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          IGI, DTA, IVA y demás según el bundle del caso. El servidor verifica coherencia al cerrar.
+          {bundle.isExample ? (
+            <>
+              Ejercicios de tributos con fórmulas del caso ejemplo.{" "}
+              <span className="text-foreground font-medium">
+                Ícono de calculadora (tooltip) más feedback al elegir valores.
+              </span>
+            </>
+          ) : (
+            <>
+              IGI, DTA, IVA y demás según el bundle del caso. El servidor verifica coherencia al cerrar.
+            </>
+          )}
         </p>
       </header>
 
@@ -76,8 +87,14 @@ export default async function ContribucionesPage({ params }: Props) {
         answerEditSourceStage="contribuciones"
         markCompleteSlug="contribuciones"
         heading="Contribuciones"
-        lead="Completa los importes o selecciones indicadas. Las fórmulas del caso son orientativas."
+        lead={
+          bundle.isExample
+            ? "Usa valores en aduana y tasas dados en el ejemplo; marca una opción y obtendrás pistas si falta algún vínculo con la tabla oficial del caso."
+            : "Completa los importes o selecciones indicadas. Las fórmulas del caso son orientativas."
+        }
         completeCta="Cerrar etapa de contribuciones"
+        exampleMode={bundle.isExample}
+        exampleFormSection="tax"
       />
     </div>
   );

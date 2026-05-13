@@ -34,6 +34,10 @@ const quizQuestionSchema = z.object({
   options: z.array(z.string()),
   correctAnswer: z.string(),
   points: z.number(),
+  /** Pista si el alumno falla (`isExample`: demostración en aula). */
+  exampleWrongHint: z.string().optional(),
+  /** Refuerzo breve si acierta (`isExample`). */
+  exampleCorrectNote: z.string().optional(),
 });
 
 const formulaSchema = z.object({
@@ -53,6 +57,10 @@ const formFieldSchema = z.object({
   points: z.number(),
   selectOptions: z.array(z.string()).optional(),
   formula: formulaSchema.optional(),
+  /** Pista si la captura no coincide con el modelo (`isExample`). */
+  exampleWrongHint: z.string().optional(),
+  /** Confirmación breve si coincide (`isExample`). */
+  exampleCorrectNote: z.string().optional(),
 });
 
 const validationRuleSchema = z.object({

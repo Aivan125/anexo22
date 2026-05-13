@@ -72,6 +72,12 @@ export default async function ResumenPage({ params }: Props) {
         </div>
       </header>
 
+      {bundle.isExample ? (
+        <p className="text-sm text-muted-foreground rounded-xl border border-dashed border-primary/30 bg-primary/5 px-4 py-3 max-w-2xl leading-relaxed">
+          En este caso demostrativo ya revisaste incidencias pregunta por pregunta: este bloque sólo sintetiza el expediente antes de calificar oficialmente el intento completo.
+        </p>
+      ) : null}
+
       <div className="rounded-xl border bg-card px-6 py-6 space-y-3 text-sm text-muted-foreground">
         <p>
           Importador: <span className="text-foreground">{bundle.case.importer.name}</span> ({bundle.case.importer.rfc}).

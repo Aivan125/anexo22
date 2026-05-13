@@ -65,6 +65,14 @@ export default async function CaseSimulatorLayout({
               {bundle.shortLabel}
             </span>
           </nav>
+          {bundle.isExample ? (
+            <div
+              role="note"
+              className="rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-sm text-foreground leading-relaxed"
+            >
+              <span className="font-semibold text-primary">Modo demostración.</span> Verás si cada respuesta coincide con el criterio del caso al momento de seleccionar o al salir de cada campo de captura. En los demás casos la calificación completa aparece sólo al final.
+            </div>
+          ) : null}
           <SimulatorStepper
             caseKey={caseKey}
             frontierStepsCompleted={frontierLength}
