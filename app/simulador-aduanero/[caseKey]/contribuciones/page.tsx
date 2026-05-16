@@ -63,20 +63,14 @@ export default async function ContribucionesPage({ params }: Props) {
     <div className="space-y-10">
       <header className="space-y-3">
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">Contribuciones</h1>
-        <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          {bundle.isExample ? (
-            <>
-              Ejercicios de tributos con fórmulas del caso ejemplo.{" "}
-              <span className="text-foreground font-medium">
-                Ícono de calculadora (tooltip) más feedback al elegir valores.
-              </span>
-            </>
-          ) : (
-            <>
-              IGI, DTA, IVA y demás según el bundle del caso. El servidor verifica coherencia al cerrar.
-            </>
-          )}
-        </p>
+        {bundle.isExample ? (
+          <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
+            Ejercicios de tributos con fórmulas del caso ejemplo.{" "}
+            <span className="text-foreground font-medium">
+              Ícono de calculadora (tooltip) más feedback al elegir valores.
+            </span>
+          </p>
+        ) : null}
       </header>
 
       <SimulatorFormFieldsSection

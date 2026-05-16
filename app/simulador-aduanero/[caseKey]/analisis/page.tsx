@@ -71,25 +71,14 @@ export default async function AnalisisPage({ params }: Props) {
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">
           Análisis del caso
         </h1>
-        <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          {bundle.isExample ? (
-            <>
-              Expediente ejemplo ANMINCADISA/tabletas para practicar análisis.{" "}
-              <span className="text-foreground font-medium">
-                En este modo demostrativo la interfaz muestra retroalimentación por pregunta.
-              </span>
-            </>
-          ) : (
-            <>
-              Tus respuestas se guardan en{" "}
-              <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">
-                answers
-              </span>{" "}
-              por id de pregunta. Si editas después de avanzar, aplica la invalidación en cola §6.9.
-              Opciones válidas sólo servidor.
-            </>
-          )}
-        </p>
+        {bundle.isExample ? (
+          <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
+            Expediente ejemplo ANMINCADISA/tabletas para practicar análisis.{" "}
+            <span className="text-foreground font-medium">
+              En este modo demostrativo la interfaz muestra retroalimentación por pregunta.
+            </span>
+          </p>
+        ) : null}
       </header>
 
       <AnalisisQuiz

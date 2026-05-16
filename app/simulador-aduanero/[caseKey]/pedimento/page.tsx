@@ -59,21 +59,14 @@ export default async function PedimentoPage({ params }: Props) {
     <div className="space-y-10">
       <header className="space-y-3">
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">Pedimento</h1>
-        <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          {bundle.isExample ? (
-            <>
-              Completa declaraciones usando el mismo criterio del expediente ejemplo.{" "}
-              <span className="text-foreground font-medium">
-                Cada campo válido muestra Correcto/incorrecto con pistas al guardar selección.
-              </span>
-            </>
-          ) : (
-            <>
-              Captura de datos declarativos. Los valores se validan contra el caso al cerrar etapa (sin
-              exponer respuestas esperadas al cliente más allá de la lista de opciones).
-            </>
-          )}
-        </p>
+        {bundle.isExample ? (
+          <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
+            Completa declaraciones usando el mismo criterio del expediente ejemplo.{" "}
+            <span className="text-foreground font-medium">
+              Cada campo válido muestra Correcto/incorrecto con pistas al guardar selección.
+            </span>
+          </p>
+        ) : null}
       </header>
 
       <SimulatorFormFieldsSection
@@ -87,7 +80,7 @@ export default async function PedimentoPage({ params }: Props) {
         lead={
           bundle.isExample
             ? "Captura valores tal como aparecen en expediente/tablas económicas; la UI te dice si coincide con la solución ejemplo al confirmar opción."
-            : "Selecciona o escribe según cada campo. Cada cambio puede invalidar §6.9 las etapas posteriores."
+            : undefined
         }
         completeCta="Cerrar etapa de pedimento"
         exampleMode={bundle.isExample}

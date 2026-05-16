@@ -69,24 +69,14 @@ export default async function DecisionesPage({ params }: Props) {
     <div className="space-y-10">
       <header className="space-y-3">
         <h1 className="text-xl sm:text-3xl font-bold text-foreground">Decisiones</h1>
-        <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
-          {bundle.isExample ? (
-            <>
-              Ejercicio de método de valoración e incrementables.{" "}
-              <span className="text-foreground font-medium">
-                Recibirás pistas inmediatas en cada opción marcada incorrecta.
-              </span>
-            </>
-          ) : (
-            <>
-              Criterios de clasificación y regímenes según el expediente. Las respuestas se guardan en{" "}
-              <span className="font-mono text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">
-                answers
-              </span>
-              ; al editar se aplica la invalidación en cola §6.9.
-            </>
-          )}
-        </p>
+        {bundle.isExample ? (
+          <p className="max-w-xl text-sm sm:text-base text-muted-foreground">
+            Ejercicio de método de valoración e incrementables.{" "}
+            <span className="text-foreground font-medium">
+              Recibirás pistas inmediatas en cada opción marcada incorrecta.
+            </span>
+          </p>
+        ) : null}
       </header>
 
       <SimulatorStageQuiz
@@ -99,8 +89,8 @@ export default async function DecisionesPage({ params }: Props) {
         heading="Cuestionario de decisiones"
         lead={
           bundle.isExample
-            ? "Comprueba tus criterios: en este caso ejemplo verás retroalimentación al elegir opción. Tus respuestas se guardan en servidor; cambios aquí pueden reabrir §6.9 etapas posteriores."
-            : "Elige una opción por pregunta. El cierre valida en servidor que todas las respuestas sean opciones válidas del caso."
+            ? "Comprueba tus criterios: en este caso ejemplo verás retroalimentación al elegir opción."
+            : undefined
         }
         completeCta="Cerrar etapa de decisiones"
         exampleMode={bundle.isExample}

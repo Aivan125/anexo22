@@ -23,10 +23,8 @@ export function AnalisisQuiz({
 }) {
   const stubQuestions: StageQuizQuestionStub[] = questions;
 
-  const leadStandard =
-    "Las respuestas se guardan de forma incremental (§6.9: editar aquí trunca etapas posteriores hasta volver a cerrarlas). El cierre valida en servidor contra el caso.";
   const leadExample =
-    "Comprueba tu razonamiento: al elegir una opción sabrás al instante si coincide con el criterio del caso. Tus respuestas se siguen guardando en servidor; editar puede invalidar etapas posteriores (§6.9).";
+    "Comprueba tu razonamiento: al elegir una opción sabrás al instante si coincide con el criterio del caso.";
 
   return (
     <SimulatorStageQuiz
@@ -37,7 +35,7 @@ export function AnalisisQuiz({
       answerEditSourceStage="analisis"
       markCompleteSlug="analisis"
       heading="Quiz de análisis"
-      lead={exampleMode ? leadExample : leadStandard}
+      lead={exampleMode ? leadExample : undefined}
       completeCta="Marcar análisis completo y continuar"
       exampleMode={exampleMode}
       exampleQuizSection="analysis"

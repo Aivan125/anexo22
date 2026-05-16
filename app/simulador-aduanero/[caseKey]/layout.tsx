@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getUserWithProfile } from "@/lib/helpers-server";
 import { isPublishedCaseKey, loadCaseBundle } from "@/lib/data/customs-simulator/load";
 import { ExpedienteProgressSmoke } from "@/components/customs-simulator/expediente-progress-smoke";
+import { SimulatorRestartControls } from "@/components/customs-simulator/simulator-restart-controls";
 import { SimulatorStepper } from "@/components/customs-simulator/simulator-stepper";
 import {
   deleteSimulatorProgressIfExists,
@@ -83,6 +84,11 @@ export default async function CaseSimulatorLayout({
 
       <div className="max-w-4xl xl:max-w-[65rem] mx-auto px-4 sm:px-6 py-10 sm:py-12">
         {children}
+
+        <SimulatorRestartControls
+          caseKey={caseKey}
+          hasEvaluation={snapshot.hasEvaluation}
+        />
 
         {process.env.NODE_ENV === "development" ? (
           <div className="mt-12 rounded-xl border border-dashed border-border bg-muted/30 p-5">
