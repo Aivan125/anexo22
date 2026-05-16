@@ -101,8 +101,8 @@ export default async function ControversiaPage({ params }: Props) {
         heading="Evaluación de la controversia"
         lead={
           bundle.isExample
-            ? "Trabaja caso por caso contra la tarjeta de riesgos: recibirás pistas rápidas al elegir. El servidor sigue controlando opciones válidas y §6.9 ante ediciones posteriores."
-            : "Selecciona la opción que mejor refleje tu criterio. Las opciones válidas se verifican al cerrar la etapa; editar aquí puede invalidar etapas posteriores §6.9."
+            ? "Trabaja caso por caso contra la tarjeta de riesgos; recibirás pistas rápidas al elegir."
+            : undefined
         }
         completeCta="Cerrar etapa de controversia"
         exampleMode={bundle.isExample}

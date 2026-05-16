@@ -68,7 +68,7 @@ export function SimulatorStageQuiz({
   answerEditSourceStage: QuizStageSlug;
   markCompleteSlug: QuizStageSlug;
   heading: string;
-  lead: string;
+  lead?: string;
   completeCta: string;
   /** Retroalimentación inmediata reservada para `bundle.isExample`. */
   exampleMode?: boolean;
@@ -175,9 +175,11 @@ export function SimulatorStageQuiz({
         <h2 id="stage-quiz-heading" className="text-xl font-semibold">
           {heading}
         </h2>
-        <p className="text-sm text-muted-foreground mt-2 max-w-xl leading-relaxed">
-          {lead}
-        </p>
+        {lead ? (
+          <p className="text-sm text-muted-foreground mt-2 max-w-xl leading-relaxed">
+            {lead}
+          </p>
+        ) : null}
       </div>
 
       <ol className="space-y-8">

@@ -91,7 +91,7 @@ export function SimulatorFormFieldsSection({
   answerEditSourceStage: FormStageSlug;
   markCompleteSlug: FormStageSlug;
   heading: string;
-  lead: string;
+  lead?: string;
   completeCta: string;
   exampleMode?: boolean;
   exampleFormSection?: ExampleFormSection;
@@ -236,9 +236,11 @@ export function SimulatorFormFieldsSection({
         <h2 id="form-fields-heading" className="text-xl font-semibold">
           {heading}
         </h2>
-        <p className="text-sm text-muted-foreground mt-2 max-w-xl leading-relaxed">
-          {lead}
-        </p>
+        {lead ? (
+          <p className="text-sm text-muted-foreground mt-2 max-w-xl leading-relaxed">
+            {lead}
+          </p>
+        ) : null}
       </div>
 
       <div className="space-y-8">
